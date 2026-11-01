@@ -171,7 +171,7 @@
     {
       "id": "rule-approval",
       "project": "Practice",
-      "text": "Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.",
+      "text": "Nothing is published, sent or paid for without approval, and every claim must be backed by evidence.",
       "tag": "human_gate",
       "evidence_level": "self_reported",
       "evidence_url": null
@@ -223,7 +223,7 @@
     {
       "id": "tbc-gate-release",
       "project": "TextBackCaller",
-      "text": "Every release needs my approval. Builds are staged, tested, backed up and given a rollback point first.",
+      "text": "Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.",
       "tag": "human_gate",
       "evidence_level": "self_reported"
     },
@@ -244,7 +244,7 @@
     {
       "id": "tbc-ai-assisted",
       "project": "TextBackCaller",
-      "text": "Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. I review the evidence and approve.",
+      "text": "Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.",
       "tag": "shipped",
       "evidence_level": "self_reported"
     },

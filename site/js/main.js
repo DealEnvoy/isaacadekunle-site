@@ -198,7 +198,7 @@
     function fitBox() {   /* desktop/tablet: always show the whole path width */
       if (mqMobile.matches) { vb0 = svg.dataset.vbMobile.split(' ').map(Number); }
       else { const asp = innerWidth / Math.max(1, innerHeight), H = Math.max(900, 1480 / asp); vb0 = [60, 450 - H / 2, 1480, H]; }
-      svg.setAttribute('viewBox', vb0.join(' '));
+      svg.setAttribute('viewBox', vb0.join(' ')); svg.__vb0 = vb0.slice();
     }
     /* a classical building drawn as fine lines. [path, cx, cy] in building units: origin = base centre, y up is negative */
     function buildingParts() {
@@ -297,7 +297,8 @@
       const pp = steps.map((s, i) => i === 3 ? topP(s) : centreP(s));
       const pm = msteps.map(topP);
       /* scroll -> length keyframes; the line is held at the gate until the gate has opened (see render) */
-      K = [[0, 48], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
+      const lStart = Math.max(48, Math.min(Rst[0] - 24, lenWhere(ghost, LA, q => ctm0.d * q.y + f0 >= Hs * .24)));   /* the beam is already on screen (below the fixed header) when the stage pins */
+      K = [[0, lStart], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
       const kAt = p => { let i = 0; while (i < K.length - 2 && p > K[i + 1][0]) i++; const a1 = K[i], b1 = K[i + 1]; return lerp(a1[1], b1[1], seg(p, a1[0], b1[0])); };
       mThr = pm.map((p, i) => i === 0 ? lenEntry - 2 : kAt(p) - 2);
       if (!mobile) {
@@ -656,8 +657,15 @@
         pts.push([cp[0], ovNow]);
         let tx = a1[0] - a0[0], ty = a1[1] - a0[1]; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl; if (ty < .3) { ty = Math.max(.3, ty); const n2 = Math.hypot(tx, ty); tx /= n2; ty /= n2; }
         /* 2. where TRACE picks the line up: screen x of its path where it enters the stage top */
-        const tM = trSvg.getScreenCTM(), tr = trSvg.getBoundingClientRect(); let xt = W / 2;
-        if (tM) { for (let l = 0; l <= trGhost.getTotalLength(); l += 1) { const q = trGhost.getPointAtLength(l), sy = tM.d * q.y + tM.f - tr.top; if (sy >= 0) { xt = tM.a * q.x + tM.e - tr.left; break; } } }
+        /* where the TRACE line enters at the top of its stage: worked out from the stage's RESTING camera (its base viewBox), never the live
+           one, because TRACE pans its camera with scroll and a page opened on a #hash (or a resize while scrolled down) would otherwise
+           read the panned view and send the interlude to the wrong side of the screen */
+        const tr = trSvg.getBoundingClientRect(); let xt = W / 2;
+        let vbR = trSvg.__vb0; if (!vbR || !motionOn()) vbR = (trSvg.getAttribute('viewBox') || '0 0 1600 900').trim().split(/\s+/).map(Number);
+        if (tr.width > 0 && tr.height > 0 && vbR && vbR[2] > 0) {
+          const sc = Math.max(tr.width / vbR[2], tr.height / vbR[3]), ox = (tr.width - vbR[2] * sc) / 2 - vbR[0] * sc, oy = (tr.height - vbR[3] * sc) / 2 - vbR[1] * sc;
+          for (let l = 0, T = trGhost.getTotalLength(); l <= T; l += 1) { const q = trGhost.getPointAtLength(l); if (sc * q.y + oy >= 0) { xt = sc * q.x + ox; break; } }
+        }
         /* 3. smooth bend (same tangent as the ISOLATE beam where it leaves the stage, vertical where it meets TRACE) */
         const x0 = cp[0], y0 = ovNow, y1 = H + ovNow, dy = y1 - y0, c1 = [x0 + tx * dy * .45, y0 + ty * dy * .45], c2 = [xt, y1 - dy * .4];
         let d = 'M' + pts.map(q => q[0].toFixed(2) + ' ' + q[1].toFixed(2)).join('L') + `C${c1[0].toFixed(2)} ${c1[1].toFixed(2)} ${c2[0].toFixed(2)} ${c2[1].toFixed(2)} ${xt.toFixed(2)} ${y1.toFixed(2)}V${(y1 + 6).toFixed(2)}`;
@@ -667,11 +675,11 @@
         sig = [innerWidth, innerHeight, ovNow, mobile, sRect.height, tr.width, H].join('|');
       };
       const dashSet = l => [halo, core].forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(total + 40).toFixed(0)}`; } });
-      const sigNow = () => [innerWidth, innerHeight, motionOn() ? OV : 0, mqMobile.matches, isoStage.getBoundingClientRect().height, trSvg.getBoundingClientRect().width, el.getBoundingClientRect().height].join('|');
+      const sigNow = () => [innerWidth, innerHeight, motionOn() ? OV : 0, mqMobile.matches, isoStage.getBoundingClientRect().height, trSvg.getBoundingClientRect().width, (trSvg.__vb0 || []).join(','), el.getBoundingClientRect().height].join('|');
       lay(); addEventListener('resize', lay); mqMobile.addEventListener('change', lay); if (document.fonts && document.fonts.ready) document.fonts.ready.then(lay);
       return (p, instant) => {
         if (sigNow() !== sig) lay();
-        const isoScene = scenes.find(x => x.el === isoEl), pIso = isoScene ? isoScene.cur : stageProgress(isoEl), d = instant ? 1 : seg(pIso, .94, 1);
+        const isoScene = scenes.find(x => x.el === isoEl), pIso = isoScene && isoScene.vis ? isoScene.cur : stageProgress(isoEl)   /* ISOLATE only eases while on screen; after a jump (nav link, #hash, fast scroll) its eased value is stale, so use the real scroll position */, d = instant ? 1 : seg(pIso, .94, 1);
         let l;
         if (instant) l = total + 8;
         else if (d < 1) l = d <= 0 ? 0 : clamp(prefix + Math.max(0, d * Lf3 - Lq0), 0, lenPoly);
@@ -749,44 +757,46 @@
 
     /* ----- sound toggle ----- */
     const sbtn = $('[data-sound-toggle]'), slbl = $('[data-sound-label]');
-    /* Sound is ON by default (the visitor's last choice is remembered in localStorage 'sound'). The button names the ACTION: "Sound off" while sound is on,
-       "Sound on" while it is off; aria-pressed = sound is on. Browsers refuse audible playback before a user gesture, so the first attempt is allowed to fail
-       quietly: the label already reads "Sound off", and the bed starts on the first click / tap / key press (scrolling alone does not count as a gesture). */
-    let aud = null, soundOn = true, pending = false;
-    try { soundOn = localStorage.getItem('sound') !== 'off'; } catch (e) {}
+    /* Sound: the PREFERENCE defaults to on (localStorage 'sound' = 'off' turns it off for good). The button never shows the preference, it shows what is
+       ACTUALLY happening: "Sound off" (aria-pressed=true) only while the ambience is audibly playing, otherwise "Sound on" (aria-pressed=false).
+       The label follows the audio element's own play / playing / pause / ended / error events. Browsers refuse audible playback before a user gesture,
+       so if the first play() on load is blocked, the bed starts on the first click / tap / key press anywhere (scrolling alone is not a gesture).
+       Clicking the button while it says "Sound on" is itself a gesture and starts the audio at once. */
+    let aud = null, want = true;
+    try { want = localStorage.getItem('sound') !== 'off'; } catch (e) {}
+    const isPlaying = () => !!aud && !aud.paused && !aud.ended && !aud.muted && aud.volume > 0 && aud.readyState >= 3;
+    function paintSound() { if (!sbtn) return; const on = isPlaying(), t = on ? 'Sound off' : 'Sound on'; sbtn.setAttribute('aria-pressed', String(on)); sbtn.setAttribute('aria-label', t); slbl.textContent = t; }
     function audio() {
       if (aud) return aud;
       aud = document.createElement('audio');
-      aud.loop = true; aud.preload = 'none'; aud.volume = 0.5; aud.setAttribute('aria-hidden', 'true'); aud.hidden = true;
+      aud.loop = true; aud.preload = 'auto'; aud.muted = false; aud.volume = 0.5; aud.setAttribute('aria-hidden', 'true'); aud.hidden = true;
       const add = (src, type) => { const e = document.createElement('source'); e.src = src; e.type = type; aud.appendChild(e); };
       add('audio/ambience_loop_10s.opus', 'audio/ogg; codecs=opus'); add('audio/ambience_loop_10s.mp3', 'audio/mpeg');
-      aud.addEventListener('error', () => setSound(false, false), true);   /* missing file: go quiet for this visit, keep the stored choice */
+      ['playing', 'pause', 'ended', 'emptied', 'error', 'waiting', 'stalled', 'volumechange'].forEach(ev => aud.addEventListener(ev, paintSound, true));
       sbtn.parentNode.appendChild(aud);
       return aud;
     }
-    function paintSound() { if (!sbtn) return; const t = soundOn ? 'Sound off' : 'Sound on'; sbtn.setAttribute('aria-pressed', String(soundOn)); sbtn.setAttribute('aria-label', t); slbl.textContent = t; }
     const canPlay = () => !!sbtn && !sbtn.hidden && inView && !document.hidden;
-    function syncAudio() {
-      if (!soundOn || !canPlay()) { if (aud) aud.pause(); return; }
+    function tryPlay() {                                   /* resolves quietly; the label only changes via the audio events */
+      if (!want || !canPlay()) { if (aud && !aud.paused) aud.pause(); paintSound(); return; }
       const a = audio(), p = a.play();
-      if (p && p.then) p.then(() => { pending = false; }, err => { if (err && err.name === 'NotAllowedError') pending = true; else if (!err || err.name !== 'AbortError') setSound(false, false); });
-      else pending = false;
+      if (p && p.catch) p.catch(() => { paintSound(); });  /* blocked (NotAllowedError) or interrupted: stays "Sound on", retried on the next gesture */
+      paintSound();
     }
-    function setSound(on, persist = true) {
-      soundOn = !!on; paintSound();
-      if (persist) { try { localStorage.setItem('sound', soundOn ? 'on' : 'off'); } catch (e) {} }
-      if (soundOn) syncAudio(); else { pending = false; if (aud) { aud.pause(); try { aud.currentTime = 0; } catch (e) {} } }
-    }
+    const syncAudio = tryPlay;
     function showSound() {
       if (!sbtn) return;
       sbtn.hidden = !(v && v.classList.contains('is-live') && okToLoad());
-      syncAudio();
+      tryPlay();
     }
     if (sbtn) {
-      sbtn.addEventListener('click', () => setSound(!soundOn));
+      sbtn.addEventListener('click', () => {
+        if (isPlaying()) { want = false; try { localStorage.setItem('sound', 'off'); } catch (e) {} if (aud) { aud.pause(); try { aud.currentTime = 0; } catch (e) {} } paintSound(); }
+        else { want = true; try { localStorage.setItem('sound', 'on'); } catch (e) {} tryPlay(); }
+      });
       document.addEventListener('visibilitychange', syncAudio);
-      /* first user gesture (not on the toggle itself) starts the bed if the browser blocked it */
-      const unlock = e => { if (pending && soundOn && !sbtn.contains(e.target)) syncAudio(); };
+      /* first user gesture anywhere (not on the toggle itself, which handles its own click) starts the bed if the preference is on and it is not playing */
+      const unlock = e => { if (want && !isPlaying() && !sbtn.contains(e.target)) tryPlay(); };
       ['pointerdown', 'pointerup', 'touchend', 'keydown', 'click'].forEach(ev => addEventListener(ev, unlock, { passive: true, capture: true }));
       paintSound();
     }

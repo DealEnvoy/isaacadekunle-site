@@ -31,7 +31,7 @@ Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under t
 
 - Motion is on by default. A small toggle in the header turns it off; the page then shows static scenes. Operating-system "reduce motion" selects a gentler version.
 - The hero is a looping 10 second video (WebM first, MP4 fallback) over a matching still image. Videos are muted and have no audio track.
-- A sound button controls an optional quiet ambience loop (`site/audio/`); nothing plays before the visitor interacts with the page.
+- A sound button controls an optional quiet ambience loop (`site/audio/`). The button label reflects whether audio is actually playing, and the choice is stored in the browser's localStorage. If the browser blocks autoplay, the first tap, key press or click starts it.
 - Without JavaScript the page shows the static layout.
 
 ## Credits and licences
