@@ -30,8 +30,6 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<button class="tour-stop" type="button" aria-label="Stop tour" title="Stop tour" data-tour-stop hidden><svg viewBox="0 0 20 20" width="12" height="12" aria-hidden="true" focusable="false"><rect x="5" y="5" width="10" height="10" rx="1.5"/></svg><span>Stop tour</span></button>
-
 <header class="site-header" role="banner">
   <a class="wordmark" href="#top" aria-label="Isaac Adekunle, back to top">Isaac Adekunle</a>
   <nav class="acts" aria-label="Sections">
@@ -42,6 +40,8 @@
   </nav>
 </header>
 <button class="motion-toggle" type="button" aria-pressed="false" aria-label="Pause animations" title="Pause animations" data-motion-toggle><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path class="mt-pause" d="M6 4.5v11M14 4.5v11"/><path class="mt-play" d="M6.5 4.5l9 5.5-9 5.5z"/></svg></button>
+
+<button class="tour-stop" type="button" aria-label="Stop tour" title="Stop tour" data-tour-stop hidden><svg viewBox="0 0 20 20" width="12" height="12" aria-hidden="true" focusable="false"><rect x="5" y="5" width="10" height="10" rx="1.5"/></svg><span>Stop tour</span></button>
 
 <main id="main">
 
@@ -74,7 +74,7 @@
     <li><span class="strip__name">TextBackCaller</span><span class="chip chip--live">Live</span></li>
     <li><span class="strip__name">AMLtracker</span><span class="chip chip--live">Live</span></li>
     <li><span class="strip__name">PitchReach</span><span class="chip chip--beta">Beta</span></li>
-    <li><span class="strip__name">Nigerian Investor Guide</span><span class="chip chip--exp">Expanding</span></li>
+    <li><span class="strip__name">Global Investor Guide</span><span class="chip chip--exp">Expanding</span></li>
   </ul>
   <p class="strip__line">Directed four products, each with a stage stated plainly. Nothing released without approval.</p>
 </section>
@@ -124,13 +124,13 @@
     <article class="step" data-step="1">
       <div class="panel">
         <h3>A process fails in one place first</h3>
-        <p>From the outside, everything looks slow. Usually one handoff, one approval or one task repeated by hand is holding up the rest. Finding that point is most of the work.</p>
+        <p>Everything looks slow from outside. Usually one handoff, approval or manual task holds up the rest. Finding it is most of the work.</p>
       </div>
     </article>
     <article class="step" data-step="2">
       <div class="panel">
         <h3>Start with the stuck point</h3>
-        <p>Where does the work wait? Which step is done by hand every time? Who is chasing whom? Writing the answer down as a problem someone can test, before anything gets built.</p>
+        <p>Where does work wait? Which step is always manual? Who chases whom? Writing the answer as a testable problem before anything is built.</p>
       </div>
     </article>
   </div>
@@ -177,14 +177,14 @@
       <div class="panel">
         <p class="stage-n">Stage 2</p>
         <h3>Break it into stages</h3>
-        <p>Work moves through API calls and integrations, MCP servers, and RAG when a task depends on source material. Agentic steps cover research, data processing, drafting and checks.</p>
+        <p>Work runs through APIs, integrations, Model Context Protocol (MCP) servers and retrieval-augmented generation (RAG) for source-based tasks. Agentic steps cover research, data processing, drafting and checks.</p>
       </div>
     </article>
     <article class="step" data-step="2" data-station="2">
       <div class="panel">
         <p class="stage-n">Stage 3</p>
         <h3>Review apart from building</h3>
-        <p>Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published.</p>
+        <p>Code review, evaluation and testing sit apart from implementation; CI runs before anything is published.</p>
         {{claim:obs-records}}
       </div>
     </article>
@@ -199,22 +199,22 @@
       <div class="panel panel--method">
         <p class="kicker">How a build is governed</p>
         <h2 id="h-method" class="band__title">The method, in full</h2>
-        <p>Treating the build as a governed process: development, observability, and forward deployed engineering once something is live. Defining the objective, supplying the context, breaking the task into stages and reviewing every result before it goes any further.</p>
+        <p>Treating each build as a governed process: development, observability, and forward deployed engineering once live. Defining the objective, supplying context, breaking the task into stages and reviewing every result before it moves on.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="1">
       <div class="panel panel--method">
-        <p>Development is agentic. Work moves through API calls and integrations, MCP (Model Context Protocol) servers, and RAG (retrieval-augmented generation) when a task depends on source material. Agentic workflows cover research, data processing, drafting and checks. Some of those workflows have browser and computer access, each with a defined role, and an orchestrating step coordinates them. Comparing results, correcting what is wrong, and asking for evidence before accepting a claim.</p>
+        <p>Development is agentic. Work runs through APIs, integrations, MCP servers and RAG for source-based tasks. Agentic workflows cover research, data processing, drafting and checks; some have browser and computer access, each with a defined role, coordinated by an orchestrating step. Comparing results, correcting errors and asking for evidence before accepting a claim.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="2">
       <div class="panel panel--method">
-        <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published. Nothing is published, sent or paid for without approval, and every claim must be backed by evidence.</p>
+        <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation; CI runs before anything is published.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="3">
       <div class="panel panel--method">
-        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models instead of an outside service. Logging and observability record what ran, what changed and what was approved, so a live product can be corrected in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Nigerian Investor Guide and the Drew &amp; Crew website.</p>
+        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models, not outside services. Logging and observability record what ran, what changed and what was approved, so a live product can be fixed in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew.</p>
       </div>
     </article>
     <div class="steps__tail" aria-hidden="true"></div>
@@ -267,7 +267,7 @@
     <p class="kicker">What can be done for you</p>
     <h2 id="h-offer" class="band__title">From the stuck point to something running</h2>
     <ul class="offer">
-      <li><h3>AI-native products</h3><p>Directed products from objective through to a reviewed result. Shipped this way: PitchReach, AMLtracker and the Nigerian Investor Guide.</p></li>
+      <li><h3>AI-native products</h3><p>Directed products from objective through to a reviewed result. Shipped this way: PitchReach, AMLtracker and the Global Investor Guide.</p></li>
       <li><h3>Business automation</h3><p>Workflows for the routine steps of a business.</p>
         <ul class="offer__eg"><li>Missed-call and enquiry follow-up</li><li>Lead capture and CRM sync</li><li>Appointment booking and reminders</li><li>Invoice, quote and payment chasing</li><li>Document and data extraction</li><li>Scheduled reporting</li></ul></li>
       <li><h3>Scalable autonomous workflows</h3><p>Work is split into stages, with a person setting the objective and checking the result.</p></li>
@@ -379,7 +379,7 @@
         <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a></p>
       </article>
       <article class="card">
-        <header class="card__head"><h3>Nigerian Investor Guide</h3><span class="chip chip--exp">Expanding</span></header>
+        <header class="card__head"><h3>Global Investor Guide</h3><span class="chip chip--exp">Expanding</span></header>
         {{claim:gig-published}}
         {{claim:gig-ranking}}
         {{claim:gig-nfa}}
@@ -442,7 +442,7 @@
       <summary>Open the full claims ledger</summary>
       {{ledger}}
     </details>
-    <p class="credit">Cockpit image: <a href="https://commons.wikimedia.org/wiki/User:Braniff747SP" rel="noopener">Braniff747SP</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, modified. Original: <a href="https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG" rel="noopener">&ldquo;Airbus A380 Qantas Cockpit&rdquo;</a> on Wikimedia Commons. This adaptation is shared under the same licence.</p>
+    <p class="credit">Cockpit image: <a href="https://commons.wikimedia.org/wiki/User:Braniff747SP" rel="noopener">Braniff747SP</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, modified. Original: <a href="https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG" rel="noopener">&ldquo;Airbus A380 Qantas Cockpit&rdquo;</a> on Wikimedia Commons. The still image adaptation is shared under the same licence.<br>Hero video also includes screen imagery rendered from the FlyByWire A380X instrument code (GPLv3), <a href="https://github.com/flybywiresim/aircraft" rel="noopener">github.com/flybywiresim/aircraft</a>.</p>
     <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
   </div>
 </footer>

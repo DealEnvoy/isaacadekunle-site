@@ -138,15 +138,15 @@
     },
     {
       "id": "gig-published",
-      "project": "Nigerian Investor Guide",
-      "text": "A published, evidence-led investing guide, starting with Nigerian shares from the UK and Canada; being expanded.",
+      "project": "Global Investor Guide",
+      "text": "A published, evidence-led global investing guide, being expanded.",
       "tag": "shipped",
       "evidence_level": "public",
       "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
     },
     {
       "id": "gig-ranking",
-      "project": "Nigerian Investor Guide",
+      "project": "Global Investor Guide",
       "text": "Includes a tax-residency ranking of 25 countries.",
       "tag": "shipped",
       "evidence_level": "public",
@@ -154,7 +154,7 @@
     },
     {
       "id": "gig-25-pending",
-      "project": "Nigerian Investor Guide",
+      "project": "Global Investor Guide",
       "text": "5 of the 25 countries are pending sources.",
       "tag": "limit",
       "evidence_level": "self_reported",
@@ -162,7 +162,7 @@
     },
     {
       "id": "gig-nfa",
-      "project": "Nigerian Investor Guide",
+      "project": "Global Investor Guide",
       "text": "Not financial advice. Sources, assumptions and limitations are stated.",
       "tag": "limit",
       "evidence_level": "public",
