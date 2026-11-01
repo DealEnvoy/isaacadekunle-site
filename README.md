@@ -36,7 +36,7 @@ Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under t
 
 ## Credits and licences
 
-- Cockpit image and hero video: the hero video combines a CC BY-SA 4.0 photograph ("Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), modified; original at https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG) with rendered screen imagery from the FlyByWire A380X instrument code (GPLv3, https://github.com/flybywiresim/aircraft). The adapted images in `site/img/` and the video files in `site/video/` are shared under the same CC BY-SA 4.0 licence as the photograph. The changes made are listed in `site/video/CREDITS.txt`.
+- Cockpit image and hero video: the hero video combines a CC BY-SA 4.0 photograph ("Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), modified; original at https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG) with rendered screen imagery from the FlyByWire A380X instrument code (GPLv3, https://github.com/flybywiresim/aircraft). Base photograph CC BY-SA 4.0; screen imagery rendered from GPLv3 code. The combined video's licensing is not asserted beyond this. The adapted images in `site/img/` are shared under the same CC BY-SA 4.0 licence as the photograph. The changes made are listed in `site/video/CREDITS.txt`.
 - FlyByWire A380X: used only to render 2D screen imagery for the hero video. No FlyByWire code, logos, branding or 3D assets are included in this repository.
 - Ambience loop: original synthesised audio made for this site.
 - Fonts: see above.
