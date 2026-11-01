@@ -69,6 +69,16 @@ html[data-motion="off"] .hero__img, html.no-js .hero__img { animation: none; }
 .hero__vid.is-live { opacity: 1; }
 html[data-motion="off"] .hero__vid, html.no-js .hero__vid { display: none; }
 @media (prefers-reduced-motion: reduce) { .hero__vid { display: none; } }
+/* sound toggle: only shown while the hero video is showing (JS un-hides it); off by default, never autoplays */
+.sound-toggle { position: absolute; z-index: 2; right: var(--page-margin); bottom: clamp(2rem, 1rem + 3vw, 3.75rem); display: inline-flex; align-items: center; gap: .5rem; font: inherit; font-family: var(--font-mono); font-size: var(--step--1); color: var(--c-text-on-dark); background: rgba(14, 12, 10, .72); border: 1px solid rgba(243, 236, 224, .38); border-radius: 999px; padding: .38rem .85rem .38rem .7rem; cursor: pointer; min-height: 2.25rem; }
+.sound-toggle[hidden] { display: none; }
+.sound-toggle:hover { border-color: var(--c-light-core); }
+.sound-toggle__icon { flex: none; fill: currentColor; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sound-toggle__icon path { fill: none; }
+.sound-toggle__spk { fill: currentColor !important; stroke-width: 1; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__off, .sound-toggle[aria-pressed="false"] .sound-toggle__waves { display: none; }
+.sound-toggle[aria-pressed="true"] { border-color: var(--c-light-core); }
+.sound-toggle[aria-pressed="true"] .sound-toggle__icon { color: var(--c-light-core); }
 .hero__inner { position: relative; width: 100%; max-width: 92rem; margin-inline: auto; padding: 6.5rem var(--page-margin) clamp(2rem, 1rem + 3vw, 3.75rem); display: flex; }
 .hero__copy { align-self: flex-end; }
 .hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.625rem, 1.25rem + 1.5vw, 2.75rem); line-height: 1.14; letter-spacing: -.012em; margin-top: var(--space-3); max-width: 22ch; text-wrap: balance; }
@@ -107,6 +117,7 @@ html[data-hero="c"] .hero__media::after { content: ""; position: absolute; inset
 
 @media (max-width: 52rem) {
   .hero__inner { padding-top: 5rem; }
+  .sound-toggle { bottom: auto; top: calc(56svh - 3.25rem); }
   .hero__title { max-width: 22ch; }
   html[data-hero="a"] .hero__media { bottom: auto; height: 56svh; -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent); mask-image: linear-gradient(to bottom, #000 78%, transparent); }
   html[data-hero="a"] .hero__media::after { display: none; }

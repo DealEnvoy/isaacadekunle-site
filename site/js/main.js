@@ -156,34 +156,83 @@
   const hero = $('.hero');
   new IntersectionObserver(es => es.forEach(e => hero.classList.toggle('in-view', e.isIntersecting))).observe(hero);
 
-  /* ---------- hero A: night-approach clip (progressive enhancement over the still) ----------
-     Plays once, eases to a hold on its last frame. Skipped for reduced motion, motion off or data-saver.
-     Paused while the hero is off screen. The still image underneath is always the first frame. */
+  /* ---------- hero A: cockpit loop (progressive enhancement over the still) ----------
+     A muted, inline, looping <video> is added ~2.6 s after load and fades in over the still (the still is the
+     poster frame, so the first frame matches). Paused while the hero is off screen. Skipped for reduced motion,
+     motion off, Save-Data or 2g. 1600 px file for wide screens, 960 px for narrow ones; WebM first, MP4 fallback.
+     Sound is a separate opt-in: a toggle (shown only while the video is showing) plays a looping ambience bed.
+     Sound is OFF on every load and is never started without a click. */
   const heroVid = (() => {
-    let v = null, wanted = false, inView = true;
+    const POSTER_T = 5.4;                 /* the poster still is the frame at 5.4 s; start there so the fade-in is seamless, then loop 0-10 s */
+    let v = null, wanted = false, inView = true, started = false, seekTimer = 0;
     const rm = matchMedia('(prefers-reduced-motion: reduce)');
-    const img = $('.hero__img'), conn = navigator.connection || {};
+    const hero = $('.hero'), img = $('.hero__img'), conn = navigator.connection || {};
     const okToLoad = () => root.getAttribute('data-hero') === 'a' && motionOn() && !rm.matches && !conn.saveData && !/2g/.test(conn.effectiveType || '');
+
+    /* ----- sound toggle ----- */
+    const sbtn = $('[data-sound-toggle]'), slbl = $('[data-sound-label]');
+    let aud = null, soundOn = false;
+    function audio() {
+      if (aud) return aud;
+      aud = document.createElement('audio');
+      aud.loop = true; aud.preload = 'none'; aud.volume = 0.5; aud.setAttribute('aria-hidden', 'true'); aud.hidden = true;
+      const add = (src, type) => { const e = document.createElement('source'); e.src = src; e.type = type; aud.appendChild(e); };
+      add('audio/ambience_loop_10s.opus', 'audio/ogg; codecs=opus'); add('audio/ambience_loop_10s.mp3', 'audio/mpeg');
+      aud.addEventListener('error', () => setSound(false), true);
+      sbtn.parentNode.appendChild(aud);   /* created only after the first click */
+      return aud;
+    }
+    function paintSound() { if (!sbtn) return; sbtn.setAttribute('aria-pressed', String(soundOn)); slbl.textContent = soundOn ? 'Sound on' : 'Sound off'; }
+    function syncAudio() {
+      if (!aud) return;
+      if (soundOn && inView && !document.hidden) { const p = aud.play(); if (p && p.catch) p.catch(() => setSound(false)); } else aud.pause();
+    }
+    function setSound(on) {
+      soundOn = !!on; paintSound();
+      if (soundOn) { audio(); syncAudio(); } else if (aud) { aud.pause(); try { aud.currentTime = 0; } catch (e) {} }
+    }
+    function showSound() {
+      if (!sbtn) return;
+      const show = !!(v && v.classList.contains('is-live') && okToLoad());
+      sbtn.hidden = !show;
+      if (!show && soundOn) setSound(false);
+    }
+    if (sbtn) {
+      sbtn.addEventListener('click', () => setSound(!soundOn));
+      document.addEventListener('visibilitychange', syncAudio);
+      paintSound();
+    }
+
+    /* ----- video ----- */
+    function live() { if (v && started && !v.paused) { v.classList.add('is-live'); showSound(); } }
     function create() {
       if (v || !img) return;
-      const mob = matchMedia('(max-width: 832px)').matches, base = 'video/approach-' + (mob ? '960' : '1600');
+      const mob = matchMedia('(max-width: 832px)').matches, base = 'video/hero_v2live_' + (mob ? '960' : '1600') + '_muted';
       v = document.createElement('video');
-      v.className = 'hero__img hero__vid'; v.muted = true; v.defaultMuted = true; v.playsInline = true; v.preload = 'auto';
+      v.className = 'hero__img hero__vid'; v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true; v.autoplay = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('loop', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
       v.setAttribute('aria-hidden', 'true'); v.setAttribute('tabindex', '-1'); v.setAttribute('disablepictureinpicture', ''); v.disablePictureInPicture = true;
-      v.width = mob ? 960 : 1600; v.height = mob ? 1200 : 1200;
-      const add = (src, type) => { const s = document.createElement('source'); s.src = src; s.type = type; v.appendChild(s); };
+      v.width = mob ? 960 : 1600; v.height = mob ? 720 : 1200;
+      const add = (src, type) => { const e = document.createElement('source'); e.src = src; e.type = type; v.appendChild(e); };
       add(base + '.webm', 'video/webm; codecs="vp9"'); add(base + '.mp4', 'video/mp4');
-      v.addEventListener('playing', () => v.classList.add('is-live'));
-      v.addEventListener('error', () => { if (v) v.remove(); v = null; }, true);
+      v.addEventListener('loadedmetadata', () => {
+        /* start on the poster frame; if the server cannot seek, fall back to starting at 0 after a short wait */
+        if (v.duration > POSTER_T + 1) { try { v.currentTime = POSTER_T; } catch (e) {} }
+        seekTimer = setTimeout(() => { started = true; live(); }, 1500);
+      });
+      v.addEventListener('seeked', () => { if (!started) { clearTimeout(seekTimer); started = true; live(); } });
+      v.addEventListener('playing', live);
+      v.addEventListener('error', () => { if (v) { v.remove(); v = null; showSound(); } }, true);
       img.parentNode.insertBefore(v, img.nextSibling);
     }
     function sync() {
-      if (!okToLoad()) { if (v) { v.pause(); v.classList.remove('is-live'); } return; }
+      if (!okToLoad()) { if (v) { v.pause(); v.classList.remove('is-live'); } showSound(); return; }
       create(); if (!v) return;
-      if (inView && !v.ended) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+      if (inView) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+      syncAudio();
     }
     const start = () => { wanted = true; sync(); };
-    new IntersectionObserver(es => es.forEach(e => { inView = e.isIntersecting; if (wanted) sync(); })).observe(hero);
+    new IntersectionObserver(es => es.forEach(e => { inView = e.isIntersecting; if (wanted) sync(); else syncAudio(); })).observe(hero);
     rm.addEventListener && rm.addEventListener('change', sync);
     if (document.readyState === 'complete') setTimeout(start, 2600); else addEventListener('load', () => setTimeout(start, 2600), { once: true });
     return { sync };

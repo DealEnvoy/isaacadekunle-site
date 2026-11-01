@@ -7,7 +7,7 @@ It is a single static page: a dark-to-dawn scroll story that walks through the I
 ## Layout
 
 ```
-site/                what is served: index.html, css/, js/, fonts/, img/, video/
+site/                what is served: index.html, css/, js/, fonts/, img/, video/, audio/
 src/index.src.html   page template (claims are inserted by the build)
 src/claims.json      claim text and tag for each claim on the page
 tools/build.mjs      src/ -> site/index.html (Node, no dependencies)
@@ -30,12 +30,15 @@ Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under t
 ## Behaviour
 
 - Motion is on by default. A small toggle in the header turns it off; the page then shows static scenes. Operating-system "reduce motion" selects a gentler version.
+- The hero is a looping 10 second video (WebM first, MP4 fallback) over a matching still image. Videos are muted and have no audio track.
+- A sound button controls an optional quiet ambience loop (`site/audio/`); nothing plays before the visitor interacts with the page.
 - Without JavaScript the page shows the static layout.
 
 ## Credits and licences
 
-- Cockpit image: "Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), modified. Original: https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG. The adapted images in `site/img/` are shared under the same licence (CC BY-SA 4.0).
-- Night view through the windows: aerial photograph "City lights from air at night 1" by Foxtod, CC0 1.0, reworked.
+- Cockpit image and hero video: the hero video combines a CC BY-SA 4.0 photograph ("Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), modified; original at https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG) with rendered screen imagery from the FlyByWire A380X instrument code (GPLv3, https://github.com/flybywiresim/aircraft). The adapted images in `site/img/` and the video files in `site/video/` are shared under the same CC BY-SA 4.0 licence as the photograph. The changes made are listed in `site/video/CREDITS.txt`.
+- FlyByWire A380X: used only to render 2D screen imagery for the hero video. No FlyByWire code, logos, branding or 3D assets are included in this repository.
+- Ambience loop: original synthesised audio made for this site.
 - Fonts: see above.
 - Full list of third-party components: see `NOTICE`.
 - All other text, code and design: © Isaac Adekunle, all rights reserved unless stated otherwise.

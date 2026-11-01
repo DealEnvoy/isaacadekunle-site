@@ -1,0 +1,17 @@
+CC BY-SA 4.0, Braniff747SP, modified
+
+Base photograph/plate: "Airbus A380 Qantas Cockpit" by Braniff747SP
+https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG
+Licence: CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/
+Changes were made: relit, animated, graded, cropped/scaled, screens replaced with live-rendered
+instrument imagery, exterior lights re-projected, looped. The files in this folder are shared under
+the same licence (CC BY-SA 4.0).
+
+Instrument imagery (PFD, ND, EWD): rendered from the open-source FlyByWire A380X instrument code
+(github.com/flybywiresim/aircraft, commit 66021c2), GPLv3, used only to produce 2D screen imagery in a
+headless browser. No FlyByWire logos or branding are visible and no 3D assets are used.
+Display font: FBW-Display-EIS-A380.ttf; its name table states "Licenced under GPLv3".
+Lower-screen pages (MFD left/right, SD): original HTML drawn for this loop, not FlyByWire pages.
+
+Ambience (ambience_loop_10s.*, optional, not in the videos): original synthesised cabin bed made for this loop.
+The videos contain no audio track.

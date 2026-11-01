@@ -3,21 +3,31 @@ Third-party components
 
 This file lists third-party material used by the site and the licence each
 component is published under, as stated by its source. It is a list for
-transparency, not legal advice.
+transparency, not legal advice. It does not assess how those licences apply to
+the combined hero video.
 
 Included in this repository
 ----------------------------
 - Photograph "Airbus A380 Qantas Cockpit" by Braniff747SP, CC BY-SA 4.0,
-  modified (recoloured, cropped, display screens redrawn).
+  modified (relit, graded, cropped and scaled; screens replaced).
   https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG
   https://creativecommons.org/licenses/by-sa/4.0/
-  The adapted images in site/img/ and the video in site/video/ are shared
-  under the same licence (CC BY-SA 4.0).
-- Aerial photograph "City lights from air at night 1" by Foxtod, CC0 1.0,
-  reworked with added approach lights.
-  https://commons.wikimedia.org/wiki/File:City_lights_from_air_at_night_1.jpg
+  The adapted images in site/img/ and the video files in site/video/ are
+  shared under the same licence (CC BY-SA 4.0). See site/video/CREDITS.txt.
 - IBM Plex Mono, copyright IBM Corp., SIL Open Font License 1.1.
   Licence text: site/fonts/LICENSE-IBMPlexMono-OFL.txt
+- Ambience loop (site/audio/): original synthesised audio made for this site.
+
+Used to produce the hero video, not included as code or assets
+----------------------------------------------------------------
+- FlyByWire A380X instrument code, GPLv3.
+  https://github.com/flybywiresim/aircraft (commit 66021c2)
+  Run in a headless browser only to render 2D screen imagery (PFD, ND, EWD)
+  that appears inside the hero video. No FlyByWire source code, logos,
+  branding or 3D assets are in this repository.
+- Display font FBW-Display-EIS-A380.ttf, whose name table states
+  "Licenced under GPLv3" (as recorded in site/video/CREDITS.txt). The font
+  file is not in this repository.
 
 Not included in this repository
 -------------------------------
