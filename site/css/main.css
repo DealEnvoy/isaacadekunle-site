@@ -1,4 +1,4 @@
-/* isaacadekunle.com "Long Exposure". Night to first light. */
+/* isaacadekunle.com V3 "Long Exposure". Night to first light. */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 4rem; }
 html[data-motion="off"] { scroll-behavior: auto; }
@@ -122,6 +122,24 @@ html[data-motion="off"] .hero__vid, html.no-js .hero__vid { display: none; }
 .hero__sub { margin-top: var(--space-4); max-width: 34ch; color: var(--c-muted-on-dark); font-size: var(--step-0); line-height: 1.5; }
 .hero__cta { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .hero__cta .btn { min-height: 2.5rem; padding: .4rem 1rem; font-size: .9375rem; }
+.btn--tour { gap: .55rem; padding-left: .7rem; }
+.tour-ico { position: relative; flex: none; display: inline-flex; align-items: center; justify-content: center; width: 1.45rem; height: 1.45rem; border-radius: 50%; color: var(--c-night); background: var(--c-light-core); }
+.tour-ico svg { display: block; fill: currentColor; margin-left: 1px; }
+.tour-ico::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--c-light-core); opacity: 0; animation: tour-ping 2.8s ease-out infinite; }
+.btn--tour:hover .tour-ico { box-shadow: 0 0 0 4px rgba(255, 227, 184, .22); }
+@keyframes tour-ping { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(2); opacity: 0; } }
+html[data-motion="off"] .tour-ico::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { .tour-ico::after { animation: none; } }
+.tour-stop { position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 61; display: inline-flex; align-items: center; gap: .5rem; min-height: 2.5rem; padding: .35rem .95rem .35rem .8rem; font: inherit; font-family: var(--font-mono); font-size: var(--step--1); color: #f3ece0; background: rgba(14, 12, 10, .8); border: 1px solid rgba(243, 236, 224, .45); border-radius: 999px; cursor: pointer; opacity: .8; transition: opacity .2s, border-color .2s; -webkit-tap-highlight-color: transparent; }
+.tour-stop[hidden] { display: none; }
+.tour-stop:hover, .tour-stop:focus-visible { opacity: 1; border-color: var(--c-light-core); }
+.tour-stop:focus-visible { outline: 2px solid #ffd77a; outline-offset: 3px; }
+.tour-stop svg { display: block; fill: currentColor; flex: none; }
+/* soft dark scrim behind the hero copy so the cockpit display lights do not compete with the text: feathered, no hard edge, fades to nothing toward the right and the top */
+.hero__copy { position: relative; }
+.hero__copy::before { content: ""; position: absolute; z-index: -1; pointer-events: none; inset: -8rem -24rem -4rem -9rem;
+  background: radial-gradient(ellipse 70% 74% at 33% 62%, rgba(6, 5, 4, .56) 0, rgba(6, 5, 4, .54) 55%, rgba(6, 5, 4, .32) 78%, rgba(6, 5, 4, 0) 100%); }
+@media (max-width: 52rem) { .hero__copy::before { inset: -8rem -2rem -3rem -2rem; background: radial-gradient(ellipse 92% 68% at 40% 62%, rgba(6, 5, 4, .6) 0, rgba(6, 5, 4, .5) 40%, rgba(6, 5, 4, .24) 68%, rgba(6, 5, 4, 0) 100%); } }
 .hero .kicker { font-size: .75rem; color: var(--c-text-on-dark); opacity: .86; }
 
 /* A: full-bleed cockpit, copy bottom-left */
@@ -423,7 +441,7 @@ html[data-motion="off"] .flow__steps::before, html.no-js .flow__steps::before { 
 .tr-core, .bm-core { fill: none; stroke: #fff0d2; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
 .bm-rim { fill: none; stroke: #e6a10c; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.6; opacity: 0; }
 .tr-halo, .tr-core { display: none; }
-.step--gate { min-height: 190svh; align-items: flex-start; padding-block: 0; }
+.step--gate { min-height: 78svh; align-items: flex-start; padding-block: 0; }   /* a short hold after the gate (was 190svh of dead pinned scroll) */
 .step--gate .panel { position: sticky; top: var(--py, 20svh); }
 .step--method { min-height: 92svh; }
 .panel--method { width: min(100%, clamp(24rem, 40vw, 34rem)); }

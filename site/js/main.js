@@ -1,4 +1,4 @@
-/* isaacadekunle.com. Vanilla JS, no dependencies.
+/* isaacadekunle.com V3. Vanilla JS, no dependencies.
    One rAF loop, damped, runs only while a scene is on screen and motion is on.
    Everything here is enhancement: with JS off or motion off the page is a static storyboard. */
 (() => {
@@ -42,6 +42,8 @@
   /* ---------- scenes ---------- */
   const scenes = [];
   const stageProgress = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight)); };
+  /* same, but runs on below 0 while the stage is still sliding up into view (0 = pinned): TRACE and RELEASE use it so their line keeps travelling during the slide-in instead of waiting for the pin */
+  const stageProgressPre = el => { const r = el.getBoundingClientRect(), rg = Math.max(1, r.height - innerHeight); return Math.min(1, Math.max(-innerHeight / rg, -r.top / rg)); };
   const bandProgress = el => { const r = el.getBoundingClientRect(); return clamp((innerHeight - r.top) / (innerHeight + r.height)); };
 
   /* ISOLATE: a lamp searches a field of marks, the radius narrows, one fault is found, a person gates the exit.
@@ -171,8 +173,8 @@
       laserLook(strike, now / 1000, instant);
       [0, 1, 2].forEach(i => draw(f[0][i], seg(p, .78, .88)));
       gate.style.opacity = seg(p, .84, .88).toFixed(3);
-      arm.setAttribute('transform', `rotate(${(-78 * ease(seg(p, .9, .95))).toFixed(1)} -34 -4)`);
-      [0, 1, 2].forEach(i => draw(f[1][i], seg(p, .94, 1)));
+      arm.setAttribute('transform', `rotate(${(-78 * ease(seg(p, .88, .925))).toFixed(1)} -34 -4)`);
+      [0, 1, 2].forEach(i => draw(f[1][i], seg(p, .905, 1)));
       if (instant || !physicsOn()) { if (moving || !wasStatic) restore(); wasStatic = true; return false; }
       wasStatic = false; step(dt, now);
       return true;   /* keeps the frame loop alive while the scene is on screen */
@@ -198,6 +200,7 @@
     const T_PANEL = 250;
     const desktopD = ghost.getAttribute('d'), mobileD = ghost.dataset.dMobile;
     let stationEls = [], pts = [], echo = [], L0 = 1, LA = 1, LB = 1, LT = 2, Rst = [], cap = 1, K = [], G = { x: 0, y: 0 };
+    let lStart = 0, len0 = 0, RANGE = 1, PPS = [], DEN = [];   /* lStart: line length when the stage pins; len0: where the line enters the stage top; PPS/DEN: write-up arrival progress and entry distance */
     let bMs = null, lenBase = 1, lenPanEnd = 1, rend = null, lp = 0, li = false, vb0 = [0, 0, 1600, 900], panMax = 0, lenEntry = 1, lenExit = 1, mThr = [], B = null, bParts = [];
     const BW = 560, BH = 660, TIP = 659;   /* building units; TIP = y of the top of the flagpole finial */
     function fitBox() {   /* desktop/tablet: always show the whole path width */
@@ -297,15 +300,6 @@
       bldg.setAttribute('transform', `translate(${bx.toFixed(1)} ${yb.toFixed(1)}) scale(${sU.toFixed(4)})`);
       /* ---- write-up sides ---- */
       const sr = el.getBoundingClientRect(), range = Math.max(1, sr.height - innerHeight);
-      const topP = s => { const rr = s.getBoundingClientRect(); return clamp((rr.top - sr.top) / range); };
-      const centreP = s => { const rr = s.getBoundingClientRect(); return clamp((rr.top - sr.top + rr.height / 2 - innerHeight / 2) / range); };
-      const pp = steps.map((s, i) => i === 3 ? topP(s) : centreP(s));
-      const pm = msteps.map(topP);
-      /* scroll -> length keyframes; the line is held at the gate until the gate has opened (see render) */
-      const lStart = Math.max(48, Math.min(Rst[0] - 24, lenWhere(ghost, LA, q => ctm0.d * q.y + f0 >= Hs * .24)));   /* the beam is already on screen (below the fixed header) when the stage pins */
-      K = [[0, lStart], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
-      const kAt = p => { let i = 0; while (i < K.length - 2 && p > K[i + 1][0]) i++; const a1 = K[i], b1 = K[i + 1]; return lerp(a1[1], b1[1], seg(p, a1[0], b1[0])); };
-      mThr = pm.map((p, i) => i === 0 ? lenEntry - 2 : kAt(p) - 2);
       if (!mobile) {
         const ctm = svg.getScreenCTM(), pw = Math.min(31 * 16, innerWidth);
         const px = [...pts, G].map(q => ctm ? ctm.a * q.x + ctm.e : 0);
@@ -316,12 +310,25 @@
         [...pts, G].forEach((q, i) => { const ny = ctm ? ctm.d * q.y + ctm.f - top0 : 0, ph = panels[i].getBoundingClientRect().height; steps[i].dataset.side = ny > innerHeight - ph - 70 - 36 ? 'top' : 'bottom'; });
         msteps.forEach(s => s.dataset.side = 'bottom');
       }
-      /* the Stage 4 write-up is pinned level with the gate in the diagram, beside it, and stays while the gate sequence plays */
-      {
-        const ctm = svg.getScreenCTM(), gyS = ctm ? ctm.d * G.y + ctm.f - svg.getBoundingClientRect().top : innerHeight / 2, ph = panels[3].getBoundingClientRect().height || 220;
-        const top = mqMobile.matches ? (steps[3].dataset.side === 'top' ? 66 : Math.max(66, innerHeight - ph - 22)) : clamp(gyS - ph / 2, 70, innerHeight - ph - 24);
-        gstep.style.setProperty('--py', top.toFixed(0) + 'px');
-      }
+      /* the Stage 4 write-up is pinned (sticky) at the vertical middle of the screen on desktop, beside the gate; on a phone it is docked clear of the line */
+      const pyPx = (() => {
+        const ph = panels[3].getBoundingClientRect().height || 220;
+        return mqMobile.matches ? (steps[3].dataset.side === 'top' ? 66 : Math.max(66, innerHeight - ph - 22)) : clamp(innerHeight / 2 - ph / 2, 70, innerHeight - ph - 24);
+      })();
+      gstep.style.setProperty('--py', pyPx.toFixed(0) + 'px');
+      const topP = s => { const rr = s.getBoundingClientRect(); return clamp((rr.top - sr.top) / range); };
+      const centreP = s => { const rr = s.getBoundingClientRect(); return clamp((rr.top - sr.top + rr.height / 2 - innerHeight / 2) / range); };
+      const pp = steps.map((s, i) => i === 3 ? clamp((s.getBoundingClientRect().top - sr.top + (parseFloat(getComputedStyle(s).paddingTop) || 0) - pyPx) / range) : centreP(s));   /* write-ups 1-3 are centred in the viewport at pp; write-up 4 reaches its pinned spot at pp, which is when the line reaches the gate */
+      const pm = msteps.map(topP);
+      /* scroll -> length keyframes; the line is held at the gate until the gate has opened (see render) */
+      lStart = Math.max(48, Math.min(Rst[0] - 24, lenWhere(ghost, LA, q => ctm0.d * q.y + f0 >= Hs * .24)));   /* the beam is already on screen (below the fixed header) when the stage pins */
+      K = [[0, lStart], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
+      const kAt = p => { let i = 0; while (i < K.length - 2 && p > K[i + 1][0]) i++; const a1 = K[i], b1 = K[i + 1]; return lerp(a1[1], b1[1], seg(p, a1[0], b1[0])); };
+      mThr = pm.map((p, i) => i === 0 ? lenEntry - 2 : kAt(p) - 2);
+      len0 = Math.min(lStart - 1, lenWhere(ghost, LA, q => ctm0.d * q.y + f0 >= 0));   /* where the line crosses the top of the stage */
+      RANGE = range; PPS = pp;
+      { const praw = -sr.top / range;               /* each write-up starts to enter at the bottom edge of the screen DEN px of scroll before the line reaches its marker */
+        DEN = panels.map((pn, i) => { const rest = i === 3 ? pyPx : pn.getBoundingClientRect().top - (pp[i] - praw) * range; return Math.max(120, innerHeight - rest); }); }
       /* the approver stands on the side of the gate that has room */
       const gxS = a * G.x + e0;
       fig.setAttribute('transform', gxS < innerWidth * .5 ? 'translate(112 0) scale(-1.4 1.4)' : 'translate(-112 0) scale(1.4)');
@@ -334,12 +341,26 @@
     mqMobile.addEventListener('change', layout);
     addEventListener('resize', layout);
     const tRaw = p => { let i = 0; while (i < K.length - 2 && p > K[i + 1][0]) i++; const a1 = K[i], b1 = K[i + 1]; return lerp(a1[1], b1[1], seg(p, a1[0], b1[0])); };
-    panels.concat(mpanels).forEach(pn => pn.setAttribute('data-await', ''));
+    mpanels.forEach(pn => { pn.removeAttribute('data-await'); pn.style.transition = 'none'; });   /* the governed-method write-ups are scroll-linked too (see mpUpdate), not toggled */
+    panels.forEach(pn => { pn.removeAttribute('data-await'); pn.style.transition = 'none'; });   /* write-ups 1-4 are scroll-linked (see rend), not toggled */
+    const pin = [0, 0, 0, 0], mop = mpanels.map(() => 0);
+    /* 'How a build is governed' and its items: each one rises in from the bottom edge of the screen with the scroll and is fully readable once its top is 36 % of the screen
+       height above the bottom edge (well before mid-screen); it dims a little once it passes the upper part. Driven by the panel's own position, so it reverses on scroll-up. */
+    const mpUpdate = instant => {
+      mpanels.forEach((pn, i) => {
+        if (instant || document.documentElement.getAttribute('data-motion') === 'off') { pn.style.opacity = ''; return; }
+        const r = pn.getBoundingClientRect(), vh = innerHeight;
+        const rise = ease(seg(vh - r.top, 6, vh * .36)), after = .45 * seg(.12 * vh - r.top, 0, .4 * vh);
+        mop[i] = rise * (1 - after); pn.style.opacity = mop[i].toFixed(3);
+      });
+    };
+    addEventListener('scroll', () => mpUpdate(false), { passive: true });
     let len = 0, tA = 0, apv = 0, opn = 0, gOpen = false, lastT = 0, gReveal = false, openAt = 0, pinned = false, pinTO = 0;
     const p4 = panels[3];
     /* the write-up is pinned level with the gate; if a fast scroll would carry its step away while the gate sequence is still playing, it is held fixed in place */
     const pinLogic = (now, instant) => {
-      const need = !instant && gReveal && (!gOpen || now - openAt < 1800) && !!document.querySelector('html:not([data-motion="off"])');
+      const clear = mpanels[0].getBoundingClientRect().top > p4.getBoundingClientRect().bottom + 28;   /* never held fixed once the next write-up has risen up to it */
+      const need = !instant && gReveal && clear && (!gOpen || now - openAt < 1800) && !!document.querySelector('html:not([data-motion="off"])');
       if (need) {
         clearTimeout(pinTO); p4.classList.remove('is-leaving');
         if (!pinned) {
@@ -365,7 +386,8 @@
       const now = performance.now(), dt = clamp((now - (lastT || now - 16)) / 1000, .004, .05); lastT = now;
       if (instant) { len = LT; opn = 1; apv = 1; gOpen = true; tA = 0; gReveal = true; }
       else {
-        const raw = tRaw(p);
+        /* below 0 the stage is still sliding up into view: the line keeps travelling from the top edge of the stage to where it stands at the pin, so it never waits for the pin */
+        const raw = p < 0 ? lerp(len0, lStart, clamp(1 + p * RANGE / innerHeight)) : tRaw(p);
         /* scrolled back well before the gate: once the head is behind it, the gate shuts and the sequence will replay */
         if (raw < cap - .12 * L0 && len < cap - 6) { tA = 0; gOpen = false; gReveal = false; openAt = 0; }
         const target = gOpen ? raw : Math.min(raw, cap);
@@ -386,8 +408,18 @@
       const pt = sPoint(clamp(len, .5, LT - .5)); head.setAttribute('cx', pt.x.toFixed(1)); head.setAttribute('cy', pt.y.toFixed(1)); head.style.opacity = len > 1 && len < LT - 2 ? 1 : 0;
       headGlow.setAttribute('cx', pt.x.toFixed(1)); headGlow.setAttribute('cy', pt.y.toFixed(1)); headGlow.style.opacity = head.style.opacity === '1' ? .85 : 0;
       stationEls.forEach((g, i) => g.classList.toggle('on', len >= Rst[i] - .0005 * L0));
-      panels.forEach((pn, i) => { const on = i < 3 ? len >= Rst[i] - .0006 * L0 : (gReveal || gOpen); if (on) pn.removeAttribute('data-await'); else pn.setAttribute('data-await', ''); });
-      mpanels.forEach((pn, i) => { if (len >= mThr[i]) pn.removeAttribute('data-await'); else pn.setAttribute('data-await', ''); });
+      /* write-ups 1-4: tied to the same progress p that drives the line. Each one sits at its arrival spot (the middle of the screen on desktop) exactly when p reaches
+         the keyframe where the line reaches its marker, and slides up from the bottom edge of the screen as p approaches it. It starts to show as it enters at the
+         bottom and is fully readable well before it arrives; scrolling back reverses it. */
+      panels.forEach((pn, i) => {
+        if (instant) { pn.style.opacity = ''; return; }
+        const d = (PPS[i] - p) * RANGE;                      /* scroll px still to go before the line reaches this marker */
+        const ph = mqMobile.matches, dockTop = ph && steps[i].dataset.side === 'top';   /* on a phone the write-up docks at the bottom or top of the screen, clear of the line; a top-docked one only starts to show in the last stretch so it does not sit over the line head on its way up */
+        const rise = ease(1 - seg(d, DEN[i] * (dockTop ? .22 : .42), DEN[i] * (dockTop ? .62 : .98))), after = i < 3 ? (ph ? 1 : .45) * seg(-d, (ph ? .1 : .18) * innerHeight, (ph ? .3 : .5) * innerHeight) : 0;
+        pin[i] = rise * (1 - after); pn.style.opacity = pin[i].toFixed(3);
+        pn.style.pointerEvents = pin[i] < .5 ? 'none' : '';
+      });
+      mpUpdate(instant);
       gate.style.opacity = seg(len, Rst[2] + .02 * L0, cap - .06 * L0).toFixed(3);
       const ap = ease(apv);
       fig.style.opacity = (.5 + .5 * ap).toFixed(3);
@@ -401,7 +433,7 @@
         } else { sceneStages.style.aspectRatio = ''; const c = panMax * ease(seg(len, LA, lenPanEnd)); svg.setAttribute('viewBox', `${vb0[0]} ${(vb0[1] + c).toFixed(1)} ${vb0[2]} ${vb0[3]}`); }
       }
       lit(len, instant ? 0 : now); pinLogic(now, instant); bm.tick(now / 1000, instant);
-      window.__trace = { len, cap, LA, LT, state: gate.dataset.state, headX: pt.x, headY: pt.y, gateX: G.x, gateY: G.y, opn, apv, gOpen, panel4: !panels[3].hasAttribute('data-await'), t: now, lenEntry, lenExit };
+      window.__trace = { Rst: Rst.slice(), len, cap, LA, LT, state: gate.dataset.state, headX: pt.x, headY: pt.y, gateX: G.x, gateY: G.y, opn, apv, gOpen, panel4: pin[3] > .5, pin: pin.slice(), mop: mop.slice(), t: now, lenEntry, lenExit };
       return !instant;
     };
     return rend;
@@ -593,8 +625,11 @@
       S.kit.strengths(1.15 + 1.1 * dawn, .7 + .45 * dawn, .95 * dawn); S.kit.tick(now, instant);
       S.sun.setAttribute('cy', (S.yh + 160 - 190 * ease(seg(p, .12, .75))).toFixed(1)); S.sun.style.opacity = (.25 + .75 * seg(p, .05, .6)).toFixed(3);
       /* the line arrives and feeds the lamp */
-      const e1 = seg(p, 0, .02), e2 = seg(p, .02, .2);
-      const vlen = S.yh + 30 - 46, tot = S.entry.len; S.entry.set(e1 < 1 ? clamp(e1 * vlen / tot) : clamp((vlen + e2 * (tot - vlen)) / tot));
+      /* the line is already coming down while the stage slides up into view (p < 0, 0 = pinned): it reaches 30% of the way down the stage at the pin, then carries on down to the horizon and along it */
+      const vlen = S.yh + 30 - 46, tot = S.entry.len, pre = Math.min(vlen, .3 * S.H), rg = Math.max(1, el.getBoundingClientRect().height - innerHeight);
+      const e1 = seg(p, 0, .09), e2 = seg(p, .09, .2), u = clamp(1 + Math.min(0, p) * rg / innerHeight);
+      S.entry.set(instant ? 1 : p < 0 ? clamp(u * pre / tot) : e1 < 1 ? clamp(lerp(pre, vlen, e1) / tot) : clamp((vlen + e2 * (tot - vlen)) / tot));
+      window.__rel = { p, entryPx: Math.round(tot * clamp(instant ? 1 : p < 0 ? u * pre / tot : e1 < 1 ? lerp(pre, vlen, e1) / tot : (vlen + e2 * (tot - vlen)) / tot)), vlen: Math.round(vlen), pre: Math.round(pre) };
       S.feed.set(seg(p, .2, .28)); S.fil.set(seg(p, .28, .38));
       /* the climax: filament flares white-hot; the glass contains it */
       const fl = ease(seg(p, .38, .5)), fk = instant ? 1 : 1 + .05 * Math.sin(T * 37) + .03 * Math.sin(T * 61 + 1);
@@ -684,7 +719,7 @@
       lay(); addEventListener('resize', lay); mqMobile.addEventListener('change', lay); if (document.fonts && document.fonts.ready) document.fonts.ready.then(lay);
       return (p, instant) => {
         if (sigNow() !== sig) lay();
-        const isoScene = scenes.find(x => x.el === isoEl), pIso = isoScene && isoScene.vis ? isoScene.cur : stageProgress(isoEl)   /* ISOLATE only eases while on screen; after a jump (nav link, #hash, fast scroll) its eased value is stale, so use the real scroll position */, d = instant ? 1 : seg(pIso, .94, 1);
+        const isoScene = scenes.find(x => x.el === isoEl), pIso = isoScene && isoScene.vis ? isoScene.cur : stageProgress(isoEl)   /* ISOLATE only eases while on screen; after a jump (nav link, #hash, fast scroll) its eased value is stale, so use the real scroll position */, d = instant ? 1 : seg(pIso, .905, 1);
         let l;
         if (instant) l = total + 8;
         else if (d < 1) l = d <= 0 ? 0 : clamp(prefix + Math.max(0, d * Lf3 - Lq0), 0, lenPoly);
@@ -714,7 +749,7 @@
   }
 
   const INIT = { isolate, trace, release };
-  $$('[data-scene]').forEach(el => scenes.push({ el, render: INIT[el.dataset.scene](el), prog: stageProgress, cur: 0, last: -1, vis: false }));
+  $$('[data-scene]').forEach(el => scenes.push({ el, render: INIT[el.dataset.scene](el), prog: el.dataset.scene === 'isolate' ? stageProgress : stageProgressPre, cur: 0, last: -1, vis: false }));
   $$('.interlude').forEach(el => scenes.push({ el, render: interlude(el), prog: bandProgress, cur: 0, last: -1, vis: false }));
 
   const vio = new IntersectionObserver(es => es.forEach(e => { const s = scenes.find(x => x.el === e.target); if (s) s.vis = e.isIntersecting; wake(); }), { rootMargin: '10% 0px' });
@@ -844,6 +879,97 @@
     if (document.readyState === 'complete') setTimeout(start, 2600); else addEventListener('load', () => setTimeout(start, 2600), { once: true });
     return { sync };
   })();
+
+  /* ---------- Guided tour: rAF-driven auto-scroll (never on load) ----------
+     Starts from "Start a conversation" / "Play tour", or once per visit when the visitor scrolls down to ISOLATE.
+     Stops at once on any user input; never auto-starts under prefers-reduced-motion or with motion off. */
+  const tour = (() => {
+    const stopBtn = $('[data-tour-stop]'), isoEl = $('#isolate'), contactEl = $('#contact'), dawnEl = $('.dawn'), relEl = $('#release');
+    if (!stopBtn || !isoEl || !contactEl) return null;
+    const rmq = matchMedia('(prefers-reduced-motion: reduce)');
+    const reduced = () => rmq.matches || !motionOn();
+    const top = el => el.getBoundingClientRect().top + scrollY;
+    let running = false, raf = 0, y = 0, speed = 0, last = 0, expected = 0, graceUntil = 0, startedAt = 0, endY = 0, zones = null, autoUsed = false, lastInput = -1e9, touching = 0, pending = false, suppress = false, idleT = 0, prevY = scrollY;
+    const hdr = () => parseFloat(getComputedStyle(root).scrollPaddingTop) || 64;
+    function plan() {
+      const vh = innerHeight, maxY = Math.max(0, document.documentElement.scrollHeight - vh);
+      endY = Math.min(maxY, Math.max(0, top(contactEl) - hdr()));
+      const iso = top(isoEl), rel = relEl ? top(relEl) : iso, dawn = dawnEl ? top(dawnEl) : endY;
+      /* px/s relative to the viewport height: hero and strip a little quicker, scroll-driven scenes slow and steady, copy bands quicker again */
+      zones = { iso, dawn, vHero: .18 * vh, vScene: .126 * vh, vBand: .20 * vh };
+      return zones;
+    }
+    const target = yy => (yy < zones.iso - 40 ? zones.vHero : yy < zones.dawn ? zones.vScene : zones.vBand);
+    function frame(now) {
+      if (!running) return;
+      raf = requestAnimationFrame(frame);
+      const dt = Math.min(.05, Math.max(.001, (now - last) / 1000)); last = now;
+      /* something other than the tour moved the page (scrollbar drag, find-in-page, anchor jump): hand control back */
+      if (now > graceUntil && Math.abs(scrollY - expected) > 8) { stop('external'); return; }
+      if (now <= graceUntil && Math.abs(scrollY - expected) > 8) y = Math.max(y, scrollY);   /* wheel momentum after a scroll-started tour */
+      const left = endY - y;
+      const want = Math.min(target(y), 30 + Math.max(0, left) * 1.1);                       /* ease out into Contact */
+      speed += (want - speed) * Math.min(1, dt * 2.2);                                        /* ease in from standstill */
+      y = Math.min(endY, y + speed * dt);
+      expected = y; scrollTo(0, y);
+      if (endY - y < 1.5) { scrollTo(0, endY); stop('done'); }
+    }
+    function begin(fromScroll) {
+      if (running || reduced()) return false;
+      plan(); y = scrollY; if (endY - y < 4) return false;
+      running = true; speed = 0; last = performance.now(); startedAt = last; expected = y;
+      graceUntil = fromScroll ? last + 900 : last;
+      root.style.scrollBehavior = 'auto';   /* the page CSS uses smooth; each rAF step must land instantly */
+      root.setAttribute('data-touring', '');
+      stopBtn.hidden = false;
+      raf = requestAnimationFrame(frame);
+      return true;
+    }
+    function stop(why) {
+      if (!running) return;
+      running = false; cancelAnimationFrame(raf);
+      root.style.scrollBehavior = ''; root.removeAttribute('data-touring');
+      stopBtn.hidden = true; root.setAttribute('data-tour-last', why);
+      if (why === 'done') { try { scrollTo(0, endY); } catch (e) {} }
+    }
+    /* any user input stops the tour (a few ms of grace after starting so the click that started it is not counted) */
+    const onInput = e => {
+      lastInput = performance.now();
+      if (!running) return;
+      const t = lastInput;
+      if (e.type === 'wheel' && t < graceUntil) return;
+      if (e.type === 'keydown' && (t - startedAt < 400 || ['Shift', 'Control', 'Alt', 'Meta'].includes(e.key))) return;
+      if ((e.type === 'pointerdown' || e.type === 'mousedown') && e.target.closest && e.target.closest('[data-tour-play]') && t - startedAt < 400) return;
+      stop('input:' + e.type);
+    };
+    ['wheel', 'touchstart', 'touchmove', 'keydown', 'pointerdown', 'mousedown'].forEach(ev => addEventListener(ev, onInput, { passive: true, capture: true }));
+    addEventListener('touchstart', () => { touching++; }, { passive: true, capture: true });
+    ['touchend', 'touchcancel'].forEach(ev => addEventListener(ev, () => { touching = Math.max(0, touching - 1); lastInput = performance.now(); if (pending && !touching) { pending = false; setTimeout(() => { if (!autoUsed) { autoUsed = true; begin(true); } }, 120); } }, { passive: true, capture: true }));
+    stopBtn.addEventListener('click', () => stop('button'));
+    /* nav links: stop, then navigate normally (and do not treat that arrival at ISOLATE as a manual scroll) */
+    $$('a[href^="#"]').forEach(a => { if (!a.hasAttribute('data-tour-play')) a.addEventListener('click', () => { stop('nav'); suppress = true; }); });
+    /* the two hero buttons */
+    $$('[data-tour-play]').forEach(a => a.addEventListener('click', e => {
+      if (reduced()) return;                 /* plain anchor jump */
+      e.preventDefault(); stop('restart'); autoUsed = true;
+      history.replaceState && history.replaceState(null, '', location.pathname + location.search);
+      begin(false);
+    }));
+    /* manual scroll down to ISOLATE starts it once per visit */
+    addEventListener('scroll', () => {
+      const yy = scrollY, py = prevY; prevY = yy;
+      clearTimeout(idleT); idleT = setTimeout(() => { suppress = false; }, 260);
+      if (running || autoUsed || suppress || reduced() || document.hidden) return;
+      if (performance.now() - lastInput > 3000) return;   /* only scrolling the visitor is doing (wheel, touch, keys, scrollbar), not restoration */
+      const iso = top(isoEl), trig = iso - .15 * innerHeight;
+      if (py < trig && yy >= trig && yy < trig + .6 * innerHeight) {
+        if (touching) pending = true; else { autoUsed = true; begin(true); }
+      }
+    }, { passive: true });
+    rmq.addEventListener && rmq.addEventListener('change', () => { if (reduced()) stop('reduced'); });
+    return { begin, stop, get running() { return running; } };
+  })();
+  window.__tour = tour && { get running() { return tour.running; }, stop: () => tour.stop('api') };
 
   function applyMotion() {
     heroVid.sync();
