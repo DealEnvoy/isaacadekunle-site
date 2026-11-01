@@ -19,7 +19,9 @@
   var d = document.documentElement; d.classList.remove('no-js');
   var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
   var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  d.setAttribute('data-motion', (s === 'on' || s === 'off') ? s : (r ? 'off' : 'on'));
+  /* Reduce Motion / Low Power Mode report 'reduce' on phones: keep the animation but make it gentle (slower, softer, no fast flicker). Only the visitor's own toggle turns motion fully off. */
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
   var m = /[?&]hero=(a|b|c)/.exec(location.search);
   if (m) d.setAttribute('data-hero', m[1]);
 })();
@@ -36,8 +38,8 @@
     <a href="#release"><span class="acts__n">03</span> Release</a>
     <a href="#contact"><span class="acts__n">04</span> Contact</a>
   </nav>
-  <button class="motion-toggle" type="button" aria-pressed="false" data-motion-toggle><span class="motion-toggle__dot" aria-hidden="true"></span><span data-motion-label>Turn motion off</span></button>
 </header>
+<button class="motion-toggle" type="button" aria-pressed="false" aria-label="Pause animations" title="Pause animations" data-motion-toggle><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path class="mt-pause" d="M6 4.5v11M14 4.5v11"/><path class="mt-play" d="M6.5 4.5l9 5.5-9 5.5z"/></svg></button>
 
 <main id="main">
 

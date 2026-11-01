@@ -15,11 +15,12 @@
   const off = el => el && (el.style.strokeDashoffset = 1);
   const draw = (el, v) => { if (el) el.style.strokeDashoffset = (1 - clamp(v)).toFixed(4); };
   const mqMobile = matchMedia('(max-width: 52rem)');
+  const gentle = () => root.hasAttribute('data-gentle');
   const motionOn = () => root.getAttribute('data-motion') !== 'off';
 
   /* ---------- motion toggle (WCAG 2.2.2) ---------- */
-  const tgl = $('[data-motion-toggle]'), lbl = $('[data-motion-label]');
-  function syncToggle() { const o = !motionOn(); tgl.setAttribute('aria-pressed', String(o)); lbl.textContent = o ? 'Turn motion on' : 'Turn motion off'; }
+  const tgl = $('[data-motion-toggle]');
+  function syncToggle() { const o = !motionOn(); tgl.setAttribute('aria-pressed', String(o)); const t = o ? 'Play animations' : 'Pause animations'; tgl.setAttribute('aria-label', t); tgl.title = t; }
   tgl.addEventListener('click', () => {
     const next = motionOn() ? 'off' : 'on';
     root.setAttribute('data-motion', next);
@@ -60,6 +61,7 @@
     let pxScale = 1, camS = 1;
     const measure = () => { try { pxScale = cam.getScreenCTM().a || 1; } catch (e) {} };
     const laserLook = (on, t, instant) => {
+      if (gentle()) t *= .15;                      /* gentle: the same shimmer, slowed so nothing flickers fast */
       /* on: 0..1 strike intensity; t: seconds (flicker/shimmer); core stays 1.5 screen px at any zoom */
       const n = instant ? 0 : .5 * Math.sin(t * 37.1) + .3 * Math.sin(t * 61.7 + 1.3) + .2 * Math.sin(t * 13.3 + .4);
       const fl = 1 + .06 * n, k = pxScale || 1;
@@ -104,7 +106,7 @@
     document.addEventListener('pointerleave', () => { mouse.on = false; });
     addEventListener('blur', () => { mouse.on = false; });
     let lastY = scrollY, lastNow = 0, moving = false, wasStatic = true, lampXY = [300, 300, 230];
-    const physicsOn = () => motionOn() && !rm.matches;
+    const physicsOn = () => motionOn();
     const restore = () => { bands.forEach(pe => pe.setAttribute('d', pe.dataset.rest)); litPaths.forEach((pe, i) => pe.setAttribute('d', bands[i].dataset.rest)); marks.forEach(m => { m.ox = m.oy = m.vx = m.vy = m.th = m.tv = 0; }); moving = false; };
     function step(dt, now) {
       const r = cam.getBoundingClientRect(), sr = svgEl.getBoundingClientRect();
@@ -183,8 +185,8 @@
     const T_PANEL = 250;
     const desktopD = ghost.getAttribute('d'), mobileD = ghost.dataset.dMobile;
     let stationEls = [], pts = [], echo = [], L0 = 1, LA = 1, LB = 1, LT = 2, Rst = [], cap = 1, K = [], G = { x: 0, y: 0 };
-    let rend = null, lp = 0, li = false, vb0 = [0, 0, 1600, 900], panMax = 0, lenEntry = 1, lenExit = 1, mThr = [], B = null, bParts = [];
-    const BW = 560, BH = 600;
+    let bMs = null, lenBase = 1, lenPanEnd = 1, rend = null, lp = 0, li = false, vb0 = [0, 0, 1600, 900], panMax = 0, lenEntry = 1, lenExit = 1, mThr = [], B = null, bParts = [];
+    const BW = 560, BH = 660, TIP = 659;   /* building units; TIP = y of the top of the flagpole finial */
     function fitBox() {   /* desktop/tablet: always show the whole path width */
       if (mqMobile.matches) { vb0 = svg.dataset.vbMobile.split(' ').map(Number); }
       else { const asp = innerWidth / Math.max(1, innerHeight), H = Math.max(900, 1480 / asp); vb0 = [60, 450 - H / 2, 1480, H]; }
@@ -207,14 +209,18 @@
       const yy = x => -372 + 80 * Math.abs(x) / 232; let dr = ''; [-92, -46, 0, 46, 92].forEach(x => { dr += `M${x} ${yy(x).toFixed(1)}V-420`; }); add(dr, 0, -392);
       add('M-104 -420H104V-432H-104Z', 0, -426);
       add('M-92 -432C-92 -500 -52 -540 0 -552C52 -540 92 -500 92 -432M-48 -432C-52 -490 -28 -534 0 -552M48 -432C52 -490 28 -534 0 -552M0 -432V-552', 0, -490);
-      add('M-12 -552V-572H12V-552M-16 -572H16M0 -572V-596', 0, -574);
+      add('M-12 -552V-572H12V-552M-16 -572H16M0 -572V-650M-5 -654a5 5 0 1 0 10 0a5 5 0 1 0 -10 0', 0, -610);
       add('M-300 0H300', 0, 0);
       return P;
     }
     const bnode = (cls, parent, d) => mk('path', { class: cls, d }, parent);
     function buildBldg() {
       bldg.textContent = ''; bParts = [];
-      const gG = mk('g', { class: 'b-glow-g', filter: 'url(#bldgblur)' }, bldg), gB = mk('g', {}, bldg), gO = mk('g', {}, bldg);
+      /* the light fills the building from the top of the flagpole downwards: a vertical gradient mask whose edge follows the line head */
+      const defs = mk('defs', {}, bldg);
+      defs.innerHTML = '<linearGradient id="bldgmg" gradientUnits="userSpaceOnUse" x1="0" y1="-700" x2="0" y2="80"><stop id="bm0" offset="0" stop-color="#fff"/><stop id="bm1" offset="0" stop-color="#fff"/><stop id="bm2" offset="0" stop-color="#000"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="bldgmask" maskUnits="userSpaceOnUse" x="-420" y="-720" width="840" height="820"><rect x="-420" y="-720" width="840" height="820" fill="url(#bldgmg)"/></mask>';
+      bMs = [$('#bm1', bldg), $('#bm2', bldg)];
+      const gB = mk('g', {}, bldg), gM = mk('g', { mask: 'url(#bldgmask)' }, bldg), gG = mk('g', { class: 'b-glow-g', filter: 'url(#bldgblur)' }, gM), gO = mk('g', {}, gM);
       buildingParts().forEach(([d, cx, cy]) => { bParts.push({ cx, cy, base: bnode('b-base', gB, d), gold: bnode('b-gold', gO, d), glow: bnode('b-glow', gG, d) }); });
     }
     /* find the length along a path where a predicate first holds */
@@ -242,7 +248,7 @@
       const panelW = mobile ? 0 : Math.min(34 * 16, Math.max(24 * 16, W * .4));
       let bx, yb, sU, xe, yEnd, yL, gx = G.x, gy = G.y;
       if (!mobile) {
-        const gxs = a * G.x + e0, lb = mg + panelW + 106, rb = gxs - 80, bwS = Math.min(.74 * BW, rb - lb), sS = Math.min(bwS / BW, (Hs - 64 - 70) / BH);
+        const gxs = a * G.x + e0, lb = mg + panelW + 106, rb = gxs - 80, bwS = Math.min(.74 * BW, rb - lb), sS = Math.min(bwS / BW, (Hs - 64 - 112) / BH);
         const cxs = (lb + rb) / 2, baseS = Hs - 64;
         /* the camera drops down below the earlier stages so the building stands in clear space (nothing from the path sits behind it) */
         let maxY = 0; for (let l = 0; l <= LA; l += 20) maxY = Math.max(maxY, ghost.getPointAtLength(l).y);
@@ -251,21 +257,30 @@
         xe = (lb - 70 - e0) / a; exitXs = lb - 70; yEnd = yb + (Hs + 90 - baseS) / a;
       } else {
         const k = a, maxH = Math.max(300, ...mpanels.map(p => p.getBoundingClientRect().height || 0));
-        const baseS = clamp(Hs - maxH - 36, 260, 420), sS = Math.min(.5, (baseS - 66) / BH, (W - 90) / BW);
-        sU = sS / k; bx = (W / 2 - e0) / k; yb = G.y + 520; panMax = yb - (baseS - f0) / k;
+        const baseS = clamp(Hs - maxH - 36, 300, 460), sS = Math.min(.5, (baseS - 112) / BH, (W - 90) / BW);
+        sU = sS / k; bx = (W / 2 - e0) / k; yb = G.y + 190 / k + TIP * sU; panMax = yb - (baseS - f0) / k;
         xe = (12 - e0) / k; exitXs = 12; yEnd = yb + (Hs - baseS + 90) / a;
       }
-      const r = 70 / a * (mobile ? .8 : 1);
-      yL = yb - 150 * sU;
+      const padU = (mobile ? 30 : 40) / a, yTip = yb - TIP * sU, yA = yTip - padU, yX = yb - 7 * sU;
       const xr = bx + 280 * sU, xl = bx - 280 * sU;
-      let dB;
-      if (!mobile) dB = `M${gx.toFixed(1)} ${gy.toFixed(1)}L${gx.toFixed(1)} ${(yL - r).toFixed(1)}Q${gx.toFixed(1)} ${yL.toFixed(1)} ${(gx - r).toFixed(1)} ${yL.toFixed(1)}L${(xe + r).toFixed(1)} ${yL.toFixed(1)}Q${xe.toFixed(1)} ${yL.toFixed(1)} ${xe.toFixed(1)} ${(yL + r).toFixed(1)}L${xe.toFixed(1)} ${yEnd.toFixed(1)}`;
-      else { const xs2 = (W - 38 - e0) / a, y1 = gy + 150; dB = `M${gx.toFixed(1)} ${gy.toFixed(1)}L${gx.toFixed(1)} ${y1.toFixed(1)}C${gx.toFixed(1)} ${(y1 + 160).toFixed(1)} ${xs2.toFixed(1)} ${(y1 + 80).toFixed(1)} ${xs2.toFixed(1)} ${(y1 + 240).toFixed(1)}L${xs2.toFixed(1)} ${(yL - r).toFixed(1)}Q${xs2.toFixed(1)} ${yL.toFixed(1)} ${(xs2 - r).toFixed(1)} ${yL.toFixed(1)}L${(xe + r).toFixed(1)} ${yL.toFixed(1)}Q${xe.toFixed(1)} ${yL.toFixed(1)} ${xe.toFixed(1)} ${(yL + r).toFixed(1)}L${xe.toFixed(1)} ${yEnd.toFixed(1)}`; }
+      const rp = (P, R) => {                 /* polyline with rounded corners */
+        let d = `M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
+        for (let i = 1; i < P.length - 1; i++) {
+          const [px, py] = P[i - 1], [cx, cy] = P[i], [nx, ny] = P[i + 1], l1 = Math.hypot(cx - px, cy - py), l2 = Math.hypot(nx - cx, ny - cy), r = Math.min(R[i], l1 / 2, l2 / 2);
+          d += `L${(cx - (cx - px) / l1 * r).toFixed(1)} ${(cy - (cy - py) / l1 * r).toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${(cx + (nx - cx) / l2 * r).toFixed(1)} ${(cy + (ny - cy) / l2 * r).toFixed(1)}`;
+        }
+        const e = P[P.length - 1]; return d + `L${e[0].toFixed(1)} ${e[1].toFixed(1)}`;
+      };
+      /* gate -> over the top -> straight down the flagpole into the spire tip -> down the axis through dome, pediment, columns and steps -> out along the base -> down into RELEASE */
+      const r1 = 56 / a, r2 = 40 / a;
+      const dB = rp([[gx, gy], [gx, yA], [bx, yA], [bx, yX], [xe, yX], [xe, yEnd]], [0, r1, r1, r2, r2, 0]);
       ghostB.setAttribute('d', dB); coreB.setAttribute('d', dB); haloB.setAttribute('d', dB);
       LB = ghostB.getTotalLength(); LT = LA + LB;
-      lenEntry = LA + lenWhere(ghostB, LB, q => q.y >= yL - 1 && q.x <= xr + 1);
-      lenExit = LA + lenWhere(ghostB, LB, q => q.y >= yL - 1 && q.x <= xl);
-      B = { bx, yb, sU, yL, xl, xr };
+      lenEntry = LA + lenWhere(ghostB, LB, q => q.y >= yTip - 1);
+      lenPanEnd = lenEntry - padU;
+      lenBase = LA + lenWhere(ghostB, LB, q => q.y >= yX - 1);
+      lenExit = LA + lenWhere(ghostB, LB, q => q.y >= yX - 1 && q.x <= xl);
+      B = { bx, yb, sU, yTip, xl, xr };
       bldg.setAttribute('transform', `translate(${bx.toFixed(1)} ${yb.toFixed(1)}) scale(${sU.toFixed(4)})`);
       /* ---- write-up sides ---- */
       const sr = el.getBoundingClientRect(), range = Math.max(1, sr.height - innerHeight);
@@ -323,17 +338,13 @@
       }
     };
     const dash = (c, h, l, total) => { [c, h].forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(total + 40).toFixed(0)}`; } }); };
-    const lit = (len0, now) => {                          /* every part of the building is lit, spreading out from the line as it passes through */
-      if (!B) return;
-      const pt = sPoint(len0), hx = clamp(pt.x, B.xl, B.xr), hy = B.yL;
-      const Rfull = Math.hypot(BW, BH * .7) * .62, soft = Rfull * .3;
-      const Rg = (Rfull + soft) * ease(seg(len0, lenEntry - 12, lenExit + 4));
-      const fl = 1 + (now ? .035 * Math.sin(now / 1000 * 31) : 0);
-      bParts.forEach(pr => {
-        const d = Math.hypot((B.bx + pr.cx * B.sU) - hx, (B.yb + pr.cy * B.sU) - hy) / B.sU;
-        const v = clamp((Rg - d) / soft), o = ease(v) * fl;
-        pr.gold.style.opacity = clamp(o).toFixed(3); pr.glow.style.opacity = clamp(o * .85).toFixed(3);
-      });
+    const lit = (len0, now) => {                          /* the building lights from the flagpole tip downwards, following the line head */
+      if (!B || !bMs) return;
+      const pt = sPoint(len0), hu = (clamp(pt.y, B.yTip - 400, B.yb) - B.yb) / B.sU;
+      const yf = (len0 < lenEntry - 1 ? -TIP - 60 : hu) + 80 * ease(seg(len0, lenBase, lenExit + 4));
+      const off = y => clamp((y + 700) / 780).toFixed(4);
+      bMs[0].setAttribute('offset', off(yf - 36)); bMs[1].setAttribute('offset', off(yf + 8));
+      bldg.style.opacity = (1 + (now ? .03 * Math.sin(now / 1000 * 31) : 0)).toFixed(3);
     };
     rend = (p, instant) => {
       lp = p; li = !!instant;
@@ -372,7 +383,7 @@
       if (panMax) {
         if (instant) {                                      /* static storyboard: no camera move, the whole route is shown on a taller stage */
           const vh = vb0[3] + panMax; svg.setAttribute('viewBox', `${vb0[0]} ${vb0[1]} ${vb0[2]} ${vh.toFixed(1)}`); sceneStages.style.aspectRatio = `${vb0[2].toFixed(0)} / ${vh.toFixed(0)}`;
-        } else { sceneStages.style.aspectRatio = ''; const c = panMax * ease(seg(len, LA, lenEntry)); svg.setAttribute('viewBox', `${vb0[0]} ${(vb0[1] + c).toFixed(1)} ${vb0[2]} ${vb0[3]}`); }
+        } else { sceneStages.style.aspectRatio = ''; const c = panMax * ease(seg(len, LA, lenPanEnd)); svg.setAttribute('viewBox', `${vb0[0]} ${(vb0[1] + c).toFixed(1)} ${vb0[2]} ${vb0[3]}`); }
       }
       lit(len, instant ? 0 : now); pinLogic(now, instant);
       window.__trace = { len, cap, LA, LT, state: gate.dataset.state, headX: pt.x, headY: pt.y, gateX: G.x, gateY: G.y, opn, apv, gOpen, panel4: !panels[3].hasAttribute('data-await'), t: now, lenEntry, lenExit };
@@ -389,6 +400,15 @@
     const set = f => { const l = clamp(f) * len; els.forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(len + 40).toFixed(0)}`; } }); };
     set(0);
     return { els, len, set, point: f => els[2].getPointAtLength(clamp(f) * len) };
+  }
+  /* Overexposed light: a hair-thin near-white core inside stacked, additive golden-white bloom layers (no dark edge, no CSS blur). Same set()/len API as glowLine. */
+  function lightLine(parent, d, o = {}) {
+    const g = mk('g', { class: 'bl' }, parent), w = o.w || 1.1;
+    const lay = [['bl-b5', 44], ['bl-b4', 28], ['bl-b3', 16], ['bl-b2', 8.5], ['bl-b1', 3.8], ['bl-core', w]].map(([c, sw]) => mk('path', { class: c, d, 'stroke-width': sw }, g));
+    const len = lay[5].getTotalLength();
+    const set = f => { const l = clamp(f) * len; lay.forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(len + 40).toFixed(0)}`; } }); };
+    set(0);
+    return { els: lay, g, len, set };
   }
   const GLYPHS = [
     'M4.5 4h4.2l10.8 16h-4.2zM19 4l-6.4 7.2M5 20l6.4-7.2',                                              /* X (plain outline mark, not a logo file) */
@@ -417,9 +437,11 @@
       const cyb = yh - 200 * sb;
       const defs = mk('defs', {}, svg);
       defs.innerHTML = `<radialGradient id="rl-sun"><stop offset="0" stop-color="#ffe3b8" stop-opacity=".9"/><stop offset=".45" stop-color="#ffb35a" stop-opacity=".4"/><stop offset="1" stop-color="#ff9a3d" stop-opacity="0"/></radialGradient>
-        <radialGradient id="rl-glass" cx=".5" cy=".55" r=".6"><stop offset="0" stop-color="#2a2218"/><stop offset=".7" stop-color="#14110e"/><stop offset="1" stop-color="#0c0a08"/></radialGradient>
+        <radialGradient id="rl-glass" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#fff6dc" stop-opacity=".07"/><stop offset=".75" stop-color="#ffe9b8" stop-opacity=".05"/><stop offset="1" stop-color="#ffe0a0" stop-opacity=".10"/></radialGradient>
         <radialGradient id="rl-flash"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset=".35" stop-color="#fff0c4" stop-opacity=".92"/><stop offset=".7" stop-color="#ffc864" stop-opacity=".55"/><stop offset="1" stop-color="#ffa43a" stop-opacity="0"/></radialGradient>
         <radialGradient id="rl-bloom"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset=".2" stop-color="#ffeec2" stop-opacity="1"/><stop offset=".55" stop-color="#ffbb55" stop-opacity=".6"/><stop offset="1" stop-color="#ff9a3d" stop-opacity="0"/></radialGradient>
+        <radialGradient id="rl-ig"><stop offset="0" stop-color="#fff6cf" stop-opacity=".95"/><stop offset=".4" stop-color="#ffe08a" stop-opacity=".78"/><stop offset=".65" stop-color="#ffbc40" stop-opacity=".46"/><stop offset=".85" stop-color="#ffa82e" stop-opacity=".16"/><stop offset="1" stop-color="#ffa82e" stop-opacity="0"/></radialGradient>
+        <radialGradient id="rl-icf" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbe8"/><stop offset=".55" stop-color="#ffeaa0"/><stop offset="1" stop-color="#ffd76a"/></radialGradient>
         <clipPath id="rl-clip"><circle cx="0" cy="-200" r="116"/></clipPath>
         <filter id="rl-b3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.2"/></filter><filter id="rl-b8" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="8"/></filter>
         <clipPath id="rl-ban"><rect id="rl-banclip" x="0" y="0" width="0" height="80"/></clipPath>`;
@@ -435,11 +457,11 @@
         const dx = ix - bx, dy = iy - cyb, dl = Math.hypot(dx, dy), ux = dx / dl, uy = dy / dl, gr = 118 * sb + 3;
         const sx = bx + ux * gr, sy = cyb + uy * gr, ex = ix - ux * (R + 4), ey = iy - uy * (R + 4);
         const mx = (sx + ex) / 2 - uy * 16, my = (sy + ey) / 2 + ux * 16;
-        const ln = glowLine(svg, `M${sx.toFixed(1)} ${sy.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`, { w: 1.6 });
+        const ln = lightLine(svg, `M${sx.toFixed(1)} ${sy.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`, { w: 1.3 });
         const gI = mk('g', { class: 'rl-ic', transform: `translate(${ix.toFixed(1)} ${iy.toFixed(1)})` }, svg);
-        mk('circle', { class: 'rl-ic__halo', r: R + 10 }, gI); mk('circle', { class: 'rl-ic__tile', r: R }, gI);
-        const s = R * 1.05 / 12; mk('path', { class: 'rl-ic__glyph', d: g, transform: `scale(${s.toFixed(3)}) translate(-12 -12)`, 'stroke-width': (1.6).toFixed(2) }, gI);
-        return { ln, g: gI };
+        const glow = mk('circle', { class: 'rl-ic__glow', r: R * 2.5, fill: 'url(#rl-ig)', opacity: 0 }, gI); mk('circle', { class: 'rl-ic__halo', r: R + 10 }, gI); mk('circle', { class: 'rl-ic__tile', r: R }, gI); const lit = mk('circle', { class: 'rl-ic__lit', r: R, fill: 'url(#rl-icf)', opacity: 0 }, gI);
+        const s = R * 1.05 / 12; const gl = mk('path', { class: 'rl-ic__glyph', d: g, transform: `scale(${s.toFixed(3)}) translate(-12 -12)`, 'stroke-width': (1.6).toFixed(2) }, gI);
+        return { ln, g: gI, glow, lit, gl, R };
       });
       /* line in: from the top, along the horizon, to the base of the lamp */
       const r = 46;
@@ -482,7 +504,7 @@
     rend = (p, instant) => {
       lp = p; li = !!instant;
       if (!S || stage.clientWidth !== W || stage.clientHeight !== H) layout();
-      const now = performance.now() / 1000, T = instant ? 0 : now;
+      const now = performance.now() / 1000, T = instant ? 0 : now * (gentle() ? .15 : 1);
       const dawn = ease(seg(p, .2, .8));
       stage.style.setProperty('--dawn', dawn.toFixed(3));
       S.sun.setAttribute('cy', (S.yh + 160 - 190 * ease(seg(p, .12, .75))).toFixed(1)); S.sun.style.opacity = (.25 + .75 * seg(p, .05, .6)).toFixed(3);
@@ -498,16 +520,28 @@
       S.filBlur.style.opacity = clamp(hot).toFixed(3);
       const fp = seg(p, .40, .54), fo = Math.sin(Math.PI * Math.pow(fp, .8)) * Math.min(1.05, fk);   /* the flash itself: it peaks, then settles to a steady white-hot glow, never leaving the glass */
       S.flash.style.opacity = clamp(fo * .9).toFixed(3);
-      S.rim.style.opacity = (.18 + .5 * hot * .9).toFixed(3); S.outline.style.stroke = fl > .02 ? `rgba(255,${Math.round(205 + 40 * fl)},${Math.round(130 + 100 * fl)},${(.55 + .45 * fl).toFixed(2)})` : '';
+      S.rim.style.opacity = (.18 + .5 * hot * .9).toFixed(3); S.outline.style.stroke = fl > .02 ? `rgba(236,${Math.round(190 + 20 * fl)},${Math.round(104 + 40 * fl)},${(.27 + .12 * fl).toFixed(2)})` : '';
       /* broadcast: banner sweep, rings, channels */
       const bn = ease(seg(p, .5, .6)); S.clipR.setAttribute('width', (S.W * bn).toFixed(1));
-      const tmove = instant ? 0 : (now * 70) % S.unitW; S.tkt.setAttribute('transform', `translate(${(-tmove).toFixed(1)} 0)`);
+      const tmove = instant ? 0 : (now * (gentle() ? 36 : 70)) % S.unitW; S.tkt.setAttribute('transform', `translate(${(-tmove).toFixed(1)} 0)`);
       S.rings.forEach((rg, i) => {
         const on = seg(p, .5, .56); let ph = instant ? .55 + i * .18 : ((now * .38 + i / 3) % 1);
         const R = 118 * S.sb + ph * Math.min(S.W, S.H) * .52;
         rg.setAttribute('r', R.toFixed(1)); rg.style.opacity = (on * (1 - ph) * .55).toFixed(3);
       });
-      S.ics.forEach((ic, i) => { const a = seg(p, .56 + i * .05, .64 + i * .05); ic.ln.set(a); const lit = a >= 1; ic.g.classList.toggle('on', lit); ic.g.style.opacity = (.35 + .65 * (lit ? 1 : a)).toFixed(3); if (lit && !instant) { const fl2 = .9 + .1 * Math.sin(T * 5 + i * 1.7); ic.g.style.setProperty('--ic', fl2.toFixed(3)); } else ic.g.style.setProperty('--ic', '1'); });
+      S.ics.forEach((ic, i) => {
+        /* Each icon is dark until ITS line tip arrives: lighting is derived from the line's own progress (a), never a separate timer. */
+        const s0 = .56 + i * .05, a = seg(p, s0, s0 + .08), ig = seg(p, s0 + .08, s0 + .115);
+        ic.ln.set(a); ic.ln.g.style.opacity = instant ? '1' : (.94 + .06 * Math.sin(T * 41 + i * 2.3) + .03 * Math.sin(T * 67 + i)).toFixed(3);
+        /* lit: luminous warm-gold disc with a deep-amber glyph; the bloom halo pulses (about 1.4 s loop, ~3.2 s under OS reduce) */
+        const pw = instant ? 1 : .5 + .5 * Math.sin(now * (gentle() ? 1.96 : 4.49) + i * 1.7);
+        ic.g.classList.toggle('on', ig > .02); ic.g.style.opacity = (.55 + .45 * ig).toFixed(3);
+        ic.g.style.setProperty('--ic', (ig * (.6 + .4 * pw)).toFixed(3));
+        ic.lit.setAttribute('opacity', ig.toFixed(3));
+        ic.gl.style.stroke = `rgb(${Math.round(143 - 21 * ig)},${Math.round(136 - 62 * ig)},${Math.round(122 - 122 * ig)})`;
+        ic.glow.setAttribute('r', (ic.R * (instant ? 2.45 : 2.05 + .6 * pw)).toFixed(1));
+        ic.glow.setAttribute('opacity', (ig * (instant ? .95 : .55 + .45 * pw)).toFixed(3));
+      });
       return !instant && p > .38;
     };
     return rend;
@@ -579,7 +613,7 @@
     let v = null, wanted = false, inView = true, started = false, seekTimer = 0;
     const rm = matchMedia('(prefers-reduced-motion: reduce)');
     const hero = $('.hero'), img = $('.hero__img'), conn = navigator.connection || {};
-    const okToLoad = () => root.getAttribute('data-hero') === 'a' && motionOn() && !rm.matches && !conn.saveData && !/2g/.test(conn.effectiveType || '');
+    const okToLoad = () => root.getAttribute('data-hero') === 'a' && motionOn() && !conn.saveData && !/2g/.test(conn.effectiveType || '');
 
     /* ----- sound toggle ----- */
     const sbtn = $('[data-sound-toggle]'), slbl = $('[data-sound-label]');
@@ -643,6 +677,10 @@
       if (inView) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
       syncAudio();
     }
+    /* iOS Low Power Mode blocks autoplay: retry on the first touch / scroll / key */
+    const retry = () => { if (v && v.paused && inView && okToLoad()) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } };
+    ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(ev => addEventListener(ev, retry, { passive: true }));
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) retry(); });
     const start = () => { wanted = true; sync(); };
     new IntersectionObserver(es => es.forEach(e => { inView = e.isIntersecting; if (wanted) sync(); else syncAudio(); })).observe(hero);
     rm.addEventListener && rm.addEventListener('change', sync);
