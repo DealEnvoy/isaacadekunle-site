@@ -7,7 +7,7 @@ It is a single static page: a dark-to-dawn scroll story that walks through the I
 ## Layout
 
 ```
-site/                what is served: index.html, css/, js/, fonts/, img/, video/, audio/
+site/                what is served: index.html, robots.txt, css/, js/, fonts/, img/, video/, audio/
 src/index.src.html   page template (claims are inserted by the build)
 src/claims.json      claim text and tag for each claim on the page
 tools/build.mjs      src/ -> site/index.html (Node, no dependencies)
@@ -21,7 +21,7 @@ node tools/build.mjs          # regenerates site/index.html
 cd site && python3 -m http.server 8765
 ```
 
-Then open http://localhost:8765/. `site/` is plain HTML, CSS and JavaScript with no runtime dependencies and no third-party requests, so it can be served from any static host.
+Then open http://localhost:8765/. `site/robots.txt` allows indexing. `site/` is plain HTML, CSS and JavaScript with no runtime dependencies and no third-party requests, so it can be served from any static host.
 
 ## Fonts
 
@@ -29,6 +29,8 @@ Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under t
 
 ## Behaviour
 
+- The hero buttons "Play tour" and "Start a conversation" run an automatic, slow scroll down the page (the tour also starts once per visit when a visitor scrolls down to ISOLATE). A "Stop tour" button, or any wheel, touch, key press or click, hands scrolling back. The tour never starts when motion is off or the operating system asks for reduced motion; the buttons then just jump to their sections.
+- The TRACE stage write-ups follow the scroll position.
 - Motion is on by default. A small toggle in the header turns it off; the page then shows static scenes. Operating-system "reduce motion" selects a gentler version.
 - The hero is a looping 10 second video (WebM first, MP4 fallback) over a matching still image. Videos are muted and have no audio track.
 - A sound button controls an optional quiet ambience loop (`site/audio/`). The button label reflects whether audio is actually playing, and the choice is stored in the browser's localStorage. If the browser blocks autoplay, the first tap, key press or click starts it.
@@ -36,7 +38,7 @@ Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under t
 
 ## Credits and licences
 
-- Cockpit image and hero video: the hero video combines a CC BY-SA 4.0 photograph ("Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), modified; original at https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG) with rendered screen imagery from the FlyByWire A380X instrument code (GPLv3, https://github.com/flybywiresim/aircraft). Base photograph CC BY-SA 4.0; screen imagery rendered from GPLv3 code. The combined video's licensing is not asserted beyond this. The adapted images in `site/img/` are shared under the same CC BY-SA 4.0 licence as the photograph. The changes made are listed in `site/video/CREDITS.txt`.
+- Cockpit image and hero video: the hero video combines a CC BY-SA 4.0 photograph ("Airbus A380 Qantas Cockpit" by [Braniff747SP](https://commons.wikimedia.org/wiki/User:Braniff747SP), modified; original at https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG) with rendered screen imagery from the FlyByWire A380X instrument code (GPLv3, https://github.com/flybywiresim/aircraft). Base photograph CC BY-SA 4.0; screen imagery rendered from GPLv3 code. The combined video's licensing is not asserted beyond this. The adapted images in `site/img/` are shared under the same CC BY-SA 4.0 licence as the photograph. The changes made are listed in `site/video/CREDITS.txt`. The page footer carries the same credit, including the FlyByWire GPLv3 note for the hero video.
 - FlyByWire A380X: used only to render 2D screen imagery for the hero video. No FlyByWire code, logos, branding or 3D assets are included in this repository.
 - Ambience loop: original synthesised audio made for this site.
 - Fonts: see above.
