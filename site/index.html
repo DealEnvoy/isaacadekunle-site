@@ -80,7 +80,11 @@
   <div class="stage" aria-hidden="true">
     <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="720 0 800 900" preserveAspectRatio="xMidYMid slice" focusable="false">
       <defs>
+        <filter id="lzblur-b" filterUnits="userSpaceOnUse" x="900" y="380" width="520" height="680"><feGaussianBlur stdDeviation="9"/></filter><filter id="lzblur-g" filterUnits="userSpaceOnUse" x="900" y="380" width="520" height="680"><feGaussianBlur stdDeviation="2.4"/></filter>
+        <linearGradient id="lzg-trail" gradientUnits="userSpaceOnUse" x1="0" y1="470" x2="0" y2="960"><stop id="lt-s0" offset="0" stop-color="#ffe9c4"/><stop id="lt-s1" offset=".3" stop-color="#fffaf0"/><stop id="lt-s2" offset=".4" stop-color="#ffe9c4"/><stop offset="1" stop-color="#ffe2b0"/></linearGradient>
         <radialGradient id="lampgrad"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
+        <linearGradient id="lzg-bloom" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ff9a3d" stop-opacity="0.000"/><stop offset="0.10" stop-color="#ff9a3d" stop-opacity="0.004"/><stop offset="0.20" stop-color="#ff9a3d" stop-opacity="0.021"/><stop offset="0.30" stop-color="#ff9a3d" stop-opacity="0.076"/><stop offset="0.40" stop-color="#ff9a3d" stop-opacity="0.163"/><stop offset="0.50" stop-color="#ff9a3d" stop-opacity="0.211"/><stop offset="0.60" stop-color="#ff9a3d" stop-opacity="0.163"/><stop offset="0.70" stop-color="#ff9a3d" stop-opacity="0.076"/><stop offset="0.80" stop-color="#ff9a3d" stop-opacity="0.021"/><stop offset="0.90" stop-color="#ff9a3d" stop-opacity="0.004"/><stop offset="1.00" stop-color="#ff9a3d" stop-opacity="0.000"/></linearGradient><linearGradient id="lzg-glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ffc16b" stop-opacity="0.000"/><stop offset="0.10" stop-color="#ffc16b" stop-opacity="0.039"/><stop offset="0.20" stop-color="#ffc16b" stop-opacity="0.131"/><stop offset="0.30" stop-color="#ffc16b" stop-opacity="0.310"/><stop offset="0.40" stop-color="#ffc16b" stop-opacity="0.521"/><stop offset="0.50" stop-color="#ffc16b" stop-opacity="0.620"/><stop offset="0.60" stop-color="#ffc16b" stop-opacity="0.521"/><stop offset="0.70" stop-color="#ffc16b" stop-opacity="0.310"/><stop offset="0.80" stop-color="#ffc16b" stop-opacity="0.131"/><stop offset="0.90" stop-color="#ffc16b" stop-opacity="0.039"/><stop offset="1.00" stop-color="#ffc16b" stop-opacity="0.000"/></linearGradient><linearGradient id="lzg-core" x1="0" y1="0" x2="1" y2="0"><stop id="lz-s0" offset="0" stop-color="#fff1d6" stop-opacity=".0"/><stop id="lz-s1" offset=".08" stop-color="#fff1d6" stop-opacity=".85"/><stop id="lz-s2" offset=".5" stop-color="#fffaf0" stop-opacity="1"/><stop id="lz-s3" offset=".55" stop-color="#fff1d6" stop-opacity=".85"/><stop offset="1" stop-color="#fffaf0" stop-opacity="1"/></linearGradient><radialGradient id="lzr-spill"><stop offset="0.00" stop-color="#ff9a3d" stop-opacity="0.500"/><stop offset="0.10" stop-color="#ff9a3d" stop-opacity="0.479"/><stop offset="0.20" stop-color="#ff9a3d" stop-opacity="0.421"/><stop offset="0.30" stop-color="#ff9a3d" stop-opacity="0.339"/><stop offset="0.40" stop-color="#ff9a3d" stop-opacity="0.250"/><stop offset="0.50" stop-color="#ff9a3d" stop-opacity="0.170"/><stop offset="0.60" stop-color="#ff9a3d" stop-opacity="0.105"/><stop offset="0.70" stop-color="#ff9a3d" stop-opacity="0.060"/><stop offset="0.80" stop-color="#ff9a3d" stop-opacity="0.031"/><stop offset="0.90" stop-color="#ff9a3d" stop-opacity="0.015"/><stop offset="1.00" stop-color="#ff9a3d" stop-opacity="0.000"/></radialGradient><radialGradient id="lzr-halo"><stop offset="0.00" stop-color="#ffd9a0" stop-opacity="0.950"/><stop offset="0.10" stop-color="#ffd9a0" stop-opacity="0.899"/><stop offset="0.20" stop-color="#ffd9a0" stop-opacity="0.761"/><stop offset="0.30" stop-color="#ffd9a0" stop-opacity="0.576"/><stop offset="0.40" stop-color="#ffd9a0" stop-opacity="0.391"/><stop offset="0.50" stop-color="#ffd9a0" stop-opacity="0.237"/><stop offset="0.60" stop-color="#ffd9a0" stop-opacity="0.129"/><stop offset="0.70" stop-color="#ffd9a0" stop-opacity="0.062"/><stop offset="0.80" stop-color="#ffd9a0" stop-opacity="0.027"/><stop offset="0.90" stop-color="#ffd9a0" stop-opacity="0.011"/><stop offset="1.00" stop-color="#ffd9a0" stop-opacity="0.000"/></radialGradient>
+        <linearGradient id="lzg-len" gradientUnits="userSpaceOnUse" x1="500" y1="0" x2="604" y2="0"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="lzmask" maskUnits="userSpaceOnUse" x="-20" y="-120" width="700" height="240"><rect x="-20" y="-120" width="700" height="240" fill="url(#lzg-len)"/></mask>
         <mask id="lampmask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900"><rect width="1600" height="900" fill="#000"/><circle id="lamp" cx="300" cy="300" r="220" fill="url(#lampgrad)"/></mask>
       </defs>
       <g id="cam">
@@ -89,10 +93,17 @@
         <circle class="ring" data-ring="1" cx="1120" cy="470" r="300" pathLength="1"/>
         <circle class="ring" data-ring="2" cx="1120" cy="470" r="150" pathLength="1"/>
         <g id="fault"><circle class="fault__pulse" cx="1120" cy="470" r="26"/><path class="fault__x" d="M1106 456L1134 484M1134 456L1106 484"/></g>
-        <path class="fil-halo" id="f1h" pathLength="1" d="M1440 -40C1300 160 1180 280 1120 470"/><path class="fil-core" id="f1" pathLength="1" d="M1440 -40C1300 160 1180 280 1120 470"/>
-        <path class="fil-halo" id="f2h" pathLength="1" d="M1120 470L1120 650"/><path class="fil-core" id="f2" pathLength="1" d="M1120 470L1120 650"/>
+        <g id="laser" class="laser" aria-hidden="true">
+          <g id="lz-beam" transform="translate(1440 -40) rotate(122.1)"><g mask="url(#lzmask)"><rect id="lz-bloom" class="laser__bloom" x="0" y="-70" width="640" height="140"/><rect id="lz-glow" class="laser__glow" x="0" y="-12" width="602" height="24"/></g><rect id="lz-core" class="laser__core" x="0" y="-.75" width="606" height="1.5"/></g>
+          <g id="lz-hot" transform="translate(1120 470)"><circle class="laser__spill" r="64"/><circle class="laser__halo" r="22"/><circle class="laser__spot" r="3.2"/></g>
+        </g>
+        <g id="lz-trail" class="laser laser--trail" aria-hidden="true">
+          <g filter="url(#lzblur-b)"><path class="lt lt--bloom" id="f2h" pathLength="1" d="M1120 470L1120 650"/><path class="lt lt--bloom" id="f3h" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/></g>
+          <g filter="url(#lzblur-g)"><path class="lt lt--glow" id="f2g" pathLength="1" d="M1120 470L1120 650"/><path class="lt lt--glow" id="f3g" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/></g>
+          <path class="lt lt--core" id="f2" pathLength="1" d="M1120 470L1120 650"/><path class="lt lt--core" id="f3" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/>
+        </g>
         <g id="gate1" class="gate" transform="translate(1120 650)"><path class="gate__post" d="M-34 24V-24M34 24V-24"/><path class="gate__arm" id="gate1arm" d="M-34 -4H34"/></g>
-        <path class="fil-halo" id="f3h" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/><path class="fil-core" id="f3" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/>
+        
       </g>
     </svg>
   </div>
@@ -126,14 +137,18 @@
 <!-- ================= TRACE ================= -->
 <section class="scene scene--blue" id="trace" data-scene="trace" aria-labelledby="h-trace">
   <div class="stage" aria-hidden="true">
-    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="0 0 800 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="0 0 800 900" data-vb-fit="1" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs><filter id="bldgblur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter></defs>
       <g class="hair"></g>
       <g id="echoes"></g>
       <path id="trail-d" class="trail-ghost" d="M120 -40C120 300 200 700 380 640S560 430 700 420S900 560 1040 520S1180 330 1300 320L1480 300L1480 960" data-d-mobile="M400 -40L400 80C400 180 240 200 240 320S560 440 560 560S300 640 300 740S400 820 400 960"/>
-      <path id="trail-h" class="fil-halo" pathLength="1" d=""/>
-      <path id="trail" class="fil-core" pathLength="1" d=""/>
+      <path id="trail-bd" class="trail-ghost" d=""/>
+      <g id="bldg" class="bldg" aria-hidden="true"></g>
+      <path id="trail-h" class="tr-halo" d=""/><path id="trail-bh" class="tr-halo" d=""/>
+      <path id="trail" class="tr-core" d=""/><path id="trail-b" class="tr-core" d=""/>
       <g id="stations"></g>
-      <g id="gate2" class="gate" transform="translate(0 0)"><path class="gate__post" d="M-30 26V-26M30 26V-26"/><path class="gate__arm" id="gate2arm" d="M-30 -4H30"/></g>
+      <g id="gate2" class="gate" transform="translate(0 0)"><path class="gate__post" d="M-30 26V-26M30 26V-26"/><path class="gate__arm" id="gate2arm" d="M-30 -4H30"/>
+        <g id="approver" class="gate__fig" transform="translate(-112 0) scale(1.4)"><circle class="gate__fig-head" cx="0" cy="-27" r="9"/><path class="gate__fig-hair" d="M8 -33C17 -31 19 -22 14 -14"/><path class="gate__fig-body" d="M-16 28C-16 6 -9 -12 0 -12C9 -12 16 6 16 28"/><circle class="gate__fig-ring" id="approver-ring" pathLength="1" cx="0" cy="-66" r="13"/><path class="gate__fig-tick" id="approver-tick" pathLength="1" d="M-6 -66L-1.5 -61.5L7 -71"/><path class="gate__fig-link" id="approver-link" pathLength="1" d="M24 -3H58"/></g></g>
       <circle id="head" class="head" r="7" cx="-50" cy="-50"/>
     </svg>
   </div>
@@ -167,51 +182,48 @@
         <p class="claim " data-claim="obs-records" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Logging and observability record what ran, what changed and what was approved.</span></p>
       </div>
     </article>
-    <article class="step" data-step="4" data-station="3">
+    <article class="step step--gate" data-step="4" data-station="3">
       <div class="panel panel--gate">
         <p class="stage-n">Stage 4</p>
         <h3>A person signs</h3>
         <p class="claim " data-claim="rule-approval" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.</span></p>
       </div>
     </article>
-  </div>
-</section>
-
-<section class="band band--blue" aria-labelledby="h-method">
-  <div class="wrap">
-    <p class="kicker">How a build is governed</p>
-    <h2 id="h-method" class="band__title">The method, in full</h2>
-    <div class="method">
-      <p>I treat the build as a governed process: development, observability, and forward deployed engineering once something is live. I define the objective, supply the context, break the task into stages and review every result before it goes any further.</p>
-      <p>Development is agentic. Work moves through API calls and integrations, MCP (Model Context Protocol) servers, and RAG (retrieval-augmented generation) when a task depends on source material. Agentic workflows cover research, data processing, drafting and checks. Some of those workflows have browser and computer access, each with a defined role, and an orchestrating step coordinates them. I compare results, correct what is wrong, and ask for evidence before I accept a claim.</p>
-      <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published. Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.</p>
-      <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models instead of an outside service. Logging and observability record what ran, what changed and what was approved, so a live product can be corrected in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew website.</p>
-    </div>
+    <article class="step step--method" data-step="5" data-method="0">
+      <div class="panel panel--method">
+        <p class="kicker">How a build is governed</p>
+        <h2 id="h-method" class="band__title">The method, in full</h2>
+        <p>I treat the build as a governed process: development, observability, and forward deployed engineering once something is live. I define the objective, supply the context, break the task into stages and review every result before it goes any further.</p>
+      </div>
+    </article>
+    <article class="step step--method" data-step="5" data-method="1">
+      <div class="panel panel--method">
+        <p>Development is agentic. Work moves through API calls and integrations, MCP (Model Context Protocol) servers, and RAG (retrieval-augmented generation) when a task depends on source material. Agentic workflows cover research, data processing, drafting and checks. Some of those workflows have browser and computer access, each with a defined role, and an orchestrating step coordinates them. I compare results, correct what is wrong, and ask for evidence before I accept a claim.</p>
+      </div>
+    </article>
+    <article class="step step--method" data-step="5" data-method="2">
+      <div class="panel panel--method">
+        <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published. Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.</p>
+      </div>
+    </article>
+    <article class="step step--method" data-step="5" data-method="3">
+      <div class="panel panel--method">
+        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models instead of an outside service. Logging and observability record what ran, what changed and what was approved, so a live product can be corrected in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew website.</p>
+      </div>
+    </article>
+    <div class="steps__tail" aria-hidden="true"></div>
   </div>
 </section>
 
 <div class="interlude interlude--b" aria-hidden="true">
-  <svg viewBox="0 0 1600 500" data-vb-mobile="560 0 480 500" preserveAspectRatio="none" focusable="false"><path class="fil-halo il" pathLength="1" d="M1480 -10C1480 200 -40 120 -40 330"/><path class="fil-core il" pathLength="1" d="M1480 -10C1480 200 -40 120 -40 330"/></svg>
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none" focusable="false"><path class="tr-halo il" d="M0 0V1"/><path class="tr-core il" d="M0 0V1"/></svg>
 </div>
 
 <!-- ================= RELEASE ================= -->
 <section class="scene scene--dawn" id="release" data-scene="release" aria-labelledby="h-release">
   <div class="stage" aria-hidden="true">
     <div class="sky"></div>
-    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="300 0 1000 900" preserveAspectRatio="xMidYMid slice" focusable="false">
-      <defs>
-        <radialGradient id="sunglow"><stop offset="0" stop-color="#ffe3b8" stop-opacity=".95"/><stop offset=".4" stop-color="#ffb35a" stop-opacity=".45"/><stop offset="1" stop-color="#ff9a3d" stop-opacity="0"/></radialGradient>
-        <radialGradient id="hangarglow"><stop offset="0" stop-color="#ffb35a" stop-opacity=".75"/><stop offset="1" stop-color="#ffb35a" stop-opacity="0"/></radialGradient>
-      </defs>
-      <circle id="sun" cx="800" cy="700" r="330" fill="url(#sunglow)"/>
-      <ellipse id="hangar" cx="270" cy="640" rx="330" ry="150" fill="url(#hangarglow)"/>
-      <path class="hangar-door" d="M110 640V560H430V640M270 560V640"/>
-      <rect class="ground" x="-10" y="640" width="1620" height="270"/>
-      <path class="horizon" d="M0 640H1600"/>
-      <g id="rel-lights"></g>
-      <path class="fil-halo r-ground" pathLength="1" d="M-40 640L800 640"/><path class="fil-core r-ground" pathLength="1" d="M-40 640L800 640"/>
-      <g id="lifts"></g>
-    </svg>
+    <svg class="art" viewBox="0 0 1600 900" preserveAspectRatio="none" focusable="false"></svg>
   </div>
   <div class="steps">
     <article class="step step--head" data-step="0">
@@ -397,10 +409,10 @@
     <p class="kicker">Act 04 of 04</p>
     <h2 id="h-contact" class="act-title act-title--dawn">Contact</h2>
     <p class="contact__lede">If you have a process you'd like automated, or an AI system that needs proper governance and observability, I'd be glad to talk.</p>
-    <p class="contact__cta"><a class="btn btn--primary btn--lg" href="https://www.linkedin.com/in/isaacadekunle/" rel="noopener">Message me on LinkedIn</a></p>
     <ul class="contact__links">
-      <li><a href="https://x.com/TheDealEnvoy" rel="noopener">X</a></li>
-      <li><a href="https://drewandcrew.com" rel="noopener">Drew &amp; Crew Ltd</a></li>
+      <li><a href="https://www.linkedin.com/in/isaacadekunle/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16.5M8 7.6v.1M11.5 16.5v-6M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6v3.5"/></svg><span>Message me on LinkedIn</span></a></li>
+      <li><a href="https://x.com/TheDealEnvoy" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 4h4.2l10.8 16h-4.2z"/><path d="M19 4l-6.4 7.2M5 20l6.4-7.2"/></svg><span>@TheDealEnvoy</span></a></li>
+      <li><a href="https://drewandcrew.com" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>Drew &amp; Crew Limited</span></a></li>
     </ul>
   </div>
 </section>
