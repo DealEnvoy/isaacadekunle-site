@@ -37,6 +37,8 @@
     });
   }
 
+  applyCrops(); mqMobile.addEventListener('change', applyCrops);
+
   /* ---------- scenes ---------- */
   const scenes = [];
   const stageProgress = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight)); };
@@ -49,7 +51,7 @@
     const lamp = $('#lamp', el), cam = $('#cam', el), fault = $('#fault', el), arm = $('#gate1arm', el), gate = $('#gate1', el);
     const f = ['f2', 'f3'].map(id => [$('#' + id, el), $('#' + id + 'h', el), $('#' + id + 'g', el)]);
     const trail = $('#lz-trail', el), ltS = [0, 1, 2].map(i => $('#lt-s' + i, el)), ltW = [[...$$('.lt--core', el)], [...$$('.lt--glow', el)], [...$$('.lt--bloom', el)]];
-    const rings = $$('.ring', el), mkAll = $$('.mk', el);
+    const rings = $$('.ring', el), mkAll = $$('.mk', el), fade = $('.stage__fade', el), blot = $('#fault-blot', el);
     const path = [[0, 300, 300], [.1, 620, 640], [.2, 960, 260], [.3, 1120, 470]];
     const rad = [[0, 230], [.3, 230], [.38, 560], [.42, 560], [.5, 330], [.54, 330], [.62, 170], [.66, 170], [.76, 60]];
     const at = (k, p) => { let i = 0; while (i < k.length - 2 && p > k[i + 1][0]) i++; const a = k[i], b = k[i + 1]; const t = ease(seg(p, a[0], b[0])); return b.slice(1).map((v, j) => lerp(a[j + 1], v, t)); };
@@ -157,6 +159,8 @@
       cam.setAttribute('transform', `translate(1120 470) scale(${s.toFixed(3)}) translate(-1120 -470)`);
       if (s !== camS) { camS = s; measure(); }
       fault.style.opacity = seg(p, .68, .76).toFixed(3);
+      if (blot) blot.style.opacity = (seg(p, .46, .6) * (1 - .25 * seg(p, .8, 1))).toFixed(3);
+      if (fade) fade.style.opacity = (instant ? 0 : seg(p, .9, 1)).toFixed(3);
       /* the laser strikes the fault: intensity ramps with scroll, then flickers; the line carries on from the fault */
       strike = seg(p, .72, .78);
       laserLook(strike, now / 1000, instant);
@@ -180,6 +184,10 @@
     const fig = $('#approver', el), ring = $('#approver-ring', el), tick = $('#approver-tick', el), link = $('#approver-link', el);
     const steps = $$('.step[data-station]', el), panels = steps.map(s => $('.panel', s)), sceneStages = $('.stage', el);
     const msteps = $$('.step[data-method]', el), mpanels = msteps.map(s => $('.panel', s)), gstep = steps[3];
+    const bm = beamKit(svg); bm.add(haloA, coreA); bm.add(haloB, coreB);
+    /* the line's head and the lit stations carry the same warm bloom as the beam */
+    mk('feGaussianBlur', { stdDeviation: 7 }, mk('filter', { id: 'trHeadGlow', x: '-300%', y: '-300%', width: '700%', height: '700%' }, mk('defs', {}, svg)));
+    const headGlow = mk('circle', { class: 'head-glow', r: 14 }, head.parentNode); head.parentNode.insertBefore(headGlow, head);
     const F = [.18, .38, .58], GATE = .8;
     const T_WAIT = 800, T_APPROVE = 600, T_OPEN = 450;      /* ms from the line reaching the closed gate: panel in at 250, she approves 800-1400, gate opens 1400-1850, line moves on */
     const T_PANEL = 250;
@@ -236,7 +244,7 @@
       hair.textContent = ''; for (let i = -4; i < 16; i++) mk('line', { x1: -200, x2: 1800, y1: 40 + i * 82, y2: 40 + i * 82 }, hair);
       st.textContent = ''; echoes.textContent = '';
       pts = F.map(f => ghost.getPointAtLength(f * L0));
-      stationEls = pts.map(pt => { const g = mk('g', { class: 'st', transform: `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})` }, st); mk('path', { class: 'st__tick', d: 'M0 -34V34' }, g); mk('circle', { class: 'st__ring', r: 11 }, g); return g; });
+      stationEls = pts.map(pt => { const g = mk('g', { class: 'st', transform: `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})` }, st); mk('path', { class: 'st__tick', d: 'M0 -34V34' }, g); mk('circle', { class: 'st__glow', r: 14 }, g); mk('circle', { class: 'st__ring', r: 11 }, g); return g; });
       gate.setAttribute('transform', `translate(${G.x.toFixed(1)} ${G.y.toFixed(1)})`);
       cap = LA - 12;                                    /* the filament stops 12 units short of the closed gate arm */
       Rst = [F[0] * L0, F[1] * L0, F[2] * L0, cap];
@@ -289,7 +297,7 @@
       const pp = steps.map((s, i) => i === 3 ? topP(s) : centreP(s));
       const pm = msteps.map(topP);
       /* scroll -> length keyframes; the line is held at the gate until the gate has opened (see render) */
-      K = [[0, 0], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
+      K = [[0, 48], [pp[0], Rst[0]], [pp[1], Rst[1]], [pp[2], Rst[2]], [pp[3], cap], [Math.min(pp[3] + .012, pm[0] - .005), cap], [pm[0], lenEntry], [pm[3], lenExit], [Math.max(.995, pm[3] + .01), LT], [1, LT]];
       const kAt = p => { let i = 0; while (i < K.length - 2 && p > K[i + 1][0]) i++; const a1 = K[i], b1 = K[i + 1]; return lerp(a1[1], b1[1], seg(p, a1[0], b1[0])); };
       mThr = pm.map((p, i) => i === 0 ? lenEntry - 2 : kAt(p) - 2);
       if (!mobile) {
@@ -370,6 +378,7 @@
       const t0 = Math.min(len, LA) / L0;
       echo.forEach((e, i) => draw(e, Math.min(GATE, t0 * (.9 - i * .15) - .06)));
       const pt = sPoint(clamp(len, .5, LT - .5)); head.setAttribute('cx', pt.x.toFixed(1)); head.setAttribute('cy', pt.y.toFixed(1)); head.style.opacity = len > 1 && len < LT - 2 ? 1 : 0;
+      headGlow.setAttribute('cx', pt.x.toFixed(1)); headGlow.setAttribute('cy', pt.y.toFixed(1)); headGlow.style.opacity = head.style.opacity === '1' ? .85 : 0;
       stationEls.forEach((g, i) => g.classList.toggle('on', len >= Rst[i] - .0005 * L0));
       panels.forEach((pn, i) => { const on = i < 3 ? len >= Rst[i] - .0006 * L0 : (gReveal || gOpen); if (on) pn.removeAttribute('data-await'); else pn.setAttribute('data-await', ''); });
       mpanels.forEach((pn, i) => { if (len >= mThr[i]) pn.removeAttribute('data-await'); else pn.setAttribute('data-await', ''); });
@@ -385,9 +394,9 @@
           const vh = vb0[3] + panMax; svg.setAttribute('viewBox', `${vb0[0]} ${vb0[1]} ${vb0[2]} ${vh.toFixed(1)}`); sceneStages.style.aspectRatio = `${vb0[2].toFixed(0)} / ${vh.toFixed(0)}`;
         } else { sceneStages.style.aspectRatio = ''; const c = panMax * ease(seg(len, LA, lenPanEnd)); svg.setAttribute('viewBox', `${vb0[0]} ${(vb0[1] + c).toFixed(1)} ${vb0[2]} ${vb0[3]}`); }
       }
-      lit(len, instant ? 0 : now); pinLogic(now, instant);
+      lit(len, instant ? 0 : now); pinLogic(now, instant); bm.tick(now / 1000, instant);
       window.__trace = { len, cap, LA, LT, state: gate.dataset.state, headX: pt.x, headY: pt.y, gateX: G.x, gateY: G.y, opn, apv, gOpen, panel4: !panels[3].hasAttribute('data-await'), t: now, lenEntry, lenExit };
-      return !instant && (len > 0 && len < LT);
+      return !instant;
     };
     return rend;
   }
@@ -401,6 +410,51 @@
     set(0);
     return { els, len, set, point: f => els[2].getPointAtLength(clamp(f) * len) };
   }
+  /* ---------- ONE shared laser look for every line outside ISOLATE (the ISOLATE beam is the reference) ----------
+     white-hot 1.5 px core, a thin amber glow (gaussian blur 2.4 px) and a wide soft bloom (blur 9 px), subtle flicker.
+     Each line is a "halo" path (a 4 px source stroke that an SVG filter turns into bloom + glow) plus a 1.5 px core.
+     Widths and blur are held in screen px (divided by the live scale). strengths() raises the bloom on pale backgrounds. */
+  let bmId = 0;
+  function beamKit(svg) {
+    const id = ++bmId, defs = mk('defs', {}, svg), kit = { fs: {}, halos: [], cores: [], rims: [], KB: 1.15, KG: .7, rimOp: 0, last: '' };
+    const matrix = (r, g, b, a) => `0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} 0 0 0 ${a} 0`;
+    kit.filter = scale => {
+      if (kit.fs[scale]) return kit.fs[scale].url;
+      const fid = `bm${id}_${Object.keys(kit.fs).length}`;
+      const f = mk('filter', { id: fid, filterUnits: 'userSpaceOnUse', x: -4000, y: -4000, width: 10000, height: 10000, 'color-interpolation-filters': 'sRGB' }, defs);
+      const gb = mk('feGaussianBlur', { in: 'SourceAlpha', stdDeviation: 9, result: 'a' }, f), mb = mk('feColorMatrix', { in: 'a', type: 'matrix', values: matrix(1, .604, .239, 1.15), result: 'b' }, f);
+      const gg = mk('feGaussianBlur', { in: 'SourceAlpha', stdDeviation: 2.4, result: 'c' }, f), mg = mk('feColorMatrix', { in: 'c', type: 'matrix', values: matrix(1, .757, .42, .7), result: 'd' }, f);
+      const m = mk('feMerge', {}, f); mk('feMergeNode', { in: 'b' }, m); mk('feMergeNode', { in: 'd' }, m);
+      return (kit.fs[scale] = { url: `url(#${fid})`, gb, mb, gg, mg, scale });
+    };
+    kit.add = (halo, core, scale = 1, rim) => { halo.setAttribute('filter', kit.filter(scale).url); kit.halos.push({ e: halo, scale }); kit.cores.push({ e: core, scale }); if (rim) kit.rims.push({ e: rim, scale }); };
+    kit.strengths = (KB, KG, rimOp) => { kit.KB = KB; kit.KG = KG; kit.rimOp = rimOp || 0; };
+    kit.tick = (now, instant) => {
+      let k = 1; try { const m = svg.getScreenCTM(); k = ((Math.abs(m.a) + Math.abs(m.d)) / 2) || 1; } catch (e) {}
+      const t = (instant ? 0 : now) * (gentle() ? .15 : 1);
+      const n = instant ? 0 : .5 * Math.sin(t * 37.1) + .3 * Math.sin(t * 61.7 + 1.3) + .2 * Math.sin(t * 13.3 + .4), fl = Math.min(1, 1 + .06 * n);
+      const sig = k.toFixed(4) + '|' + kit.KB + '|' + kit.KG + '|' + kit.halos.length + '|' + kit.rimOp;
+      if (sig !== kit.last) {
+        kit.last = sig;
+        Object.values(kit.fs).forEach(f => { const q = k * f.scale; f.gb.setAttribute('stdDeviation', (9 / q).toFixed(3)); f.gg.setAttribute('stdDeviation', (2.4 / q).toFixed(3)); f.mb.setAttribute('values', matrix(1, .604, .239, kit.KB)); f.mg.setAttribute('values', matrix(1, .757, .42, kit.KG)); });
+        kit.halos.forEach(h => h.e.setAttribute('stroke-width', (4 / (k * h.scale)).toFixed(3)));
+        kit.cores.forEach(c => c.e.setAttribute('stroke-width', (1.5 / (k * c.scale)).toFixed(3)));
+        kit.rims.forEach(r => r.e.setAttribute('stroke-width', (3.6 / (k * r.scale)).toFixed(3)));
+      }
+      kit.halos.forEach(h => h.e.style.opacity = fl.toFixed(3)); kit.cores.forEach(c => c.e.style.opacity = fl.toFixed(3)); kit.rims.forEach(r => r.e.style.opacity = (kit.rimOp * fl).toFixed(3));
+    };
+    return kit;
+  }
+  /* a beam drawn along a path with the same set()/len/point API as glowLine (used for the RELEASE entry line and the feed into the bulb) */
+  function beamLine(parent, kit, d, o = {}) {
+    const mkp = cls => mk('path', { class: cls, d }, parent);
+    const halo = mkp('bm-halo'), rim = o.rim ? mkp('bm-rim') : null, core = mkp('bm-core'), els = [halo, rim, core].filter(Boolean);
+    kit.add(halo, core, o.scale || 1, rim);
+    const len = core.getTotalLength();
+    const set = f => { const l = clamp(f) * len; els.forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(len + 40).toFixed(0)}`; } }); };
+    set(0);
+    return { els, len, set, point: f => core.getPointAtLength(clamp(f) * len) };
+  }
   /* Overexposed light: a hair-thin near-white core inside stacked, additive golden-white bloom layers (no dark edge, no CSS blur). Same set()/len API as glowLine. */
   function lightLine(parent, d, o = {}) {
     const g = mk('g', { class: 'bl' }, parent), w = o.w || 1.1;
@@ -409,6 +463,16 @@
     const set = f => { const l = clamp(f) * len; lay.forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(len + 40).toFixed(0)}`; } }); };
     set(0);
     return { els: lay, g, len, set };
+  }
+  /* Golden line for the coiled filament: bright gold layers + a white-hot hair core, no dark edge (so it never reads brown). Same set()/len API as glowLine.
+     Widths are given in screen px and divided by the lamp scale, so the coil stays crisp on a phone. */
+  function coilLine(parent, d, sb) {
+    const k = 1 / sb, px = Math.max(.75, Math.min(1, sb * 1.3));
+    const lay = [['cl-w', 7.5 * px], ['cl-m', 3.6 * px], ['cl-c', 2.1 * px], ['cl-h', .9 * px]].map(([c, w]) => mk('path', { class: c, d, 'stroke-width': (w * k).toFixed(2) }, parent));
+    const len = lay[2].getTotalLength();
+    const set = f => { const l = clamp(f) * len; lay.forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(len + 40).toFixed(0)}`; } }); };
+    set(0);
+    return { els: lay, len, set, point: f => lay[2].getPointAtLength(clamp(f) * len) };
   }
   const GLYPHS = [
     'M4.5 4h4.2l10.8 16h-4.2zM19 4l-6.4 7.2M5 20l6.4-7.2',                                              /* X (plain outline mark, not a logo file) */
@@ -425,7 +489,16 @@
     const stage = $('.stage', el), svg = $('svg.art', el);
     let W = 0, H = 0, S = null, rend = null, lp = 0, li = false;
     const BULB = 'M-37 -64C-37 -90 -100 -100 -104 -144A118 118 0 1 1 104 -144C100 -100 37 -90 37 -64';
-    const FIL = 'M0 -150L-34 -184L-27 -198L-18 -184L-9 -198L0 -184L9 -198L18 -184L27 -198L34 -184L0 -150';
+    /* Filament: two support wires rise from the stem junction J to two hook tips, and a tungsten-style helix (side view, slightly tilted so each turn is a
+       slanted loop) is strung between them. One continuous path J > left wire > coil > right wire > J, so the line can travel through all of it. */
+    const JY = -112, CY = -192, CX = 52, TURNS = 8;
+    const COIL = (() => {
+      const pts = [], n = TURNS * 30, c = (2 * CX) / (2 * Math.PI * TURNS), a = c * 2.15, b = 10;
+      for (let i = 0; i <= n; i++) { const t = i / n * 2 * Math.PI * TURNS; pts.push([-CX + c * t - a * Math.sin(t), CY - b * Math.cos(t)]); }
+      return pts;
+    })();
+    const f1 = v => v.toFixed(2);
+    const FIL = 'M0 ' + JY + 'L-7 ' + (JY - 12) + 'L' + f1(COIL[0][0]) + ' ' + f1(COIL[0][1]) + COIL.slice(1).map(q => 'L' + f1(q[0]) + ' ' + f1(q[1])).join('') + 'L7 ' + (JY - 12) + 'L0 ' + JY;
     function layout() {
       W = Math.max(320, stage.clientWidth); H = Math.max(360, stage.clientHeight);
       svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.textContent = '';
@@ -465,21 +538,24 @@
       });
       /* line in: from the top, along the horizon, to the base of the lamp */
       const r = 46;
-      const entry = glowLine(svg, `M${xe} -30V${yh - r}Q${xe} ${yh} ${xe + r} ${yh}H${bx - 40}`, { w: 2.6 });
+      const kit = beamKit(svg);
+      const entry = beamLine(svg, kit, `M${xe} -30V${yh - r}Q${xe} ${yh} ${xe + r} ${yh}H${bx - 40}`, { rim: true });
       /* lamp: glass, base, rim glow */
       const lamp = mk('g', { transform: `translate(${bx.toFixed(1)} ${yh}) scale(${sb.toFixed(3)})` }, svg);
       mk('circle', { class: 'rl-rimglow', cx: 0, cy: -200, r: 118, filter: 'url(#rl-b8)' }, lamp);
       mk('path', { class: 'rl-glass', d: BULB + 'Z', fill: 'url(#rl-glass)' }, lamp);
       const inside = mk('g', { 'clip-path': 'url(#rl-clip)' }, lamp);
-      const bloom = mk('circle', { cx: 0, cy: -184, r: 10, fill: 'url(#rl-bloom)', style: 'mix-blend-mode:screen' }, inside);
-      const flash = mk('circle', { cx: 0, cy: -190, r: 124, fill: 'url(#rl-flash)', opacity: 0, style: 'mix-blend-mode:screen' }, inside);
+      const bloom = mk('circle', { cx: 0, cy: CY, r: 10, fill: 'url(#rl-bloom)', style: 'mix-blend-mode:screen' }, inside);
+      const flash = mk('circle', { cx: 0, cy: CY - 4, r: 124, fill: 'url(#rl-flash)', opacity: 0, style: 'mix-blend-mode:screen' }, inside);
       const filBlur = mk('path', { class: 'rl-filblur', d: FIL, filter: 'url(#rl-b3)' }, inside);
       mk('path', { class: 'rl-hl', d: 'M-74 -262A92 92 0 0 1 -34 -298' }, lamp);
       mk('path', { class: 'rl-base', d: 'M-37 -64V-12Q-37 0 -24 0H24Q37 0 37 -12V-64M-37 -22H37M-37 -36H37M-37 -50H37' }, lamp);
       mk('path', { class: 'rl-outline', d: BULB }, lamp);
-      const feed = glowLine(lamp, 'M0 0V-150', { w: 2.6 / sb });
-      const fil = glowLine(lamp, FIL, { w: 2.6 / sb });
-      const white = mk('path', { class: 'rl-white', d: FIL, 'stroke-width': 3.4 }, lamp);
+      /* the unlit filament: thin cold tungsten, visible before the line arrives (constant 1.1 px at any zoom) */
+      mk('path', { class: 'rl-cold', d: FIL }, lamp);
+      const feed = beamLine(lamp, kit, 'M0 0V' + JY, { rim: true, scale: sb });
+      const fil = coilLine(lamp, FIL, sb);
+      const white = mk('path', { class: 'rl-white', d: FIL, 'stroke-width': Math.max(1.1, 1.5 * sb) / sb }, lamp);
       /* news flash banner */
       const bh = mobile ? 34 : 46, by = mobile ? 62 : 66;
       const ban = mk('g', { 'clip-path': 'url(#rl-ban)' }, svg);
@@ -494,7 +570,7 @@
       mk('rect', { class: 'rl-lab', x: 0, y: by, width: lw, height: bh }, ban);
       const lab = mk('text', { class: 'rl-labt', x: lw / 2, y: by + bh / 2 + fs * .36, 'text-anchor': 'middle', 'font-size': fs }, ban); lab.textContent = 'NEWS FLASH';
       const dot = mk('circle', { class: 'rl-dot', cx: 14, cy: by + bh / 2, r: 3.4 }, ban);
-      S = { flash, mobile, yh, sb, bx, cyb, sun, rings, ics, entry, feed, fil, white, bloom, filBlur, lamp, lab, clipR, tkt, unitW, lw, by, bh, W, H, rx, ry };
+      S = { kit, flash, mobile, yh, sb, bx, cyb, sun, rings, ics, entry, feed, fil, white, bloom, filBlur, lamp, lab, clipR, tkt, unitW, lw, by, bh, W, H, rx, ry };
       S.rim = $('.rl-rimglow', svg); S.outline = $('.rl-outline', svg); S.glass = $('.rl-glass', svg);
       if (rend) rend(lp, li);
     }
@@ -507,6 +583,8 @@
       const now = performance.now() / 1000, T = instant ? 0 : now * (gentle() ? .15 : 1);
       const dawn = ease(seg(p, .2, .8));
       stage.style.setProperty('--dawn', dawn.toFixed(3));
+      /* same beam as everywhere else; on the pale dawn sky the bloom is raised and a thin saturated-gold rim sits under the white core so it stays golden */
+      S.kit.strengths(1.15 + 1.1 * dawn, .7 + .45 * dawn, .95 * dawn); S.kit.tick(now, instant);
       S.sun.setAttribute('cy', (S.yh + 160 - 190 * ease(seg(p, .12, .75))).toFixed(1)); S.sun.style.opacity = (.25 + .75 * seg(p, .05, .6)).toFixed(3);
       /* the line arrives and feeds the lamp */
       const e1 = seg(p, 0, .02), e2 = seg(p, .02, .2);
@@ -547,13 +625,65 @@
     return rend;
   }
 
+  /* INTERLUDE A joins the ISOLATE beam to the TRACE line. It is one continuous beam: it starts inside the ISOLATE stage (OV px above the stage's bottom edge,
+     exactly on top of the ISOLATE trail, so there is no cut at the section boundary), follows the same curve out of the stage, then bends to the exact x
+     where the TRACE line enters. INTERLUDE B continues the TRACE exit line down into RELEASE. Both use the shared beam look. */
+  const OV = 150;
   function interlude(el) {
     const isB = el.classList.contains('interlude--b'), svg = $('svg', el);
-    const ps = $$('.il', el); ps.forEach(off);
-    if (!isB) return p => ps.forEach(e => draw(e, ease(seg(p, .1, .85))));
+    const halos = $$('.tr-halo', el), cores = $$('.tr-core', el), bm = beamKit(svg);
+    halos.forEach((h, i) => bm.add(h, cores[i]));
+    let W = 0, H = 0, ovNow = 0;
+    if (!isB) {
+      const isoEl = $('#isolate'), isoStage = $('.stage', isoEl), isoSvg = $('svg.art', isoEl), f3 = $('#f3', isoEl), trEl = $('#trace'), trSvg = $('svg.art', trEl), trGhost = $('#trail-d', trEl);
+      const halo = halos[0], core = cores[0];
+      let pts = [], lens = [], lenPoly = 0, Lq0 = 0, Lf3 = 1, total = 1, sig = '', prefix = 0;
+      const lay = () => {
+        const r = el.getBoundingClientRect(); W = r.width; H = r.height;
+        ovNow = motionOn() ? OV : 0; el.style.setProperty('--ov', ovNow + 'px');
+        svg.setAttribute('viewBox', `0 0 ${W.toFixed(0)} ${(H + ovNow).toFixed(0)}`);
+        /* 1. the ISOLATE trail (f3) as it stands at the end of the scene (camera at its final zoom), in px relative to the stage's bottom edge */
+        const sRect = isoStage.getBoundingClientRect(), M = isoSvg.getScreenCTM(), mobile = mqMobile.matches, se = 1 + (mobile ? .22 : .5);
+        const raw = f3.getTotalLength(); Lf3 = raw;
+        const toS = q => { const x = 1120 + (q.x - 1120) * se, y = 470 + (q.y - 470) * se; return [M.a * x + M.e - sRect.left, M.d * y + M.f - sRect.bottom]; };
+        const all = []; for (let l = 0; l <= raw; l += 3) { const q = toS(f3.getPointAtLength(l)); all.push([q[0], q[1], l]); }
+        let cross = all.findIndex(q => q[1] >= 0); if (cross < 1) cross = all.length - 1;
+        const a0 = all[cross - 1], a1 = all[cross], tcr = (0 - a0[1]) / ((a1[1] - a0[1]) || 1);
+        const cp = [lerp(a0[0], a1[0], tcr), 0, lerp(a0[2], a1[2], tcr)];
+        const keep = all.slice(0, cross).filter(q => q[1] >= -ovNow); pts = keep.map(q => [q[0], q[1] + ovNow]); Lq0 = keep.length ? keep[0][2] : cp[2];
+        /* where the f3 trail starts inside the overlap, the beam above it is the straight ISOLATE beam: carry it up vertically to the top of the overlap */
+        prefix = 0; if (pts.length && pts[0][1] > 1) { prefix = pts[0][1]; pts.unshift([pts[0][0], 0]); }
+        pts.push([cp[0], ovNow]);
+        let tx = a1[0] - a0[0], ty = a1[1] - a0[1]; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl; if (ty < .3) { ty = Math.max(.3, ty); const n2 = Math.hypot(tx, ty); tx /= n2; ty /= n2; }
+        /* 2. where TRACE picks the line up: screen x of its path where it enters the stage top */
+        const tM = trSvg.getScreenCTM(), tr = trSvg.getBoundingClientRect(); let xt = W / 2;
+        if (tM) { for (let l = 0; l <= trGhost.getTotalLength(); l += 1) { const q = trGhost.getPointAtLength(l), sy = tM.d * q.y + tM.f - tr.top; if (sy >= 0) { xt = tM.a * q.x + tM.e - tr.left; break; } } }
+        /* 3. smooth bend (same tangent as the ISOLATE beam where it leaves the stage, vertical where it meets TRACE) */
+        const x0 = cp[0], y0 = ovNow, y1 = H + ovNow, dy = y1 - y0, c1 = [x0 + tx * dy * .45, y0 + ty * dy * .45], c2 = [xt, y1 - dy * .4];
+        let d = 'M' + pts.map(q => q[0].toFixed(2) + ' ' + q[1].toFixed(2)).join('L') + `C${c1[0].toFixed(2)} ${c1[1].toFixed(2)} ${c2[0].toFixed(2)} ${c2[1].toFixed(2)} ${xt.toFixed(2)} ${y1.toFixed(2)}V${(y1 + 6).toFixed(2)}`;
+        [halo, core].forEach(e => e.setAttribute('d', d));
+        total = core.getTotalLength(); lenPoly = 0; for (let i = 1; i < pts.length; i++) lenPoly += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+        lens = []; for (let l = 0; l <= total; l += 6) lens.push(core.getPointAtLength(l).y);
+        sig = [innerWidth, innerHeight, ovNow, mobile, sRect.height, tr.width, H].join('|');
+      };
+      const dashSet = l => [halo, core].forEach(e => { if (l <= .6) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${(total + 40).toFixed(0)}`; } });
+      const sigNow = () => [innerWidth, innerHeight, motionOn() ? OV : 0, mqMobile.matches, isoStage.getBoundingClientRect().height, trSvg.getBoundingClientRect().width, el.getBoundingClientRect().height].join('|');
+      lay(); addEventListener('resize', lay); mqMobile.addEventListener('change', lay); if (document.fonts && document.fonts.ready) document.fonts.ready.then(lay);
+      return (p, instant) => {
+        if (sigNow() !== sig) lay();
+        const isoScene = scenes.find(x => x.el === isoEl), pIso = isoScene ? isoScene.cur : stageProgress(isoEl), d = instant ? 1 : seg(pIso, .94, 1);
+        let l;
+        if (instant) l = total + 8;
+        else if (d < 1) l = d <= 0 ? 0 : clamp(prefix + Math.max(0, d * Lf3 - Lq0), 0, lenPoly);
+        else {
+          const r = el.getBoundingClientRect(), yTarget = innerHeight - r.top + 24 + ovNow; let i = 0; while (i < lens.length - 1 && lens[i] < yTarget) i++;
+          l = clamp(Math.max(lenPoly, Math.min(total + 8, i * 6)), 0, total + 8);
+        }
+        dashSet(l); bm.tick(performance.now() / 1000, instant);
+        return !instant;
+      };
+    }
     /* B: a plain vertical continuation of the line leaving TRACE, drawn down to the bottom edge of the screen, into RELEASE */
-    const cores = $$('.tr-core', el), halos = $$('.tr-halo', el);
-    let W = 0, H = 0;
     const lay = () => {
       const r = el.getBoundingClientRect(); W = r.width; H = r.height;
       svg.setAttribute('viewBox', `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
@@ -565,6 +695,8 @@
       if (Math.abs(el.getBoundingClientRect().height - H) > 1) lay();
       const r = el.getBoundingClientRect(), l = instant ? H + 8 : clamp(innerHeight - r.top + 24, 0, H + 8);
       [...cores, ...halos].forEach(e => { if (l < 1) e.style.display = 'none'; else { e.style.display = 'inline'; e.style.strokeDasharray = `${l.toFixed(1)} ${H + 40}`; e.style.strokeDashoffset = 4; } });
+      bm.tick(performance.now() / 1000, instant);
+      return !instant;
     };
   }
 
@@ -606,8 +738,8 @@
      A muted, inline, looping <video> is added ~2.6 s after load and fades in over the still (the still is the
      poster frame, so the first frame matches). Paused while the hero is off screen. Skipped for reduced motion,
      motion off, Save-Data or 2g. 1600 px file for wide screens, 960 px for narrow ones; WebM first, MP4 fallback.
-     Sound is a separate opt-in: a toggle (shown only while the video is showing) plays a looping ambience bed.
-     Sound is OFF on every load and is never started without a click. */
+     Sound: a toggle (shown only while the video is showing) plays a looping ambience bed. It is on by default and remembered; the browser
+     starts it on the first user gesture. */
   const heroVid = (() => {
     const POSTER_T = 5.4;                 /* the poster still is the frame at 5.4 s; start there so the fade-in is seamless, then loop 0-10 s */
     let v = null, wanted = false, inView = true, started = false, seekTimer = 0;
@@ -617,35 +749,45 @@
 
     /* ----- sound toggle ----- */
     const sbtn = $('[data-sound-toggle]'), slbl = $('[data-sound-label]');
-    let aud = null, soundOn = false;
+    /* Sound is ON by default (the visitor's last choice is remembered in localStorage 'sound'). The button names the ACTION: "Sound off" while sound is on,
+       "Sound on" while it is off; aria-pressed = sound is on. Browsers refuse audible playback before a user gesture, so the first attempt is allowed to fail
+       quietly: the label already reads "Sound off", and the bed starts on the first click / tap / key press (scrolling alone does not count as a gesture). */
+    let aud = null, soundOn = true, pending = false;
+    try { soundOn = localStorage.getItem('sound') !== 'off'; } catch (e) {}
     function audio() {
       if (aud) return aud;
       aud = document.createElement('audio');
       aud.loop = true; aud.preload = 'none'; aud.volume = 0.5; aud.setAttribute('aria-hidden', 'true'); aud.hidden = true;
       const add = (src, type) => { const e = document.createElement('source'); e.src = src; e.type = type; aud.appendChild(e); };
       add('audio/ambience_loop_10s.opus', 'audio/ogg; codecs=opus'); add('audio/ambience_loop_10s.mp3', 'audio/mpeg');
-      aud.addEventListener('error', () => setSound(false), true);
-      sbtn.parentNode.appendChild(aud);   /* created only after the first click */
+      aud.addEventListener('error', () => setSound(false, false), true);   /* missing file: go quiet for this visit, keep the stored choice */
+      sbtn.parentNode.appendChild(aud);
       return aud;
     }
-    function paintSound() { if (!sbtn) return; sbtn.setAttribute('aria-pressed', String(soundOn)); slbl.textContent = soundOn ? 'Sound on' : 'Sound off'; }
+    function paintSound() { if (!sbtn) return; const t = soundOn ? 'Sound off' : 'Sound on'; sbtn.setAttribute('aria-pressed', String(soundOn)); sbtn.setAttribute('aria-label', t); slbl.textContent = t; }
+    const canPlay = () => !!sbtn && !sbtn.hidden && inView && !document.hidden;
     function syncAudio() {
-      if (!aud) return;
-      if (soundOn && inView && !document.hidden) { const p = aud.play(); if (p && p.catch) p.catch(() => setSound(false)); } else aud.pause();
+      if (!soundOn || !canPlay()) { if (aud) aud.pause(); return; }
+      const a = audio(), p = a.play();
+      if (p && p.then) p.then(() => { pending = false; }, err => { if (err && err.name === 'NotAllowedError') pending = true; else if (!err || err.name !== 'AbortError') setSound(false, false); });
+      else pending = false;
     }
-    function setSound(on) {
+    function setSound(on, persist = true) {
       soundOn = !!on; paintSound();
-      if (soundOn) { audio(); syncAudio(); } else if (aud) { aud.pause(); try { aud.currentTime = 0; } catch (e) {} }
+      if (persist) { try { localStorage.setItem('sound', soundOn ? 'on' : 'off'); } catch (e) {} }
+      if (soundOn) syncAudio(); else { pending = false; if (aud) { aud.pause(); try { aud.currentTime = 0; } catch (e) {} } }
     }
     function showSound() {
       if (!sbtn) return;
-      const show = !!(v && v.classList.contains('is-live') && okToLoad());
-      sbtn.hidden = !show;
-      if (!show && soundOn) setSound(false);
+      sbtn.hidden = !(v && v.classList.contains('is-live') && okToLoad());
+      syncAudio();
     }
     if (sbtn) {
       sbtn.addEventListener('click', () => setSound(!soundOn));
       document.addEventListener('visibilitychange', syncAudio);
+      /* first user gesture (not on the toggle itself) starts the bed if the browser blocked it */
+      const unlock = e => { if (pending && soundOn && !sbtn.contains(e.target)) syncAudio(); };
+      ['pointerdown', 'pointerup', 'touchend', 'keydown', 'click'].forEach(ev => addEventListener(ev, unlock, { passive: true, capture: true }));
       paintSound();
     }
 

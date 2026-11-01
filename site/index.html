@@ -64,7 +64,7 @@
       </div>
     </div>
   </div>
-  <button class="sound-toggle" type="button" aria-pressed="false" data-sound-toggle hidden><svg class="sound-toggle__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path class="sound-toggle__spk" d="M4 9.5h3.6L12 5.8v12.4l-4.4-3.7H4z"/><path class="sound-toggle__waves" d="M15.2 9.2a4 4 0 0 1 0 5.6M17.6 6.9a7.2 7.2 0 0 1 0 10.2"/><path class="sound-toggle__off" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span data-sound-label>Sound off</span></button>
+  <button class="sound-toggle" type="button" aria-pressed="true" aria-label="Sound off" data-sound-toggle hidden><svg class="sound-toggle__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path class="sound-toggle__spk" d="M4 9.5h3.6L12 5.8v12.4l-4.4-3.7H4z"/><path class="sound-toggle__waves" d="M15.2 9.2a4 4 0 0 1 0 5.6M17.6 6.9a7.2 7.2 0 0 1 0 10.2"/><path class="sound-toggle__off" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg><span data-sound-label>Sound off</span></button>
 </section>
 
 <section class="strip" aria-label="What is live now">
@@ -84,6 +84,7 @@
       <defs>
         <filter id="lzblur-b" filterUnits="userSpaceOnUse" x="900" y="380" width="520" height="680"><feGaussianBlur stdDeviation="9"/></filter><filter id="lzblur-g" filterUnits="userSpaceOnUse" x="900" y="380" width="520" height="680"><feGaussianBlur stdDeviation="2.4"/></filter>
         <linearGradient id="lzg-trail" gradientUnits="userSpaceOnUse" x1="0" y1="470" x2="0" y2="960"><stop id="lt-s0" offset="0" stop-color="#ffe9c4"/><stop id="lt-s1" offset=".3" stop-color="#fffaf0"/><stop id="lt-s2" offset=".4" stop-color="#ffe9c4"/><stop offset="1" stop-color="#ffe2b0"/></linearGradient>
+        <radialGradient id="blotg"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
         <radialGradient id="lampgrad"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
         <linearGradient id="lzg-bloom" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ff9a3d" stop-opacity="0.000"/><stop offset="0.10" stop-color="#ff9a3d" stop-opacity="0.004"/><stop offset="0.20" stop-color="#ff9a3d" stop-opacity="0.021"/><stop offset="0.30" stop-color="#ff9a3d" stop-opacity="0.076"/><stop offset="0.40" stop-color="#ff9a3d" stop-opacity="0.163"/><stop offset="0.50" stop-color="#ff9a3d" stop-opacity="0.211"/><stop offset="0.60" stop-color="#ff9a3d" stop-opacity="0.163"/><stop offset="0.70" stop-color="#ff9a3d" stop-opacity="0.076"/><stop offset="0.80" stop-color="#ff9a3d" stop-opacity="0.021"/><stop offset="0.90" stop-color="#ff9a3d" stop-opacity="0.004"/><stop offset="1.00" stop-color="#ff9a3d" stop-opacity="0.000"/></linearGradient><linearGradient id="lzg-glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ffc16b" stop-opacity="0.000"/><stop offset="0.10" stop-color="#ffc16b" stop-opacity="0.039"/><stop offset="0.20" stop-color="#ffc16b" stop-opacity="0.131"/><stop offset="0.30" stop-color="#ffc16b" stop-opacity="0.310"/><stop offset="0.40" stop-color="#ffc16b" stop-opacity="0.521"/><stop offset="0.50" stop-color="#ffc16b" stop-opacity="0.620"/><stop offset="0.60" stop-color="#ffc16b" stop-opacity="0.521"/><stop offset="0.70" stop-color="#ffc16b" stop-opacity="0.310"/><stop offset="0.80" stop-color="#ffc16b" stop-opacity="0.131"/><stop offset="0.90" stop-color="#ffc16b" stop-opacity="0.039"/><stop offset="1.00" stop-color="#ffc16b" stop-opacity="0.000"/></linearGradient><linearGradient id="lzg-core" x1="0" y1="0" x2="1" y2="0"><stop id="lz-s0" offset="0" stop-color="#fff1d6" stop-opacity=".0"/><stop id="lz-s1" offset=".08" stop-color="#fff1d6" stop-opacity=".85"/><stop id="lz-s2" offset=".5" stop-color="#fffaf0" stop-opacity="1"/><stop id="lz-s3" offset=".55" stop-color="#fff1d6" stop-opacity=".85"/><stop offset="1" stop-color="#fffaf0" stop-opacity="1"/></linearGradient><radialGradient id="lzr-spill"><stop offset="0.00" stop-color="#ff9a3d" stop-opacity="0.500"/><stop offset="0.10" stop-color="#ff9a3d" stop-opacity="0.479"/><stop offset="0.20" stop-color="#ff9a3d" stop-opacity="0.421"/><stop offset="0.30" stop-color="#ff9a3d" stop-opacity="0.339"/><stop offset="0.40" stop-color="#ff9a3d" stop-opacity="0.250"/><stop offset="0.50" stop-color="#ff9a3d" stop-opacity="0.170"/><stop offset="0.60" stop-color="#ff9a3d" stop-opacity="0.105"/><stop offset="0.70" stop-color="#ff9a3d" stop-opacity="0.060"/><stop offset="0.80" stop-color="#ff9a3d" stop-opacity="0.031"/><stop offset="0.90" stop-color="#ff9a3d" stop-opacity="0.015"/><stop offset="1.00" stop-color="#ff9a3d" stop-opacity="0.000"/></radialGradient><radialGradient id="lzr-halo"><stop offset="0.00" stop-color="#ffd9a0" stop-opacity="0.950"/><stop offset="0.10" stop-color="#ffd9a0" stop-opacity="0.899"/><stop offset="0.20" stop-color="#ffd9a0" stop-opacity="0.761"/><stop offset="0.30" stop-color="#ffd9a0" stop-opacity="0.576"/><stop offset="0.40" stop-color="#ffd9a0" stop-opacity="0.391"/><stop offset="0.50" stop-color="#ffd9a0" stop-opacity="0.237"/><stop offset="0.60" stop-color="#ffd9a0" stop-opacity="0.129"/><stop offset="0.70" stop-color="#ffd9a0" stop-opacity="0.062"/><stop offset="0.80" stop-color="#ffd9a0" stop-opacity="0.027"/><stop offset="0.90" stop-color="#ffd9a0" stop-opacity="0.011"/><stop offset="1.00" stop-color="#ffd9a0" stop-opacity="0.000"/></radialGradient>
         <linearGradient id="lzg-len" gradientUnits="userSpaceOnUse" x1="500" y1="0" x2="604" y2="0"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="lzmask" maskUnits="userSpaceOnUse" x="-20" y="-120" width="700" height="240"><rect x="-20" y="-120" width="700" height="240" fill="url(#lzg-len)"/></mask>
@@ -94,6 +95,7 @@
         <circle class="ring" data-ring="0" cx="1120" cy="470" r="520" pathLength="1"/>
         <circle class="ring" data-ring="1" cx="1120" cy="470" r="300" pathLength="1"/>
         <circle class="ring" data-ring="2" cx="1120" cy="470" r="150" pathLength="1"/>
+        <g id="fault-blot" transform="translate(1120 470)" aria-hidden="true"><circle r="11" fill="url(#blotg)"/><circle class="fault__ring" r="6"/><circle class="fault__dot" r="3"/></g>
         <g id="fault"><circle class="fault__pulse" cx="1120" cy="470" r="26"/><path class="fault__x" d="M1106 456L1134 484M1134 456L1106 484"/></g>
         <g id="laser" class="laser" aria-hidden="true">
           <g id="lz-beam" transform="translate(1440 -40) rotate(122.1)"><g mask="url(#lzmask)"><rect id="lz-bloom" class="laser__bloom" x="0" y="-70" width="640" height="140"/><rect id="lz-glow" class="laser__glow" x="0" y="-12" width="602" height="24"/></g><rect id="lz-core" class="laser__core" x="0" y="-.75" width="606" height="1.5"/></g>
@@ -108,6 +110,7 @@
         
       </g>
     </svg>
+    <div class="stage__fade" aria-hidden="true"></div>
   </div>
   <div class="steps">
     <article class="step step--head" data-step="0">
@@ -133,7 +136,7 @@
 </section>
 
 <div class="interlude interlude--a" aria-hidden="true">
-  <svg viewBox="0 0 1600 500" data-vb-mobile="560 0 480 500" preserveAspectRatio="none" focusable="false"><path class="fil-halo il" pathLength="1" d="M1180 -10C1180 220 120 160 120 520"/><path class="fil-core il" pathLength="1" d="M1180 -10C1180 220 120 160 120 520"/></svg>
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none" focusable="false"><path class="tr-halo" d="M0 0V1"/><path class="tr-core" d="M0 0V1"/></svg>
 </div>
 
 <!-- ================= TRACE ================= -->

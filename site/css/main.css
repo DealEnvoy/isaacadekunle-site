@@ -31,8 +31,16 @@ a:hover { text-decoration-thickness: 2px; }
 .motion-toggle .mt-play { display: none; fill: currentColor; stroke-width: 1; }
 .motion-toggle[aria-pressed="true"] .mt-pause { display: none; }
 .motion-toggle[aria-pressed="true"] .mt-play { display: inline; }
-@media (max-width: 52rem) { .motion-toggle { right: 10px; bottom: 10px; } }
-@media (max-width: 52rem) { .acts { display: none; } .site-header { padding-block: .55rem; } }
+@media (max-width: 52rem) {
+  .acts { display: none; }
+  /* phones: one tidy line. The motion toggle moves up into the header band (right-aligned, vertically centred) with a 44 px hit area around a 32 px visible circle */
+  .site-header { min-height: 48px; padding-block: .55rem; }
+  .wordmark { white-space: nowrap; line-height: 1.2; }
+  .motion-toggle { top: 2px; right: max(0px, calc(var(--page-margin) - 6px)); bottom: auto; width: 44px; height: 44px; border: 0; background: transparent; opacity: .85; -webkit-tap-highlight-color: transparent; }
+  .motion-toggle::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: rgba(14, 12, 10, .78); border: 1px solid rgba(243, 236, 224, .6); }
+  .motion-toggle svg { position: relative; }
+  .motion-toggle:focus-visible { outline-offset: -2px; }
+}
 
 /* ---------- buttons, chips ---------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem; padding: .6rem 1.3rem; font-weight: 500; text-decoration: none; border: 1px solid currentColor; border-radius: var(--radius); }
@@ -205,8 +213,14 @@ html[data-motion="off"] .panel, html.no-js .panel { opacity: 1; }
 .mk--dim { stroke: var(--c-mark-dim); }
 .mk--lit { stroke: var(--c-mark-lit); stroke-width: 2.4; }
 .ring { fill: none; stroke: rgba(255, 227, 184, .35); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.fault__x { fill: none; stroke: var(--c-light-core); stroke-width: 1.3; stroke-opacity: .6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.fault__pulse { fill: none; stroke: var(--c-light-glow); stroke-opacity: .55; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.fault__x { fill: none; stroke: var(--c-light-core); stroke-width: 2.2; stroke-opacity: .85; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+/* the tiny defect: a small warm speck among the dashes, distinct from them (round, not a line); the laser lands on it */
+#fault-blot { opacity: 0; }
+.fault__ring { fill: none; stroke: #ffb347; stroke-width: .9; stroke-opacity: .8; vector-effect: non-scaling-stroke; }
+.fault__dot { fill: #ffc766; }
+.stage__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; pointer-events: none; opacity: 0; background: linear-gradient(to bottom, rgba(14, 12, 10, 0), var(--c-night) 80%); }
+html[data-motion="off"] .stage__fade, html.no-js .stage__fade { display: none; }
+.fault__pulse { fill: none; stroke: var(--c-light-glow); stroke-opacity: .7; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 #fault { opacity: 0; }
 .fil-halo, .il.fil-halo { fill: none; stroke: var(--c-light-glow); stroke-opacity: .22; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .fil-core { fill: none; stroke: var(--c-light-core); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
@@ -255,6 +269,9 @@ html[data-motion="off"] .ring, html.no-js .ring { stroke-dashoffset: 0; }
 .st.on .st__ring { stroke: var(--c-light-core); fill: var(--c-light-core); }
 .st.on .st__tick { stroke: var(--c-light-core); }
 .head { fill: #fff6e6; }
+.head-glow, .st__glow { fill: #ffb25a; filter: url(#trHeadGlow); }
+.st__glow { opacity: 0; }
+.st.on .st__glow { opacity: .75; }
 
 /* RELEASE art */
 .sky { position: absolute; inset: 0; background: color-mix(in srgb, #111822 calc((1 - var(--dawn, 0)) * 100%), #f1dfc2); }
@@ -272,7 +289,8 @@ html[data-motion="off"] .ring, html.no-js .ring { stroke-dashoffset: 0; }
 .interlude svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .interlude--a { background: linear-gradient(var(--c-night), var(--c-blue-hour)); }
 .interlude--b { background: linear-gradient(var(--c-blue-hour), #111822); }
-.interlude .fil-core, .interlude .tr-core { stroke: var(--c-light-core); }
+.interlude--a { z-index: 2; }
+.interlude--a svg { inset: auto; left: 0; top: calc(-1 * var(--ov, 0px)); width: 100%; height: calc(100% + var(--ov, 0px)); overflow: visible; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--ov, 0px) * .85)); mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--ov, 0px) * .85)); }
 html[data-motion="off"] .interlude .il, html.no-js .interlude .il { stroke-dashoffset: 0; }
 
 /* ---------- bands ---------- */
@@ -400,8 +418,11 @@ html[data-motion="off"] .flow__steps::before, html.no-js .flow__steps::before { 
 
 /* ---------- Part 2 ---------- */
 /* TRACE line (drawn by length in JS) */
-.tr-halo { fill: none; stroke: var(--c-light-glow); stroke-opacity: .22; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; display: none; }
-.tr-core { fill: none; stroke: var(--c-light-core); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; display: none; }
+/* shared laser look (JS beamKit): halo = 4 px source that an SVG filter turns into soft bloom + thin glow; core = white-hot 1.5 px. Same as the ISOLATE beam. */
+.tr-halo, .bm-halo { fill: none; stroke: #ffc16b; stroke-linecap: round; stroke-linejoin: round; stroke-width: 4; }
+.tr-core, .bm-core { fill: none; stroke: #fff0d2; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
+.bm-rim { fill: none; stroke: #e6a10c; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.6; opacity: 0; }
+.tr-halo, .tr-core { display: none; }
 .step--gate { min-height: 190svh; align-items: flex-start; padding-block: 0; }
 .step--gate .panel { position: sticky; top: var(--py, 20svh); }
 .step--method { min-height: 92svh; }
@@ -413,8 +434,8 @@ html[data-motion="off"] .flow__steps::before, html.no-js .flow__steps::before { 
 /* governance building: fine lines, dim until the line lights it */
 .bldg path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .bldg .b-base { stroke: #7f95b3; stroke-opacity: .55; stroke-width: 1.2; }
-.bldg .b-gold { stroke: #ffe9bf; stroke-width: 1.5; }
-.bldg .b-glow { stroke: #ff9f40; stroke-opacity: .55; stroke-width: 5; }
+.bldg .b-gold { stroke: #fff0d2; stroke-width: 1.5; }
+.bldg .b-glow { stroke: #ffb25a; stroke-opacity: .75; stroke-width: 6; }
 html[data-motion="off"] .bldg .b-gold, html.no-js .bldg .b-gold { opacity: 1; }
 /* glowing line: dark edge + saturated gold + white-hot centre (reads on dark and on pale backgrounds) */
 .gl-edge, .gl-glow, .gl-core, .gl-hot { fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -437,7 +458,13 @@ html[data-motion="off"] .bldg .b-gold, html.no-js .bldg .b-gold { opacity: 1; }
 .rl-outline { fill: none; stroke: #e6bc6a; stroke-opacity: .3; stroke-width: 1.2; stroke-linejoin: round; }
 .rl-base { fill: rgba(255, 238, 200, .06); stroke: #e6bc6a; stroke-opacity: .3; stroke-width: 1.2; stroke-linejoin: round; }
 .rl-hl { fill: none; stroke: #fffaf0; stroke-opacity: .3; stroke-width: 1.6; stroke-linecap: round; }
-.rl-filblur { fill: none; stroke: #ffd77a; stroke-width: 8; opacity: 0; stroke-linejoin: round; }
+.rl-filblur { fill: none; stroke: #ffe39a; stroke-width: 7; opacity: 0; stroke-linejoin: round; }
+.rl-cold { fill: none; stroke: #d9c48e; stroke-opacity: .5; stroke-width: 1.1px; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.cl-w, .cl-m, .cl-c, .cl-h { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.cl-w { stroke: #ffb52e; stroke-opacity: .34; }
+.cl-m { stroke: #ffc233; stroke-opacity: .9; }
+.cl-c { stroke: #ffd24a; }
+.cl-h { stroke: #fff3c4; }
 .rl-white { fill: none; stroke: #fffaf0; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
 .rl-ic__tile { fill: #151a22; stroke: #6a6457; stroke-width: 1.6; }
 .rl-ic__halo { fill: none; stroke: #ffb52e; stroke-width: 1.2; opacity: 0; }
