@@ -12,8 +12,10 @@ Included in this repository
   modified (relit, graded, cropped and scaled; screens replaced).
   https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG
   https://creativecommons.org/licenses/by-sa/4.0/
-  The adapted images in site/img/ and the video files in site/video/ are
-  shared under the same licence (CC BY-SA 4.0). See site/video/CREDITS.txt.
+  The adapted images in site/img/ are shared under the same licence
+  (CC BY-SA 4.0). For the hero video, see below and site/video/CREDITS.txt:
+  base photograph CC BY-SA 4.0; screen imagery rendered from GPLv3 code. The
+  combined video's licensing is not asserted beyond this.
 - IBM Plex Mono, copyright IBM Corp., SIL Open Font License 1.1.
   Licence text: site/fonts/LICENSE-IBMPlexMono-OFL.txt
 - Ambience loop (site/audio/): original synthesised audio made for this site.
