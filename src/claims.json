@@ -142,7 +142,7 @@
       "text": "A published, evidence-led global investing guide, being expanded.",
       "tag": "shipped",
       "evidence_level": "public",
-      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
+      "evidence_url": "https://globalinvestorsguide.com"
     },
     {
       "id": "gig-ranking",
@@ -150,7 +150,7 @@
       "text": "Includes a tax-residency ranking of 25 countries.",
       "tag": "shipped",
       "evidence_level": "public",
-      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
+      "evidence_url": "https://globalinvestorsguide.com"
     },
     {
       "id": "gig-25-pending",
@@ -158,7 +158,7 @@
       "text": "5 of the 25 countries are pending sources.",
       "tag": "limit",
       "evidence_level": "self_reported",
-      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
+      "evidence_url": "https://globalinvestorsguide.com"
     },
     {
       "id": "gig-nfa",
@@ -166,7 +166,7 @@
       "text": "Not financial advice. Sources, assumptions and limitations are stated.",
       "tag": "limit",
       "evidence_level": "public",
-      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
+      "evidence_url": "https://globalinvestorsguide.com"
     },
     {
       "id": "rule-approval",
