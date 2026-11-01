@@ -51,7 +51,8 @@
     const lamp = $('#lamp', el), cam = $('#cam', el), fault = $('#fault', el), arm = $('#gate1arm', el), gate = $('#gate1', el);
     const f = ['f2', 'f3'].map(id => [$('#' + id, el), $('#' + id + 'h', el), $('#' + id + 'g', el)]);
     const trail = $('#lz-trail', el), ltS = [0, 1, 2].map(i => $('#lt-s' + i, el)), ltW = [[...$$('.lt--core', el)], [...$$('.lt--glow', el)], [...$$('.lt--bloom', el)]];
-    const rings = $$('.ring', el), mkAll = $$('.mk', el), fade = $('.stage__fade', el), blot = $('#fault-blot', el);
+    const rings = $$('.ring', el), mkAll = $$('.mk', el), fade = $('.stage__fade', el), odd = $('#odd', el), oddBar = $('.odd__bar', el), oddGlow = $('.odd__glow', el), oddBloom = $('.odd__bloom', el), faultRing = $('.fault__pulse', el);
+    const ODD0 = [154, 78, 58], ODD1 = [255, 236, 200];   /* tarnished red-brown -> lit tungsten */
     const path = [[0, 300, 300], [.1, 620, 640], [.2, 960, 260], [.3, 1120, 470]];
     const rad = [[0, 230], [.3, 230], [.38, 560], [.42, 560], [.5, 330], [.54, 330], [.62, 170], [.66, 170], [.76, 60]];
     const at = (k, p) => { let i = 0; while (i < k.length - 2 && p > k[i + 1][0]) i++; const a = k[i], b = k[i + 1]; const t = ease(seg(p, a[0], b[0])); return b.slice(1).map((v, j) => lerp(a[j + 1], v, t)); };
@@ -158,8 +159,12 @@
       const s = 1 + (mqMobile.matches ? .22 : .5) * ease(seg(p, .4, .8));
       cam.setAttribute('transform', `translate(1120 470) scale(${s.toFixed(3)}) translate(-1120 -470)`);
       if (s !== camS) { camS = s; measure(); }
-      fault.style.opacity = seg(p, .68, .76).toFixed(3);
-      if (blot) blot.style.opacity = (seg(p, .46, .6) * (1 - .25 * seg(p, .8, 1))).toFixed(3);
+      fault.style.opacity = (instant ? 1 : seg(p, .6, .72)).toFixed(3);
+      /* the odd bar: tarnished from the very first frame; as the view closes in on it the other bars dim and it warms, then lights (it is what the laser leaves from) */
+      const oL = instant ? 1 : ease(seg(p, .5, .76)), oc = ODD0.map((v, i) => Math.round(lerp(v, ODD1[i], oL)));
+      oddBar.style.stroke = `rgb(${oc[0]},${oc[1]},${oc[2]})`; oddBar.style.strokeWidth = (2 + .5 * oL).toFixed(2);
+      oddGlow.style.opacity = (.55 * oL).toFixed(3); oddBloom.style.opacity = (.4 * oL).toFixed(3);
+      faultRing.setAttribute('r', (instant ? 26 : lerp(70, 26, ease(seg(p, .6, .76)))).toFixed(1));
       if (fade) fade.style.opacity = (instant ? 0 : seg(p, .9, 1)).toFixed(3);
       /* the laser strikes the fault: intensity ramps with scroll, then flickers; the line carries on from the fault */
       strike = seg(p, .72, .78);

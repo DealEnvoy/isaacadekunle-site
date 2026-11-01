@@ -213,11 +213,11 @@ html[data-motion="off"] .panel, html.no-js .panel { opacity: 1; }
 .mk--dim { stroke: var(--c-mark-dim); }
 .mk--lit { stroke: var(--c-mark-lit); stroke-width: 2.4; }
 .ring { fill: none; stroke: rgba(255, 227, 184, .35); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.fault__x { fill: none; stroke: var(--c-light-core); stroke-width: 2.2; stroke-opacity: .85; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-/* the tiny defect: a small warm speck among the dashes, distinct from them (round, not a line); the laser lands on it */
-#fault-blot { opacity: 0; }
-.fault__ring { fill: none; stroke: #ffb347; stroke-width: .9; stroke-opacity: .8; vector-effect: non-scaling-stroke; }
-.fault__dot { fill: #ffc766; }
+/* the odd bar: one of the field's own bars, same size and width as its neighbours, a slightly tarnished red-brown instead of their grey-gold.
+   present from the first frame; JS lights it (colour, then glow) as the camera closes in on it */
+.odd__bar { fill: none; stroke: #9a4e3a; stroke-width: 2; stroke-linecap: round; }
+.odd__glow { fill: none; stroke: #ff9a3d; stroke-width: 5; stroke-linecap: round; opacity: 0; }
+.odd__bloom { fill: none; stroke: #ff9a3d; stroke-width: 9; stroke-linecap: round; opacity: 0; }
 .stage__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; pointer-events: none; opacity: 0; background: linear-gradient(to bottom, rgba(14, 12, 10, 0), var(--c-night) 80%); }
 html[data-motion="off"] .stage__fade, html.no-js .stage__fade { display: none; }
 .fault__pulse { fill: none; stroke: var(--c-light-glow); stroke-opacity: .7; stroke-width: 1.4; vector-effect: non-scaling-stroke; }

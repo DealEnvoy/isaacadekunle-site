@@ -26,6 +26,7 @@ function field() {
   for (let y = 24; y < 900; y += 44) for (let x = 24; x < 1600; x += 44) {
     const jx = x + (R() - .5) * 22, jy = y + (R() - .5) * 22, a = R() * Math.PI, len = 8 + R() * 8;
     const d = Math.hypot(jx - F[0], jy - F[1]);
+    if (d < 24) continue;   /* the odd bar (#odd, in index.src.html) stands at the fault point: no ordinary bar sits underneath it */
     const b = d > 520 ? 0 : d > 300 ? 1 : d > 150 ? 2 : 3;
     bands[b].push(`M${jx.toFixed(0)} ${jy.toFixed(0)}l${(Math.cos(a) * len).toFixed(1)} ${(Math.sin(a) * len).toFixed(1)}`);
   }

@@ -107,7 +107,7 @@
     {
       "id": "aml-live",
       "project": "AMLtracker",
-      "text": "A free calendar of upcoming UK Part-66 aircraft maintenance licence exam sittings from the UK CAA and Part-147 centres. It is free, and it does not ask for an account.",
+      "text": "A free calendar of upcoming UK Part-66 exam sittings, for people studying for the aircraft maintenance licence. Dates come from the UK CAA and Part-147 centres, and no account is needed.",
       "tag": "shipped",
       "evidence_level": "public",
       "evidence_url": "https://amltracker.pages.dev"
@@ -138,35 +138,35 @@
     },
     {
       "id": "gig-published",
-      "project": "Global Investor Guide",
+      "project": "Nigerian Investor Guide",
       "text": "A published, evidence-led investing guide, starting with Nigerian shares from the UK and Canada; being expanded.",
       "tag": "shipped",
       "evidence_level": "public",
-      "evidence_url": "/guide"
+      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
     },
     {
       "id": "gig-ranking",
-      "project": "Global Investor Guide",
+      "project": "Nigerian Investor Guide",
       "text": "Includes a tax-residency ranking of 25 countries.",
       "tag": "shipped",
       "evidence_level": "public",
-      "evidence_url": "/guide"
+      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
     },
     {
       "id": "gig-25-pending",
-      "project": "Global Investor Guide",
+      "project": "Nigerian Investor Guide",
       "text": "5 of the 25 countries are pending sources.",
       "tag": "limit",
       "evidence_level": "self_reported",
-      "evidence_url": "/guide"
+      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
     },
     {
       "id": "gig-nfa",
-      "project": "Global Investor Guide",
+      "project": "Nigerian Investor Guide",
       "text": "Not financial advice. Sources, assumptions and limitations are stated.",
       "tag": "limit",
       "evidence_level": "public",
-      "evidence_url": "/guide"
+      "evidence_url": "https://nigerian-investor-guide.isaac-adekunle.chatgpt.site"
     },
     {
       "id": "rule-approval",
