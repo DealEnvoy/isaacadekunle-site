@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on" data-hero="a">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isaac Adekunle | AI Product Builder &amp; Forward Deployed Engineer</title>
+<meta name="description" content="I find where the work gets stuck, build AI-native products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.">
+<meta name="theme-color" content="#0e0c0a">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/zodiak-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/zodiak-400i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/main.css">
+<script>
+/* Runs before first paint: motion preference, and the hero layout (?hero=a|b|c for previewing; default a). */
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', (s === 'on' || s === 'off') ? s : (r ? 'off' : 'on'));
+  var m = /[?&]hero=(a|b|c)/.exec(location.search);
+  if (m) d.setAttribute('data-hero', m[1]);
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" role="banner">
+  <a class="wordmark" href="#top" aria-label="Isaac Adekunle, back to top">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Sections">
+    <a href="#isolate"><span class="acts__n">01</span> Isolate</a>
+    <a href="#trace"><span class="acts__n">02</span> Trace</a>
+    <a href="#release"><span class="acts__n">03</span> Release</a>
+    <a href="#contact"><span class="acts__n">04</span> Contact</a>
+  </nav>
+  <button class="motion-toggle" type="button" aria-pressed="false" data-motion-toggle><span class="motion-toggle__dot" aria-hidden="true"></span><span data-motion-label>Turn motion off</span></button>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO (variants a|b|c via ?hero=) ================= -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 832px)" type="image/avif" srcset="img/cockpit-tall-560.avif 560w, img/cockpit-tall-900.avif 900w, img/cockpit-tall-1200.avif 1200w" sizes="100vw">
+        <source media="(max-width: 832px)" type="image/webp" srcset="img/cockpit-tall-560.webp 560w, img/cockpit-tall-900.webp 900w, img/cockpit-tall-1200.webp 1200w" sizes="100vw">
+        <source type="image/avif" srcset="img/cockpit-std-640.avif 640w, img/cockpit-std-1000.avif 1000w, img/cockpit-std-1600.avif 1600w, img/cockpit-std-2000.avif 2000w, img/cockpit-std-2400.avif 2400w" sizes="100vw">
+        <source type="image/webp" srcset="img/cockpit-std-640.webp 640w, img/cockpit-std-1000.webp 1000w, img/cockpit-std-1600.webp 1600w, img/cockpit-std-2000.webp 2000w, img/cockpit-std-2400.webp 2400w" sizes="100vw">
+        <img class="hero__img" src="img/cockpit-std-1600.jpg" srcset="img/cockpit-std-640.jpg 640w, img/cockpit-std-1000.jpg 1000w, img/cockpit-std-1600.jpg 1600w, img/cockpit-std-2000.jpg 2000w, img/cockpit-std-2400.jpg 2400w" sizes="100vw" width="2400" height="1800" alt="" decoding="async" fetchpriority="high">
+      </picture>
+  </div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <div class="hero__head">
+        <p class="kicker">AI Product Builder &amp; Forward Deployed Engineer</p>
+        <h1 id="hero-title" class="hero__title"><em>I find where the work gets stuck,</em> build <span class="nw">AI-native</span> products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.</h1>
+      </div>
+      <div class="hero__foot">
+        <p class="hero__sub">If you have a process you'd like automated, or an AI system that needs proper governance and observability, I'd be glad to talk.</p>
+        <p class="hero__cta"><a class="btn btn--primary" href="#contact">Start a conversation</a> <a class="btn" href="#release">See what I've shipped</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" aria-label="What is live now">
+  <ul class="strip__list">
+    <li><span class="strip__name">TextBackCaller</span><span class="chip chip--live">Live</span></li>
+    <li><span class="strip__name">AMLtracker</span><span class="chip chip--live">Live</span></li>
+    <li><span class="strip__name">PitchReach</span><span class="chip chip--beta">Beta</span></li>
+    <li><span class="strip__name">Global Investor Guide</span><span class="chip chip--exp">Expanding</span></li>
+  </ul>
+  <p class="strip__line">Four products I direct, each with a stage stated plainly and nothing released without my approval.</p>
+</section>
+
+<!-- ================= ISOLATE ================= -->
+<section class="scene scene--night" id="isolate" data-scene="isolate" aria-labelledby="h-isolate">
+  <div class="stage" aria-hidden="true">
+    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="720 0 800 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs>
+        <radialGradient id="lampgrad"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
+        <mask id="lampmask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900"><rect width="1600" height="900" fill="#000"/><circle id="lamp" cx="300" cy="300" r="220" fill="url(#lampgrad)"/></mask>
+      </defs>
+      <g id="cam">
+        {{field}}
+        <circle class="ring" data-ring="0" cx="1120" cy="470" r="520" pathLength="1"/>
+        <circle class="ring" data-ring="1" cx="1120" cy="470" r="300" pathLength="1"/>
+        <circle class="ring" data-ring="2" cx="1120" cy="470" r="150" pathLength="1"/>
+        <g id="fault"><circle class="fault__pulse" cx="1120" cy="470" r="26"/><path class="fault__x" d="M1106 456L1134 484M1134 456L1106 484"/></g>
+        <path class="fil-halo" id="f1h" pathLength="1" d="M1440 -40C1300 160 1180 280 1120 470"/><path class="fil-core" id="f1" pathLength="1" d="M1440 -40C1300 160 1180 280 1120 470"/>
+        <path class="fil-halo" id="f2h" pathLength="1" d="M1120 470L1120 650"/><path class="fil-core" id="f2" pathLength="1" d="M1120 470L1120 650"/>
+        <g id="gate1" class="gate" transform="translate(1120 650)"><path class="gate__post" d="M-34 24V-24M34 24V-24"/><path class="gate__arm" id="gate1arm" d="M-34 -4H34"/></g>
+        <path class="fil-halo" id="f3h" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/><path class="fil-core" id="f3" pathLength="1" d="M1120 650L1120 700C1120 800 1180 860 1180 960"/>
+      </g>
+    </svg>
+  </div>
+  <div class="steps">
+    <article class="step step--head" data-step="0">
+      <div class="panel">
+        <p class="kicker">Act 01 of 04</p>
+        <h2 id="h-isolate" class="act-title">Isolate</h2>
+        <p class="lede">Find the one place the work gets stuck.</p>
+      </div>
+    </article>
+    <article class="step" data-step="1">
+      <div class="panel">
+        <h3>A process fails in one place first</h3>
+        <p>From the outside, everything looks slow. Usually one handoff, one approval or one task repeated by hand is holding up the rest. Finding that point is most of the work.</p>
+      </div>
+    </article>
+    <article class="step" data-step="2">
+      <div class="panel">
+        <h3>So I start with the stuck point</h3>
+        <p>Where does the work wait? Which step is done by hand every time? Who is chasing whom? I write the answer down as a problem someone can test, before anything gets built.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="interlude interlude--a" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" data-vb-mobile="560 0 480 500" preserveAspectRatio="none" focusable="false"><path class="fil-halo il" pathLength="1" d="M1180 -10C1180 220 120 160 120 520"/><path class="fil-core il" pathLength="1" d="M1180 -10C1180 220 120 160 120 520"/></svg>
+</div>
+
+<!-- ================= TRACE ================= -->
+<section class="scene scene--blue" id="trace" data-scene="trace" aria-labelledby="h-trace">
+  <div class="stage" aria-hidden="true">
+    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="0 0 800 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <g class="hair"></g>
+      <g id="echoes"></g>
+      <path id="trail-d" class="trail-ghost" d="M120 -40C120 300 200 700 380 640S560 430 700 420S900 560 1040 520S1180 330 1300 320L1480 300L1480 960" data-d-mobile="M400 -40L400 80C400 180 240 200 240 320S560 440 560 560S300 640 300 740S400 820 400 960"/>
+      <path id="trail-h" class="fil-halo" pathLength="1" d=""/>
+      <path id="trail" class="fil-core" pathLength="1" d=""/>
+      <g id="stations"></g>
+      <g id="gate2" class="gate" transform="translate(0 0)"><path class="gate__post" d="M-30 26V-26M30 26V-26"/><path class="gate__arm" id="gate2arm" d="M-30 -4H30"/></g>
+      <circle id="head" class="head" r="7" cx="-50" cy="-50"/>
+    </svg>
+  </div>
+  <div class="steps">
+    <article class="step step--head" data-step="0">
+      <div class="panel">
+        <p class="kicker">Act 02 of 04</p>
+        <h2 id="h-trace" class="act-title">Trace</h2>
+        <p class="lede">Follow the fix from objective to approval, one stage at a time.</p>
+      </div>
+    </article>
+    <article class="step" data-step="1" data-station="0">
+      <div class="panel">
+        <p class="stage-n">Stage 1</p>
+        <h3>Objective and context</h3>
+        <p>I define the objective and supply the context. A build that starts without both is guesswork.</p>
+      </div>
+    </article>
+    <article class="step" data-step="2" data-station="1">
+      <div class="panel">
+        <p class="stage-n">Stage 2</p>
+        <h3>Break it into stages</h3>
+        <p>Work moves through API calls and integrations, MCP servers, and RAG when a task depends on source material. Agentic steps cover research, data processing, drafting and checks.</p>
+      </div>
+    </article>
+    <article class="step" data-step="2" data-station="2">
+      <div class="panel">
+        <p class="stage-n">Stage 3</p>
+        <h3>Review apart from building</h3>
+        <p>Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published.</p>
+        {{claim:obs-records}}
+      </div>
+    </article>
+    <article class="step" data-step="4" data-station="3">
+      <div class="panel panel--gate">
+        <p class="stage-n">Stage 4</p>
+        <h3>A person signs</h3>
+        {{claim:rule-approval}}
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="band band--blue" aria-labelledby="h-method">
+  <div class="wrap">
+    <p class="kicker">How a build is governed</p>
+    <h2 id="h-method" class="band__title">The method, in full</h2>
+    <div class="method">
+      <p>I treat the build as a governed process: development, observability, and forward deployed engineering once something is live. I define the objective, supply the context, break the task into stages and review every result before it goes any further.</p>
+      <p>Development is agentic. Work moves through API calls and integrations, MCP (Model Context Protocol) servers, and RAG (retrieval-augmented generation) when a task depends on source material. Agentic workflows cover research, data processing, drafting and checks. Some of those workflows have browser and computer access, each with a defined role, and an orchestrating step coordinates them. I compare results, correct what is wrong, and ask for evidence before I accept a claim.</p>
+      <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation, and CI runs before a change is published. Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.</p>
+      <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models instead of an outside service. Logging and observability record what ran, what changed and what was approved, so a live product can be corrected in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew website.</p>
+    </div>
+  </div>
+</section>
+
+<div class="interlude interlude--b" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" data-vb-mobile="560 0 480 500" preserveAspectRatio="none" focusable="false"><path class="fil-halo il" pathLength="1" d="M1480 -10C1480 200 -40 120 -40 330"/><path class="fil-core il" pathLength="1" d="M1480 -10C1480 200 -40 120 -40 330"/></svg>
+</div>
+
+<!-- ================= RELEASE ================= -->
+<section class="scene scene--dawn" id="release" data-scene="release" aria-labelledby="h-release">
+  <div class="stage" aria-hidden="true">
+    <div class="sky"></div>
+    <svg class="art" viewBox="0 0 1600 900" data-vb-mobile="300 0 1000 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs>
+        <radialGradient id="sunglow"><stop offset="0" stop-color="#ffe3b8" stop-opacity=".95"/><stop offset=".4" stop-color="#ffb35a" stop-opacity=".45"/><stop offset="1" stop-color="#ff9a3d" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hangarglow"><stop offset="0" stop-color="#ffb35a" stop-opacity=".75"/><stop offset="1" stop-color="#ffb35a" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle id="sun" cx="800" cy="700" r="330" fill="url(#sunglow)"/>
+      <ellipse id="hangar" cx="270" cy="640" rx="330" ry="150" fill="url(#hangarglow)"/>
+      <path class="hangar-door" d="M110 640V560H430V640M270 560V640"/>
+      <rect class="ground" x="-10" y="640" width="1620" height="270"/>
+      <path class="horizon" d="M0 640H1600"/>
+      <g id="rel-lights"></g>
+      <path class="fil-halo r-ground" pathLength="1" d="M-40 640L800 640"/><path class="fil-core r-ground" pathLength="1" d="M-40 640L800 640"/>
+      <g id="lifts"></g>
+    </svg>
+  </div>
+  <div class="steps">
+    <article class="step step--head" data-step="0">
+      <div class="panel">
+        <p class="kicker">Act 03 of 04</p>
+        <h2 id="h-release" class="act-title">Release</h2>
+        <p class="lede">Put it to work where the work is.</p>
+      </div>
+    </article>
+    <article class="step" data-step="1">
+      <div class="panel">
+        <h3>Ship it where the work happens</h3>
+        <p>A workflow that only works in a demo is not a fix. It has to run inside the organisation, on its real data and under its real rules.</p>
+      </div>
+    </article>
+    <article class="step" data-step="2">
+      <div class="panel">
+        <h3>Then stay with it</h3>
+        <p>A live system is connected in place, then watched and corrected after it ships. That is the forward-deployed part of the job.</p>
+      </div>
+    </article>
+    <article class="step" data-step="2">
+      <div class="panel">
+        <h3>Guardrails built in</h3>
+        <p>Data handling, approvals and guardrails are set before a workflow runs. A change is checked and logged, and it does not go out without approval.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="dawn">
+
+<section class="band" aria-labelledby="h-offer">
+  <div class="wrap">
+    <p class="kicker">What I can do for you</p>
+    <h2 id="h-offer" class="band__title">From the stuck point to something running</h2>
+    <ul class="offer">
+      <li><h3>AI-native products</h3><p>I direct the product from the objective through to a reviewed result. Shipped this way: PitchReach, AMLtracker and the Global Investor Guide.</p></li>
+      <li><h3>Business automation</h3><p>Workflows for the routine steps of a business.</p>
+        <ul class="offer__eg"><li>Missed-call and enquiry follow-up</li><li>Lead capture and CRM sync</li><li>Appointment booking and reminders</li><li>Invoice, quote and payment chasing</li><li>Document and data extraction</li><li>Scheduled reporting</li></ul></li>
+      <li><h3>Scalable autonomous workflows</h3><p>Work is split into stages, with a person setting the objective and checking the result.</p></li>
+      <li><h3>Orchestration frameworks</h3><p>Several steps are coordinated so each handoff stays explicit.</p></li>
+      <li><h3>Forward-deployed integrations</h3><p>A live system is connected in place, then watched and corrected after it ships.</p></li>
+      <li><h3>Governance and guardrails</h3><p>Data handling, approvals and guardrails are set before a workflow runs. A change is checked and logged, and it does not go out without approval.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CASE STUDY: TextBackCaller ============ -->
+<section class="band band--case" id="textbackcaller" aria-labelledby="h-tbc">
+  <div class="wrap">
+    <p class="kicker">Case study</p>
+    <div class="case__head">
+      <h2 id="h-tbc" class="band__title">TextBackCaller</h2>
+      <span class="chip chip--live">Live</span>
+    </div>
+    <p class="lede lede--dawn">AI-assisted automation, end to end: from a missed call to a text back, with a person deciding at the points that matter.</p>
+    <div class="case__facts">
+      {{claim:tbc-live}}
+      {{claim:tbc-audience}}
+      {{claim:tbc-number}}
+    </div>
+
+    <h3 class="case__h">The automation</h3>
+    <div class="flow" data-flow>
+      <div class="flow__lane">
+        <p class="flow__lane-title">Once, when a customer signs up</p>
+        <ol class="flow__steps">
+          <li><span class="flow__n">1</span><span class="flow__what">Customer signs up and pays by card</span><span class="flow__tool">Stripe Checkout</span></li>
+          <li><span class="flow__n">2</span><span class="flow__what">A signed payment webhook starts provisioning</span><span class="flow__tool">Cloudflare Worker</span></li>
+          <li><span class="flow__n">3</span><span class="flow__what">A UK mobile number is bought for the customer</span><span class="flow__tool">Twilio API</span></li>
+          <li><span class="flow__n">4</span><span class="flow__what">Setup text and setup email go out</span><span class="flow__tool">Twilio SMS, Resend</span></li>
+          <li class="flow__gate"><span class="flow__n">!</span><span class="flow__what">If setup fails or a trial is refused, the owner is alerted and a person decides</span><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span></li>
+        </ol>
+      </div>
+      <div class="flow__lane">
+        <p class="flow__lane-title">Every missed call</p>
+        <ol class="flow__steps">
+          <li><span class="flow__n">1</span><span class="flow__what">The phone network diverts the missed call to the customer's number</span><span class="flow__tool">Conditional forwarding</span></li>
+          <li><span class="flow__n">2</span><span class="flow__what">A signed webhook arrives; the call is rejected as busy at once</span><span class="flow__tool">Worker, Twilio voice</span></li>
+          <li><span class="flow__n">3</span><span class="flow__what">Guards are checked, then one text goes to the caller from the business's own number</span><span class="flow__tool">Twilio SMS, D1</span></li>
+        </ol>
+        <div class="case__guards">{{claim:tbc-guards}}</div>
+      </div>
+    </div>
+    {{claim:tbc-auto}}
+
+    <div class="case__cols">
+      <div>
+        <h3 class="case__h">Tools called</h3>
+        <table class="tools">
+          <caption class="sr-only">Services the system calls, and what for</caption>
+          <thead><tr><th scope="col">Service</th><th scope="col">Called for</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Stripe Checkout and Billing</th><td>Taking the subscription; signed payment webhooks back</td></tr>
+            <tr><th scope="row">Twilio Voice and SMS</th><td>Buying numbers, receiving missed-call webhooks, sending the text</td></tr>
+            <tr><th scope="row">Cloudflare Workers</th><td>Running the logic, with a scheduled job each hour</td></tr>
+            <tr><th scope="row">Cloudflare D1</th><td>Signups, customers, usage, opt-outs</td></tr>
+            <tr><th scope="row">Resend</th><td>Setup and alert emails</td></tr>
+          </tbody>
+        </table>
+        {{claim:tbc-tools}}
+        {{claim:tbc-stack}}
+      </div>
+      <div>
+        <h3 class="case__h">Written in</h3>
+        <ul class="langs" aria-label="Languages">
+          <li>JavaScript</li><li>SQL</li><li>HTML</li><li>CSS</li>
+        </ul>
+        {{claim:tbc-lang}}
+        <h3 class="case__h">Built as AI-assisted automation</h3>
+        {{claim:tbc-ai-assisted}}
+      </div>
+    </div>
+
+    <h3 class="case__h">Where a person decides</h3>
+    <div class="gates">
+      {{claim:tbc-gate-release}}
+      {{claim:tbc-gate-flags}}
+      {{claim:tbc-gate-alerts}}
+      {{claim:tbc-controls}}
+    </div>
+    <p class="case__link"><a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Visit TextBackCaller</a></p>
+  </div>
+</section>
+
+<!-- ============ OTHER PRODUCTS ============ -->
+<section class="band" id="products" aria-labelledby="h-products">
+  <div class="wrap">
+    <p class="kicker">Also shipped</p>
+    <h2 id="h-products" class="band__title">The rest of the work</h2>
+    <p class="band__lede">I direct each of these under Drew &amp; Crew Ltd: I set the objective, supply the context and review every result.</p>
+    <div class="cards">
+      <article class="card">
+        <header class="card__head"><h3>PitchReach</h3><span class="chip chip--beta">Beta</span></header>
+        {{claim:pr-beta}}
+        {{claim:pr-journey-open}}
+        {{claim:pr-inputs}}
+        {{claim:pr-arch}}
+        {{claim:pr-safeguards}}
+        <p class="card__link"><a href="https://pitchreach.co.uk" rel="noopener">Open PitchReach</a></p>
+      </article>
+      <article class="card">
+        <header class="card__head"><h3>AMLtracker</h3><span class="chip chip--live">Live</span></header>
+        {{claim:aml-live}}
+        {{claim:aml-sources}}
+        <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a></p>
+      </article>
+      <article class="card">
+        <header class="card__head"><h3>Global Investor Guide</h3><span class="chip chip--exp">Expanding</span></header>
+        {{claim:gig-published}}
+        {{claim:gig-ranking}}
+        {{claim:gig-nfa}}
+        <p class="card__link"><a href="/guide">Read the guide</a></p>
+      </article>
+      <article class="card">
+        <header class="card__head"><h3>Drew &amp; Crew Ltd</h3><span class="chip chip--live">Live</span></header>
+        {{claim:dc-site}}
+        <p class="card__link"><a href="https://drewandcrew.com" rel="noopener">drewandcrew.com</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IN DEVELOPMENT ============ -->
+<section class="band band--dev" aria-labelledby="h-dev">
+  <div class="wrap">
+    <p class="kicker">In development</p>
+    <h2 id="h-dev" class="band__title">A problem I am working on</h2>
+    <article class="devcard" data-dev-entry>
+      <div class="devcard__stage"><span class="chip chip--concept">Concept</span></div>
+      {{claim:dev-focus}}
+    </article>
+  </div>
+</section>
+
+</div><!-- /.dawn -->
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact" aria-labelledby="h-contact">
+  <div class="contact__sky" aria-hidden="true"></div>
+  <div class="wrap contact__inner">
+    <p class="kicker">Act 04 of 04</p>
+    <h2 id="h-contact" class="act-title act-title--dawn">Contact</h2>
+    <p class="contact__lede">If you have a process you'd like automated, or an AI system that needs proper governance and observability, I'd be glad to talk.</p>
+    <p class="contact__cta"><a class="btn btn--primary btn--lg" href="https://www.linkedin.com/in/isaacadekunle/" rel="noopener">Message me on LinkedIn</a></p>
+    <ul class="contact__links">
+      <li><a href="https://x.com/TheDealEnvoy" rel="noopener">X</a></li>
+      <li><a href="https://drewandcrew.com" rel="noopener">Drew &amp; Crew Ltd</a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Open the full claims ledger</summary>
+      {{ledger}}
+    </details>
+    <p class="credit">Cockpit photograph: <a href="https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG" rel="noopener">&ldquo;Airbus A380 Qantas Cockpit&rdquo;</a> by <a href="https://commons.wikimedia.org/wiki/User:Braniff747SP" rel="noopener">Braniff747SP</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>. Recoloured, cropped and with the display screens redrawn; this adaptation is shared under the same licence. Night view through the windows: aerial photograph <a href="https://commons.wikimedia.org/wiki/File:City_lights_from_air_at_night_1.jpg" rel="noopener">&ldquo;City lights from air at night 1&rdquo;</a> by Foxtod, <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener">CC0 1.0</a>, reworked with added approach lights.</p>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

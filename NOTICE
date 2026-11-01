@@ -1,0 +1,29 @@
+Third-party components
+======================
+
+This file lists third-party material used by the site and the licence each
+component is published under, as stated by its source. It is a list for
+transparency, not legal advice.
+
+Included in this repository
+----------------------------
+- Photograph "Airbus A380 Qantas Cockpit" by Braniff747SP, CC BY-SA 4.0,
+  modified (recoloured, cropped, display screens redrawn).
+  https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG
+  https://creativecommons.org/licenses/by-sa/4.0/
+  The adapted images in site/img/ and the video in site/video/ are shared
+  under the same licence (CC BY-SA 4.0).
+- Aerial photograph "City lights from air at night 1" by Foxtod, CC0 1.0,
+  reworked with added approach lights.
+  https://commons.wikimedia.org/wiki/File:City_lights_from_air_at_night_1.jpg
+- IBM Plex Mono, copyright IBM Corp., SIL Open Font License 1.1.
+  Licence text: site/fonts/LICENSE-IBMPlexMono-OFL.txt
+
+Not included in this repository
+-------------------------------
+- Zodiak and Switzer, copyright Indian Type Foundry (ITF), distributed by
+  Fontshare under the ITF Free Font License. Download from
+  https://www.fontshare.com into site/fonts/ to build locally.
+
+All other text, code and design: copyright Isaac Adekunle, all rights reserved
+unless stated otherwise.

@@ -1,0 +1,26 @@
+# fonts not redistributed here (ITF Free Font License): download from fontshare.com
+site/fonts/zodiak*
+site/fonts/switzer*
+
+# dependencies and tooling
+node_modules/
+package-lock.json
+.wrangler/
+.dev.vars
+.env
+.env.*
+*.pem
+*.key
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# local build output and scratch
+__pycache__/
+*.pyc
+*.log
+tmp/

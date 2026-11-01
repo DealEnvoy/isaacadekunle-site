@@ -1,0 +1,259 @@
+{
+  "_readme": "Claims ledger for the on-page legend. Every on-page claim has exactly one tag. Tags: shipped | specified | assumption | limit | human_gate. evidence_level: public (a public URL a visitor can open) | self_reported.",
+  "tags": {
+    "shipped": "Built and demonstrably in use or published. Needs a public link, or is marked self_reported.",
+    "specified": "Designed and written down, not (yet) implemented. The CV itself makes this distinction.",
+    "assumption": "Something the design relies on that has not been verified. Concepts that illustrate an idea sit here.",
+    "limit": "An evidence limitation: what cannot be shown or is not claimed.",
+    "human_gate": "A decision a person must make before anything proceeds (approval, release gate)."
+  },
+  "claims": [
+    {
+      "id": "tbc-live",
+      "project": "TextBackCaller",
+      "text": "A missed-call text-back service. Live, launched 19 October 2026.",
+      "tag": "shipped",
+      "evidence_level": "self_reported",
+      "evidence_url": "https://textbackcaller.co.uk"
+    },
+    {
+      "id": "tbc-stack",
+      "project": "TextBackCaller",
+      "text": "Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.",
+      "tag": "shipped",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "tbc-number",
+      "project": "TextBackCaller",
+      "text": "Customers keep their existing business number.",
+      "tag": "shipped",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "tbc-controls",
+      "project": "TextBackCaller",
+      "text": "Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.",
+      "tag": "shipped",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "tbc-audience",
+      "project": "TextBackCaller",
+      "text": "For UK small businesses.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://textbackcaller.co.uk"
+    },
+    {
+      "id": "pr-beta",
+      "project": "PitchReach",
+      "text": "A football opportunity map of England for parents, guardians and coaches, in controlled beta.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://pitchreach.co.uk"
+    },
+    {
+      "id": "pr-inputs",
+      "project": "PitchReach",
+      "text": "Uses age, postcode, transport mode and travel time to assess proximity and practical access.",
+      "tag": "specified",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "pr-arch",
+      "project": "PitchReach",
+      "text": "Architecture designed around Next.js, TypeScript, MapLibre, Python, FastAPI, PostgreSQL, PostGIS, GeoPandas and routing services.",
+      "tag": "specified",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "pr-safeguards",
+      "project": "PitchReach",
+      "text": "Controlled beta access and safeguards against bulk extraction were defined.",
+      "tag": "specified",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "pr-national-scores",
+      "project": "PitchReach",
+      "text": "National scores and heatmaps are specified for PitchReach. They are not on the public site yet.",
+      "tag": "specified",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "pr-journey-open",
+      "project": "PitchReach",
+      "text": "Journey planning by car and bus is open to everyone.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://pitchreach.co.uk"
+    },
+    {
+      "id": "pr-adoption",
+      "project": "PitchReach",
+      "text": "No established customer adoption is claimed.",
+      "tag": "limit",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "aml-live",
+      "project": "AMLtracker",
+      "text": "A free calendar of upcoming UK Part-66 aircraft maintenance licence exam sittings from the UK CAA and Part-147 centres. It is free, and it does not ask for an account.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://amltracker.pages.dev"
+    },
+    {
+      "id": "aml-sources",
+      "project": "AMLtracker",
+      "text": "Every date on the live calendar links to its source.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://amltracker.pages.dev"
+    },
+    {
+      "id": "aml-count",
+      "project": "AMLtracker",
+      "text": "No sittings count is shown.",
+      "tag": "limit",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "dc-site",
+      "project": "Drew & Crew website",
+      "text": "The Drew & Crew Ltd company site, live, listing 9 ventures.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "https://drewandcrew.com"
+    },
+    {
+      "id": "gig-published",
+      "project": "Global Investor Guide",
+      "text": "A published, evidence-led investing guide, starting with Nigerian shares from the UK and Canada; being expanded.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "/guide"
+    },
+    {
+      "id": "gig-ranking",
+      "project": "Global Investor Guide",
+      "text": "Includes a tax-residency ranking of 25 countries.",
+      "tag": "shipped",
+      "evidence_level": "public",
+      "evidence_url": "/guide"
+    },
+    {
+      "id": "gig-25-pending",
+      "project": "Global Investor Guide",
+      "text": "5 of the 25 countries are pending sources.",
+      "tag": "limit",
+      "evidence_level": "self_reported",
+      "evidence_url": "/guide"
+    },
+    {
+      "id": "gig-nfa",
+      "project": "Global Investor Guide",
+      "text": "Not financial advice. Sources, assumptions and limitations are stated.",
+      "tag": "limit",
+      "evidence_level": "public",
+      "evidence_url": "/guide"
+    },
+    {
+      "id": "rule-approval",
+      "project": "Practice",
+      "text": "Nothing is published, sent or paid for without my approval, and every claim must be backed by evidence.",
+      "tag": "human_gate",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "obs-records",
+      "project": "Practice",
+      "text": "Logging and observability record what ran, what changed and what was approved.",
+      "tag": "specified",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "w1-concept-limit",
+      "project": "Practice",
+      "text": "A concept, not a deployed system.",
+      "tag": "limit",
+      "evidence_level": "self_reported",
+      "evidence_url": null
+    },
+    {
+      "id": "tbc-auto",
+      "project": "TextBackCaller",
+      "text": "Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.",
+      "tag": "shipped",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-guards",
+      "project": "TextBackCaller",
+      "text": "One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.",
+      "tag": "shipped",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-lang",
+      "project": "TextBackCaller",
+      "text": "Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.",
+      "tag": "shipped",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-tools",
+      "project": "TextBackCaller",
+      "text": "Each service is called through its API: Twilio for voice and SMS, Stripe for checkout and billing, Resend for email, D1 for storage.",
+      "tag": "shipped",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-gate-release",
+      "project": "TextBackCaller",
+      "text": "Every release needs my approval. Builds are staged, tested, backed up and given a rollback point first.",
+      "tag": "human_gate",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-gate-flags",
+      "project": "TextBackCaller",
+      "text": "New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.",
+      "tag": "human_gate",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-gate-alerts",
+      "project": "TextBackCaller",
+      "text": "When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.",
+      "tag": "human_gate",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "tbc-ai-assisted",
+      "project": "TextBackCaller",
+      "text": "Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. I review the evidence and approve.",
+      "tag": "shipped",
+      "evidence_level": "self_reported"
+    },
+    {
+      "id": "dev-focus",
+      "project": "In development",
+      "text": "A focus tool that helps students actually put in the study hours they plan (concept).",
+      "tag": "assumption",
+      "evidence_level": "self_reported"
+    }
+  ]
+}
