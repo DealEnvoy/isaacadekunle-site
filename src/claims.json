@@ -179,7 +179,7 @@
     {
       "id": "obs-records",
       "project": "Practice",
-      "text": "Logging and observability record what ran, what changed and what was approved.",
+      "text": "Logging shows what ran, what changed and who approved it.",
       "tag": "specified",
       "evidence_level": "self_reported",
       "evidence_url": null
