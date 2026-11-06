@@ -7,25 +7,28 @@ It is a single static page: a dark-to-dawn scroll story that walks through the I
 ## Layout
 
 ```
-site/                what is served: index.html, robots.txt, css/, js/, fonts/, img/, video/, audio/
+site/                what is served: index.html, robots.txt, _headers, css/main.css, js/main.js, fonts/, img/, video/, audio/
 src/index.src.html   page template (claims are inserted by the build)
 src/claims.json      claim text and tag for each claim on the page
-tools/build.mjs      src/ -> site/index.html (Node, no dependencies)
+src/css/             tokens.css and main.css, the readable styles
+src/js/main.js       readable page script
+tools/build.mjs      src/ -> site/index.html, site/css/main.css, site/js/main.js
 NOTICE               third-party components and their licences
 ```
 
 ## Build and preview
 
 ```
-node tools/build.mjs          # regenerates site/index.html
+npm install
+npm run build
 cd site && python3 -m http.server 8765
 ```
 
-Then open http://localhost:8765/. `site/robots.txt` allows indexing. `site/` is plain HTML, CSS and JavaScript with no runtime dependencies and no third-party requests, so it can be served from any static host.
+`npm install` fetches esbuild 0.27.7, which is a build tool only. The build writes one minified stylesheet, `site/css/main.css`, and one minified script, `site/js/main.js`. The page links those two files. `site/_headers` is the Cloudflare Pages cache file: the page, CSS and JS revalidate, and the media files are cached for a year. Then open http://localhost:8765/. `site/robots.txt` allows indexing. The page makes no third-party requests, so `site/` can be served from any static host. A direct upload of `site/` is the Pages package.
 
 ## Fonts
 
-Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under the ITF Free Font License; not redistributed here — download them from Fontshare into `site/fonts/` to build locally. Expected files: `zodiak-400.woff2`, `zodiak-400i.woff2`, `switzer-400.woff2`, `switzer-500.woff2`, `switzer-600.woff2`. Without them the page falls back to Georgia and Arial. IBM Plex Mono is included under the SIL Open Font License (`site/fonts/LICENSE-IBMPlexMono-OFL.txt`).
+Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under the ITF Free Font License. The exact woff2 files served on the site are stored as base64 in `src/fonts/` and written into `site/fonts/` by the build: `zodiak-400.woff2`, `zodiak-400i.woff2`, `switzer-400.woff2`, `switzer-500.woff2`, `switzer-600.woff2`. IBM Plex Mono is included under the SIL Open Font License (`site/fonts/LICENSE-IBMPlexMono-OFL.txt`).
 
 ## Behaviour
 
