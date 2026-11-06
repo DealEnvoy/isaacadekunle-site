@@ -28,7 +28,7 @@ cd site && python3 -m http.server 8765
 
 ## Fonts
 
-Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under the ITF Free Font License. The exact woff2 files served on the site are stored as base64 in `src/fonts/` and written into `site/fonts/` by the build: `zodiak-400.woff2`, `zodiak-400i.woff2`, `switzer-400.woff2`, `switzer-500.woff2`, `switzer-600.woff2`. IBM Plex Mono is included under the SIL Open Font License (`site/fonts/LICENSE-IBMPlexMono-OFL.txt`).
+Zodiak and Switzer © Indian Type Foundry (ITF), free from fontshare.com under the ITF Free Font License. The exact woff2 files served on the site are stored as base64 in `src/fonts/` and written into `site/fonts/` by the build and committed there, so the branch contains the same font bytes as the Pages upload: `zodiak-400.woff2`, `zodiak-400i.woff2`, `switzer-400.woff2`, `switzer-500.woff2`, `switzer-600.woff2`. IBM Plex Mono is included under the SIL Open Font License (`site/fonts/LICENSE-IBMPlexMono-OFL.txt`).
 
 ## Behaviour
 

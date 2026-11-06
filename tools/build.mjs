@@ -52,7 +52,7 @@ console.log('built site/index.html', (html.length / 1024).toFixed(1) + ' KB;', u
 // Delivered CSS and JS match the Pages upload: one minified stylesheet, one minified script.
 // esbuild is a build dependency only. Pin 0.27.7; that version produced the approved package.
 const esbuild = await import('esbuild');
-const css = fs.readFileSync(path.join(root, 'src/css/tokens.css'), 'utf8') + '\n' + fs.readFileSync(path.join(root, 'src/css/main.css'), 'utf8');
+const css = fs.readFileSync(path.join(root, 'src/css/tokens.css'), 'utf8') + '\n' + fs.readFileSync(path.join(root, 'src/css/main-a.css'), 'utf8') + fs.readFileSync(path.join(root, 'src/css/main-b.css'), 'utf8');
 const cssOut = await esbuild.transform(css, { loader: 'css', minify: true });
 const js = fs.readFileSync(path.join(root, 'src/js/main.js'), 'utf8');
 const jsOut = await esbuild.transform(js, { loader: 'js', minify: true });

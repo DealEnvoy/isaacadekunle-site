@@ -1,6 +1,4 @@
-# written by the build from src/fonts/*.b64
-site/fonts/zodiak-*.woff2
-site/fonts/switzer-*.woff2
+# ITF woff2 files are committed in site/fonts. src/fonts/*.b64 is the source the build decodes.
 
 # dependencies and tooling
 node_modules/
