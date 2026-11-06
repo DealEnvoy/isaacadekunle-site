@@ -1,0 +1,10 @@
+{
+  "name": "isaacadekunle-site",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.7"
+  }
+}

@@ -9,7 +9,10 @@
 @font-face{font-family:"Switzer Fallback";src:local("Arial");size-adjust:101%;ascent-override:94%;descent-override:24%;line-gap-override:0%}
 @font-face{font-family:"Plex Mono Fallback";src:local("Courier New");size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
 /* =====================================================================
-   Design tokens: "Long Exposure" direction, isaacadekunle.com
+   Design tokens: "Long Exposure" direction, isaacadekunle.com V3
+   Port 1:1 into the Astro build (src/styles/tokens.css).
+   Contrast pairs: worked by hand in DESIGN_DIRECTION.md section 7.1; ../../tools/contrast.mjs
+   re-checks them (not run in the design session).
    ===================================================================== */
 :root {
   /* ---- Grounds: the page moves from night (ISOLATE) to blue hour (TRACE) to first light (RELEASE) */

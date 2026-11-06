@@ -10,7 +10,6 @@
 <link rel="preload" href="fonts/zodiak-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/zodiak-400i.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/main.css">
 <script>
 /* Runs before first paint: motion preference, and the hero layout (?hero=a|b|c for previewing; default a). */
@@ -176,14 +175,14 @@
       <div class="panel">
         <p class="stage-n">Stage 2</p>
         <h3>Break it into stages</h3>
-        <p>Work runs through APIs, integrations, Model Context Protocol (MCP) servers and retrieval-augmented generation (RAG) for source-based tasks. Agentic steps cover research, data processing, drafting and checks.</p>
+        <p>Big tasks split into clear stages: research, data processing, drafting and checks. They connect through APIs, MCP servers and RAG.</p>
       </div>
     </article>
     <article class="step" data-step="2" data-station="2">
       <div class="panel">
         <p class="stage-n">Stage 3</p>
         <h3>Review apart from building</h3>
-        <p>Code review, evaluation and testing sit apart from implementation; CI runs before anything is published.</p>
+        <p>Code is reviewed, evaluated and tested separately from the build, with a human in the loop. CI runs before release.</p>
         {{claim:obs-records}}
       </div>
     </article>
@@ -198,22 +197,22 @@
       <div class="panel panel--method">
         <p class="kicker">How a build is governed</p>
         <h2 id="h-method" class="band__title">The method, in full</h2>
-        <p>Treating each build as a governed process: development, observability, and forward deployed engineering once live. Defining the objective, supplying context, breaking the task into stages and reviewing every result before it moves on.</p>
+        <p>Treating each build as a governed process: development, observability, and forward deployed engineering once live.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="1">
       <div class="panel panel--method">
-        <p>Development is agentic. Work runs through APIs, integrations, MCP servers and RAG for source-based tasks. Agentic workflows cover research, data processing, drafting and checks; some have browser and computer access, each with a defined role, coordinated by an orchestrating step. Comparing results, correcting errors and asking for evidence before accepting a claim.</p>
+        <p>Development is agentic, runs through APIs, integrations, MCP servers and RAG for source-based tasks. Each with a defined role, coordinated by an orchestrating step.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="2">
       <div class="panel panel--method">
-        <p>Review stays human-in-the-loop. Code review, evaluation and testing sit apart from implementation; CI runs before anything is published.</p>
+        {{claim:obs-records}}
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="3">
       <div class="panel panel--method">
-        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models, not outside services. Logging and observability record what ran, what changed and what was approved, so a live product can be fixed in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew.</p>
+        <p>Governance built in: your data stays local, and every change is logged, approved and traceable.</p>
       </div>
     </article>
     <div class="steps__tail" aria-hidden="true"></div>
@@ -240,20 +239,20 @@
     </article>
     <article class="step" data-step="1">
       <div class="panel">
-        <h3>Ship it where the work happens</h3>
-        <p>A workflow that only works in a demo is not a fix. It has to run inside the organisation, on its real data and under its real rules.</p>
+        <h3>Built for Reality, Not Demos</h3>
+        <p>Deploys securely within your actual infrastructure, processing real data under your existing business rules.</p>
       </div>
     </article>
     <article class="step" data-step="2">
       <div class="panel">
-        <h3>Then stay with it</h3>
-        <p>A live system is connected in place, then watched and corrected after it ships. That is the forward-deployed part of the job.</p>
+        <h3>Forward-Deployed Optimization</h3>
+        <p>Deployment is just day one. Continuous lifecycle support ensures the system is actively monitored, maintained, and refined directly within the production environment.</p>
       </div>
     </article>
     <article class="step" data-step="2">
       <div class="panel">
-        <h3>Guardrails built in</h3>
-        <p>Data handling, approvals and guardrails are set before a workflow runs. A change is checked and logged, and it does not go out without approval.</p>
+        <h3>Built-In Guardrails</h3>
+        <p>Data handling, approvals, and guardrails are hardcoded before any workflow runs. Every change is verified, logged, and blocked from release until explicitly approved.</p>
       </div>
     </article>
   </div>

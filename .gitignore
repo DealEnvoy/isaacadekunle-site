@@ -1,6 +1,4 @@
-# fonts not redistributed here (ITF Free Font License): download from fontshare.com
-site/fonts/zodiak*
-site/fonts/switzer*
+# ITF woff2 files are committed in site/fonts. src/fonts/*.b64 is the source the build decodes.
 
 # dependencies and tooling
 node_modules/

@@ -1,0 +1,23 @@
+# Unhashed HTML, CSS and JS revalidate. Media keeps a year. Last match wins.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+/audio/*.opus
+  Cache-Control: public, max-age=31536000, immutable
+/audio/*.mp3
+  Cache-Control: public, max-age=31536000, immutable
+/video/*.webm
+  Cache-Control: public, max-age=31536000, immutable
+/video/*.mp4
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
