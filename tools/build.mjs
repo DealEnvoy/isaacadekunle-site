@@ -1,5 +1,5 @@
-// Build: src/index.src.html + src/claims.json -> site/index.html
-// Run: node tools/build.mjs   (no dependencies)
+// Build: src/ -> site/index.html, site/css/main.css, site/js/main.js, and the ITF woff2 files.
+// Run: npm install && node tools/build.mjs   (esbuild 0.27.7 is the only dependency)
 import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -48,3 +48,31 @@ html = html
 if (/\{\{/.test(html)) throw new Error('unresolved macro: ' + html.match(/\{\{[^}]+\}\}/)[0]);
 fs.writeFileSync(path.join(root, 'site/index.html'), html);
 console.log('built site/index.html', (html.length / 1024).toFixed(1) + ' KB;', used.size, 'claims rendered');
+
+// Delivered CSS and JS match the Pages upload: one minified stylesheet, one minified script.
+// esbuild is a build dependency only. Pin 0.27.7; that version produced the approved package.
+const esbuild = await import('esbuild');
+const css = fs.readFileSync(path.join(root, 'src/css/tokens.css'), 'utf8') + '\n' + fs.readFileSync(path.join(root, 'src/css/main.css'), 'utf8');
+const cssOut = await esbuild.transform(css, { loader: 'css', minify: true });
+const js = fs.readFileSync(path.join(root, 'src/js/main.js'), 'utf8');
+const jsOut = await esbuild.transform(js, { loader: 'js', minify: true });
+fs.mkdirSync(path.join(root, 'site/css'), { recursive: true });
+fs.mkdirSync(path.join(root, 'site/js'), { recursive: true });
+fs.writeFileSync(path.join(root, 'site/css/main.css'), cssOut.code);
+fs.writeFileSync(path.join(root, 'site/js/main.js'), jsOut.code);
+const tokensOut = path.join(root, 'site/css/tokens.css');
+if (fs.existsSync(tokensOut)) fs.unlinkSync(tokensOut);
+console.log('built site/css/main.css', cssOut.code.length, 'bytes');
+console.log('built site/js/main.js', jsOut.code.length, 'bytes');
+
+// Zodiak and Switzer are stored as base64 so the exact served bytes stay in git.
+const fontSrc = path.join(root, 'src/fonts');
+const fontOut = path.join(root, 'site/fonts');
+fs.mkdirSync(fontOut, { recursive: true });
+if (fs.existsSync(fontSrc)) {
+  for (const name of fs.readdirSync(fontSrc)) {
+    if (!name.endsWith('.b64')) continue;
+    const bytes = Buffer.from(fs.readFileSync(path.join(fontSrc, name), 'utf8').replace(/\s/g, ''), 'base64');
+    fs.writeFileSync(path.join(fontOut, name.slice(0, -4)), bytes);
+  }
+}
