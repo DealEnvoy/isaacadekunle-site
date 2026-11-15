@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulated TextBackCaller pipeline | Isaac Adekunle</title>
+<meta name="description" content="A simulated TextBackCaller pipeline. No call is placed and no text is sent. Five cases show the guards already stated on this site.">
+<link rel="canonical" href="https://isaacadekunle.com/demo/textbackcaller">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<button class="motion-toggle" type="button" aria-pressed="false" aria-label="Pause animations" title="Pause animations" data-motion-toggle><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path class="mt-pause" d="M6 4.5v11M14 4.5v11"/><path class="mt-play" d="M6.5 4.5l9 5.5-9 5.5z"/></svg></button>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Simulated demo</p>
+    <div class="page-head"><h1>TextBackCaller pipeline</h1><span class="chip chip--plan">Not live</span></div>
+    <p class="lead">A hiring manager can click through a missed call. The live service is at textbackcaller.co.uk. This page is a model of the guards, not a connection to that service.</p>
+    {{claim:tbc-guards}}
+    {{claim:tbc-gate-alerts}}
+    {{pipeline}}
+    <p class="page-links">
+      <a href="https://textbackcaller.co.uk" rel="noopener">Live product</a>
+      <a href="/work/textbackcaller">Case study</a>
+      <a href="/log#textbackcaller-guards">The decision behind the guards</a>
+    </p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      {{ledger}}
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+<script src="/js/demo-pipeline.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent CRS case study | Isaac Adekunle</title>
+<meta name="description" content="Case study: Agent CRS, a NEAR testnet vault. The board is local. Public evidence is the testnet vault and a 68 second demo video. The 16 of 16 line is from crs-ai-agents, not this vault.">
+<link rel="canonical" href="https://isaacadekunle.com/work/agent-crs">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Case study</p>
+    <div class="page-head"><h1>Agent CRS</h1><span class="chip chip--testnet">Testnet</span></div>
+    <p class="lead">A release check for agent spending. The vault holds the NEAR. The agent can ask for a spend. It cannot pay itself, and it cannot approve.</p>
+    <p class="page-links">
+      <a href="https://github.com/DealEnvoy/agent-crs" rel="noopener">Repository</a>
+      <a href="https://testnet.nearblocks.io/address/vault.acrs261111k7m2.testnet" rel="noopener">Vault on NEAR testnet</a>
+      <a href="https://github.com/DealEnvoy/agent-crs/blob/main/docs/demo/agent-crs-demo.webm" rel="noopener">68 second demo video</a>
+      <a href="https://github.com/DealEnvoy/crs-ai-agents" rel="noopener">CRS Pilot 0</a>
+    </p>
+
+    <h2>Problem</h2>
+    <p>An agent that can sign with a full access key can move every token on the account. Passing the agent's tests does not change that. Agent CRS puts the money in a contract and gives the agent a key that cannot transfer NEAR and cannot call the approval methods.</p>
+
+    <h2>Architecture</h2>
+    {{claim:crs-vault}}
+    <p>The owner sets policy and approves or rejects with a full access key, attaching 1 yoctoNEAR. The agent calls <code>request_spend</code> with no deposit. The contract releases a payment that fits the allowlist and the caps, queues one that needs the owner, or denies one it will not pay. Every proposal, queue, approval, rejection and execution is stored on the contract. A small board reads that state. The board is not hosted.</p>
+    {{claim:crs-board}}
+    <table class="tools">
+      <caption class="sr-only">Accounts in the published testnet deployment</caption>
+      <thead><tr><th scope="col">Account</th><th scope="col">Role</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">acrs261111k7m2.testnet</th><td>Owner. Full access key.</td></tr>
+        <tr><th scope="row">vault.acrs261111k7m2.testnet</th><td>Contract and treasury.</td></tr>
+        <tr><th scope="row">agent.acrs261111k7m2.testnet</th><td>Agent. One function call key, method request_spend only.</td></tr>
+        <tr><th scope="row">vendor.acrs261111k7m2.testnet</th><td>Allowlisted receiver.</td></tr>
+        <tr><th scope="row">other.acrs261111k7m2.testnet</th><td>Not allowlisted. Used to show the queue.</td></tr>
+      </tbody>
+    </table>
+    <p>The repository says the deployed policy at the time of writing was 0.5 NEAR per transaction and 10 NEAR per day, with the vendor account allowlisted. Contract tests use their own caps and do not depend on that deployment.</p>
+
+    <h2>Stack</h2>
+    <ul>
+      <li>Contract: Rust, near-sdk 5.30.1. The build noted in the README used Rust 1.99.1.</li>
+      <li>Agent and board calls: Node.js 22 or newer, near-api-js 5.1.0.</li>
+      <li>Board: Next.js, not hosted. From the web directory the README uses npm run dev, then opens 127.0.0.1:43123. It can read the public vault with no keys.</li>
+      <li>RPC: test.rpc.fastnear.com, with rpc.testnet.near.org as fallback.</li>
+    </ul>
+    <p>The scripts refuse any network id other than testnet. Proposing and approving from the board need credential files that are not in the repository.</p>
+
+    <h2>What Isaac owned</h2>
+    {{claim:crs-owner}}
+    <p>He directed the project. AI coding agents assisted the implementation. The repository says the third-party pieces are near-sdk, near-cli-rs, near-api-js, Next.js, and a shadcn/ui button primitive. No earlier product code is included.</p>
+    <p>Agent CRS is separate from <a href="https://github.com/DealEnvoy/approve-before-pay" rel="noopener">Approve before Pay</a>, the PayPal hackathon entry. They do not share a repository, a contract, or a product.</p>
+
+    <h2>Related evaluation, different repository</h2>
+    <p>The 16 of 16 line is not a measurement of this vault, and it is not a result for airworthiness-mcp. It is from <a href="https://github.com/DealEnvoy/crs-ai-agents" rel="noopener">crs-ai-agents</a>, CRS Pilot 0: an advisory check of whether a model notices when a finished work pack does not support its own "done" statements. False alarms are a separate column in that repository.</p>
+    {{claim:crs-eval}}
+    {{claim:crs-caveat}}
+    <p>Scoring was by code: detection, location, an exact quote, false alarms, invented quotes, and forbidden release language. The repository also records a $100 spend cap in the pilot's own cost guard, and a logged spend of $11.79 against that cap. Cost figures there are list-price estimates, not invoices.</p>
+
+    <h2>Tests and the demo</h2>
+    {{claim:crs-tests}}
+    <p>The contract tests cover default deny, the allowlist, both caps, pause, a failed transfer callback, and the 1 yoctoNEAR check on owner methods. The parser tests run with no API key. The 68 second Playwright recording in the repository types two sentences, shows an in-policy release, shows an over-cap queue, approves it with the owner key, and shows the audit log. The caption says no model was called.</p>
+
+    <h2>Limits</h2>
+    {{claim:crs-limit}}
+    <p>The repository also says the vault account still has an operator full access key, held outside the repository, so that upgrades are still possible. That key can transfer NEAR without the policy. The agent account cannot. The policy is an allowlist plus two caps. It is not a compliance engine.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      {{ledger}}
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+</body>
+</html>

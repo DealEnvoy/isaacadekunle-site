@@ -13,12 +13,7 @@ function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 10139
 const TAGS = { shipped: 'Shipped', specified: 'Specified', assumption: 'Assumption', limit: 'Limit', human_gate: 'Human gate' };
 const tagCls = { shipped: 'shipped', specified: 'specified', assumption: 'assumption', limit: 'limit', human_gate: 'gate' };
 const tagEl = t => `<span class="tag tag--${tagCls[t]}"><span class="tag__mark" aria-hidden="true"></span>${TAGS[t]}</span>`;
-const used = new Set();
-function claim(id, cls = '') {
-  const c = claims[id]; if (!c) throw new Error('unknown claim ' + id);
-  used.add(id);
-  return `<p class="claim ${cls}" data-claim="${id}" data-tag="${c.tag}">${tagEl(c.tag)}<span class="claim__text">${esc(c.text)}</span></p>`;
-}
+const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 
 // ---- ISOLATE field: ticks on a jittered grid, banded by distance from the fault ----
 function field() {
@@ -34,17 +29,44 @@ function field() {
     `<g mask="url(#lampmask)">` + bands.map((p, i) => `<path class="mk mk--lit" data-band="${i}" d="${p.join('')}"/>`).join('') + `</g>`;
 }
 
-let html = fs.readFileSync(path.join(root, 'src/index.src.html'), 'utf8');
-html = html
-  .replace(/\{\{claim:([\w-]+)(?::([\w-]+))?\}\}/g, (_, id, cls) => claim(id, cls || ''))
-  .replace(/\{\{field\}\}/g, field)
-  .replace(/\{\{ledger\}\}/g, () => {
-    const order = ['shipped', 'specified', 'limit', 'human_gate', 'assumption'];
-    const EXTRA=['pr-adoption','aml-count','gig-25-pending','pr-national-scores','w1-concept-limit'];
-    const rows = claimsFile.claims.filter(c => used.has(c.id) || EXTRA.includes(c.id)).sort((a, b) => order.indexOf(a.tag) - order.indexOf(b.tag));
-    return `<ul class="ledger" data-count="${rows.length}">` + rows.map(c => `<li class="ledger__row" data-claim="${c.id}" data-tag="${c.tag}">${tagEl(c.tag)}<span>${esc(c.text)}</span></li>`).join('') + `</ul>`;
-  });
-// ledger must run after all claims are used: re-run once if the ledger macro came first
-if (/\{\{/.test(html)) throw new Error('unresolved macro: ' + html.match(/\{\{[^}]+\}\}/)[0]);
-fs.writeFileSync(path.join(root, 'site/index.html'), html);
-console.log('built site/index.html', (html.length / 1024).toFixed(1) + ' KB;', used.size, 'claims rendered');
+function render(template, { ledgerExtra = false } = {}) {
+  const used = new Set();
+  const claim = (id, cls = '') => {
+    const c = claims[id]; if (!c) throw new Error('unknown claim ' + id);
+    used.add(id);
+    return `<p class="claim ${cls}" data-claim="${id}" data-tag="${c.tag}">${tagEl(c.tag)}<span class="claim__text">${esc(c.text)}</span></p>`;
+  };
+  let html = template
+    .replaceAll('{{work}}', () => read('src/partials/work.html'))
+    .replaceAll('{{pipeline}}', () => read('src/partials/pipeline.html'))
+    .replace(/\{\{claim:([\w-]+)(?::([\w-]+))?\}\}/g, (_, id, cls) => claim(id, cls || ''))
+    .replace(/\{\{field\}\}/g, field)
+    .replace(/\{\{ledger\}\}/g, () => {
+      const order = ['shipped', 'specified', 'limit', 'human_gate', 'assumption'];
+      const EXTRA = ledgerExtra ? ['pr-adoption', 'aml-count', 'gig-25-pending', 'pr-national-scores', 'w1-concept-limit'] : [];
+      const rows = claimsFile.claims.filter(c => used.has(c.id) || EXTRA.includes(c.id)).sort((a, b) => order.indexOf(a.tag) - order.indexOf(b.tag));
+      return `<ul class="ledger" data-count="${rows.length}">` + rows.map(c => `<li class="ledger__row" data-claim="${c.id}" data-tag="${c.tag}">${tagEl(c.tag)}<span>${esc(c.text)}</span></li>`).join('') + `</ul>`;
+    });
+  if (/\{\{/.test(html)) throw new Error('unresolved macro: ' + html.match(/\{\{[^}]+\}\}/)[0]);
+  return { html, used };
+}
+
+const pages = [
+  ['src/index.src.html', 'site/index.html', true],
+  ['src/pages/resume.src.html', 'site/resume/index.html', false],
+  ['src/pages/log.src.html', 'site/log/index.html', false],
+  ['src/pages/demo-textbackcaller.src.html', 'site/demo/textbackcaller/index.html', false],
+  ['src/pages/work-textbackcaller.src.html', 'site/work/textbackcaller/index.html', false],
+  ['src/pages/work-pitchreach.src.html', 'site/work/pitchreach/index.html', false],
+  ['src/pages/work-agent-crs.src.html', 'site/work/agent-crs/index.html', false],
+  ['src/pages/work-amltracker.src.html', 'site/work/amltracker/index.html', false],
+  ['src/pages/work-airworthiness.src.html', 'site/work/airworthiness-mcp/index.html', false],
+];
+
+for (const [src, dest, extra] of pages) {
+  const { html, used } = render(read(src), { ledgerExtra: extra });
+  const out = path.join(root, dest);
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  fs.writeFileSync(out, html);
+  console.log('built', dest, (html.length / 1024).toFixed(1) + ' KB;', used.size, 'claims rendered');
+}

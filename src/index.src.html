@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Isaac Adekunle | AI Product Builder &amp; Forward Deployed Engineer</title>
-<meta name="description" content="Find where the work gets stuck, build AI-native products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.">
+<title>Isaac Adekunle | AI Engineer, Product Builder &amp; Forward Deployed Engineer</title>
+<meta name="description" content="AI Engineer, Product Builder and Forward Deployed Engineer. TextBackCaller is the live flagship. Agent CRS, airworthiness-mcp and PitchReach are written up with their sources.">
 <link rel="canonical" href="https://isaacadekunle.com/">
 <meta name="theme-color" content="#0e0c0a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
@@ -13,6 +13,7 @@
 <link rel="preload" href="fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/pages.css">
 <script>
 /* Runs before first paint: motion preference, and the hero layout (?hero=a|b|c for previewing; default a). */
 (function () {
@@ -32,10 +33,16 @@
 
 <header class="site-header" role="banner">
   <a class="wordmark" href="#top" aria-label="Isaac Adekunle, back to top">Isaac Adekunle</a>
+  <nav class="quick" aria-label="Work and resume">
+    <a href="#work">Work</a>
+    <a href="/resume">Resume</a>
+  </nav>
   <nav class="acts" aria-label="Sections">
     <a href="#isolate"><span class="acts__n">01</span> Isolate</a>
     <a href="#trace"><span class="acts__n">02</span> Trace</a>
     <a href="#release"><span class="acts__n">03</span> Release</a>
+    <a href="#work">Work</a>
+    <a href="/resume">Resume</a>
     <a href="#contact"><span class="acts__n">04</span> Contact</a>
   </nav>
 </header>
@@ -57,12 +64,14 @@
   <div class="hero__inner">
     <div class="hero__copy">
       <div class="hero__head">
-        <p class="kicker">AI Product Builder &amp; Forward Deployed Engineer</p>
-        <h1 id="hero-title" class="hero__title"><em>Find where the work gets stuck,</em> build <span class="nw">AI-native</span> products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.</h1>
+        <p class="kicker">Agent systems, with a person at the release</p>
+        <h1 id="hero-title" class="hero__title">AI Engineer, Product Builder &amp; Forward Deployed Engineer</h1>
       </div>
       <div class="hero__foot">
+        <p class="hero__statement"><em>Find where the work gets stuck,</em> build <span class="nw">AI-native</span> products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.</p>
         <p class="hero__sub">Have a process to automate, or an AI system that needs proper governance and observability? Glad to talk.</p>
         <p class="hero__cta"><a class="btn btn--primary" href="#contact" data-tour-play>Start a conversation</a> <a class="btn btn--tour" href="#isolate" data-tour-play><span class="tour-ico" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12" focusable="false"><path d="M6.5 4.2v11.6L16 10z"/></svg></span>Play tour</a></p>
+        <p class="hero__jump"><a href="#work">TextBackCaller, the live flagship</a></p>
       </div>
     </div>
   </div>
@@ -77,6 +86,7 @@
     <li><span class="strip__name">Global Investor Guide</span><span class="chip chip--exp">Expanding</span></li>
   </ul>
   <p class="strip__line">Directed four products, each with a stage stated plainly. Nothing released without approval.</p>
+  <p class="strip__line"><a href="#work">Selected work for AI Engineer and agent-systems readers</a></p>
 </section>
 
 <!-- ================= ISOLATE ================= -->
@@ -262,6 +272,8 @@
 
 <div class="dawn">
 
+{{work}}
+
 <section class="band" aria-labelledby="h-offer">
   <div class="wrap">
     <p class="kicker">What can be done for you</p>
@@ -352,7 +364,7 @@
       {{claim:tbc-gate-alerts}}
       {{claim:tbc-controls}}
     </div>
-    <p class="case__link"><a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Visit TextBackCaller</a></p>
+    <p class="case__link"><a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Visit TextBackCaller</a> <a class="btn" href="/work/textbackcaller">Case study</a> <a class="btn" href="/demo/textbackcaller">Simulated demo</a></p>
   </div>
 </section>
 
@@ -370,13 +382,15 @@
         {{claim:pr-inputs}}
         {{claim:pr-arch}}
         {{claim:pr-safeguards}}
-        <p class="card__link"><a href="https://pitchreach.co.uk" rel="noopener">Open PitchReach</a></p>
+        {{claim:pr-checkpoint}}
+        <p class="card__link"><a href="https://pitchreach.co.uk" rel="noopener">Open PitchReach</a> · <a href="/work/pitchreach">Case study</a></p>
       </article>
       <article class="card">
         <header class="card__head"><h3>AMLtracker</h3><span class="chip chip--live">Live</span></header>
         {{claim:aml-live}}
         {{claim:aml-sources}}
-        <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a></p>
+        {{claim:aml-snapshot}}
+        <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a> · <a href="/work/amltracker">Case study</a></p>
       </article>
       <article class="card">
         <header class="card__head"><h3>Global Investor Guide</h3><span class="chip chip--exp">Expanding</span></header>
@@ -419,7 +433,9 @@
       <li><a href="mailto:me@isaacadekunle.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>me@isaacadekunle.com</span></a></li>
       <li><a href="https://www.linkedin.com/in/isaacadekunle/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16.5M8 7.6v.1M11.5 16.5v-6M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6v3.5"/></svg><span>Message on LinkedIn</span></a></li>
       <li><a href="https://x.com/TheDealEnvoy" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 4h4.2l10.8 16h-4.2z"/><path d="M19 4l-6.4 7.2M5 20l6.4-7.2"/></svg><span>@TheDealEnvoy</span></a></li>
+      <li><a href="https://github.com/DealEnvoy" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4 1.5-4-2.5-6-3M15 22v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.1-1.5 6.1-6.6a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12.1 12.1 0 0 0-6.2 0C6.4 1.6 5.3 1.9 5.3 1.9a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 3.8 8.9c0 5.1 3.1 6.3 6.1 6.6a3.4 3.4 0 0 0-.9 2.6V22"/></svg><span>GitHub account: DealEnvoy</span></a></li>
       <li><a href="https://drewandcrew.com" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>Drew &amp; Crew Limited</span></a></li>
+      <li><a href="/resume"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3.5h7l5 5V20.5H7z"/><path d="M14 3.5V9h5M9 13h6M9 16.5h6"/></svg><span>Resume</span></a></li>
     </ul>
   </div>
 </section>
@@ -442,11 +458,23 @@
       <summary>Open the full claims ledger</summary>
       {{ledger}}
     </details>
+    <nav class="footer-nav" aria-label="Site">
+      <a href="#work">Work</a>
+      <a href="/work/textbackcaller">TextBackCaller</a>
+      <a href="/work/pitchreach">PitchReach</a>
+      <a href="/work/agent-crs">Agent CRS</a>
+      <a href="/work/amltracker">AMLtracker</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
     <p class="credit">Cockpit image: <a href="https://commons.wikimedia.org/wiki/User:Braniff747SP" rel="noopener">Braniff747SP</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, modified. Original: <a href="https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG" rel="noopener">&ldquo;Airbus A380 Qantas Cockpit&rdquo;</a> on Wikimedia Commons. The still image adaptation is shared under the same licence.<br>Hero video also includes screen imagery rendered from the FlyByWire A380X instrument code (GPLv3), <a href="https://github.com/flybywiresim/aircraft" rel="noopener">github.com/flybywiresim/aircraft</a>.</p>
     <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
   </div>
 </footer>
 
+<script src="js/demo-pipeline.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
