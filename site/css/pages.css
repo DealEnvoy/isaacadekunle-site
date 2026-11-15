@@ -84,9 +84,4 @@ body.doc .doc-block { padding-bottom: var(--space-8); }
 .skill-groups h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); margin: 0 0 var(--space-3); }
 @media (max-width: 52rem) { .skill-groups { grid-template-columns: 1fr; } }
 
-.pdf-slot { margin-top: var(--space-6); max-width: 42rem; padding: var(--space-5); border: 1.5px dashed var(--c-ink-line); }
-.pdf-slot__mark { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: .06em; text-transform: uppercase; color: var(--c-gate-light); }
-.pdf-slot p { margin-top: var(--space-3); }
-.pdf-slot code { font-family: var(--font-mono); font-size: .95em; }
-
 .notice { margin-top: var(--space-5); padding: var(--space-4) var(--space-5); border-left: 2px solid var(--c-gate-light); max-width: 42rem; }
