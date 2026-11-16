@@ -410,7 +410,7 @@
     {
       "id": "pr-owner",
       "project": "PitchReach",
-      "text": "Isaac originated the problem, defined the audience and comparison brief, chose the brand and domains, and directed AI-assisted specification, prototyping and review. The case study says implementation commits are recorded under Codex, and that the 7 October audit was assistant-executed under his instructions. No runtime language model is claimed in the product.",
+      "text": "I originated the problem, defined the audience and comparison brief, chose the brand and domains, and directed AI-assisted specification, prototyping and review. The case study says implementation commits are recorded under Codex, and that the 7 October audit was assistant-executed under my instructions. No runtime language model is claimed in the product.",
       "tag": "shipped",
       "evidence_level": "public",
       "evidence_url": "https://github.com/DealEnvoy/PitchReach-Case-Study"
