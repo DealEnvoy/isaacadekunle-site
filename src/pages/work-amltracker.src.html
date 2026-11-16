@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMLtracker case study | Isaac Adekunle</title>
+<meta name="description" content="Case study: AMLtracker, a free calendar of UK Part-66 exam sittings. Dates link to their sources. The 9 November 2026 page stated 180 sittings.">
+<link rel="canonical" href="https://isaacadekunle.com/work/amltracker">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Case study</p>
+    <div class="page-head"><h1>AMLtracker</h1><span class="chip chip--live">Live</span></div>
+    <p class="lead">A free calendar of upcoming UK Part-66 exam sittings, for people studying for the aircraft maintenance licence. No account is needed. This page does not claim that I hold that licence.</p>
+    <p class="page-links"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a></p>
+
+    <h2>Problem</h2>
+    {{claim:aml-live}}
+    <p>Sitting dates are published by the UK CAA and by Part-147 centres, on separate pages. AMLtracker collects them into one calendar so a reader does not have to hunt each provider. The public page says it is for people booking B1, B2 and Category A module exams. That is the calendar's audience, not a description of me.</p>
+
+    <h2>What is published</h2>
+    {{claim:aml-sources}}
+    <p>The public page says the dates are copied from public web pages and PDFs, that they can change or fill up, and that a reader should confirm with the provider before booking or travelling. It also says AMLtracker is independent of the CAA and of any training organisation.</p>
+    <p>The raw list is linked from the calendar at <a href="https://amltracker.pages.dev/data/sittings.json" rel="noopener">/data/sittings.json</a>. Filters on the page need JavaScript. The list itself is in the HTML.</p>
+
+    <h2>Stack</h2>
+    <p>No public source repository for AMLtracker is linked from this site, so no framework list is stated here. The calendar is the public page at amltracker.pages.dev.</p>
+
+    <h2>What I owned</h2>
+    <p>The home page says each product under Drew &amp; Crew, including AMLtracker, was directed by me: I set the objective, supplied the context and reviewed the result. A finer split between my decisions and AI-assisted implementation is not written down for AMLtracker the way it is for TextBackCaller and PitchReach. It is not invented here.</p>
+
+    <h2>Evidence</h2>
+    {{claim:aml-snapshot}}
+    {{claim:aml-count}}
+    <p>180 is a sentence the public page printed when it was updated on 9 November 2026. It is not a counter on this portfolio, and it will go stale when the calendar changes. Entries the page marks "check" are, in its own words, guide dates or might be wrong.</p>
+    <p class="source">Source: <a href="https://amltracker.pages.dev" rel="noopener">amltracker.pages.dev</a>, read 15 November 2026.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      {{ledger}}
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TextBackCaller case study | Isaac Adekunle</title>
+<meta name="description" content="Case study: TextBackCaller, a live missed-call text-back service for UK small businesses. Problem, architecture, stack, and what I owned. No unpublished volume figure.">
+<link rel="canonical" href="https://isaacadekunle.com/work/textbackcaller">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Case study</p>
+    <div class="page-head"><h1>TextBackCaller</h1><span class="chip chip--live">Live</span></div>
+    <p class="lead">A missed call becomes one text, from the business's own number, unless a guard says no. A person still decides when setup fails, and before a release.</p>
+    <p class="page-links">
+      <a href="https://textbackcaller.co.uk" rel="noopener">Live product</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log#textbackcaller-guards">Engineering note</a>
+    </p>
+
+    <h2>Problem</h2>
+    <p>UK small businesses cannot always reach the phone. The public site says the caller then has little more than a number and a time, and may try another business. The product keeps the number the customers already call.</p>
+    <p class="claim " data-claim="tbc-audience" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">For UK small businesses.</span></p>
+    <p class="claim " data-claim="tbc-number" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Customers keep their existing business number.</span></p>
+
+    <h2>Architecture</h2>
+    <p>Two paths. Both are on the home page in full. This is the short form.</p>
+    <h3>Once, at signup</h3>
+    <ol>
+      <li>The customer pays by card, through Stripe Checkout.</li>
+      <li>A signed payment webhook starts provisioning on a Cloudflare Worker.</li>
+      <li>A UK mobile number is bought through the Twilio API.</li>
+      <li>A setup text and a setup email go out, through Twilio SMS and Resend.</li>
+      <li>If setup fails, or a trial is refused, the owner is alerted and a person decides.</li>
+    </ol>
+    <h3>Every missed call</h3>
+    <ol>
+      <li>The phone network diverts the missed call to the customer's TextBackCaller number.</li>
+      <li>A signed webhook arrives. The call is rejected as busy at once.</li>
+      <li>Guards are checked. One text goes to the caller from the business's own number, or none does.</li>
+    </ol>
+    <p class="claim " data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></p>
+    <p class="claim " data-claim="tbc-auto" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.</span></p>
+    <p class="claim " data-claim="tbc-tools" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Each service is called through its API: Twilio for voice and SMS, Stripe for checkout and billing, Resend for email, D1 for storage.</span></p>
+
+    <h2>Stack</h2>
+    <p class="claim " data-claim="tbc-stack" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.</span></p>
+    <p class="claim " data-claim="tbc-lang" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.</span></p>
+    <ul class="langs" aria-label="Languages">
+      <li>JavaScript</li><li>SQL</li><li>HTML</li><li>CSS</li>
+    </ul>
+
+    <h2>What I owned</h2>
+    <p class="claim " data-claim="tbc-ai-assisted" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.</span></p>
+    <p>I direct the product and approve the releases. AI workers implement each staged release and call the service APIs. That is assistance with the build, not a claim that a model runs the missed-call decision on the live path. The live path described here is webhooks, guards and the provider APIs.</p>
+    <p>The public site also says an optional AI receptionist, which would answer calls and take bookings, is coming soon. It is not described here as shipped.</p>
+
+    <h2>Where a person decides</h2>
+    <p class="claim " data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></p>
+    <p class="claim " data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></p>
+    <p class="claim " data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></p>
+    <p class="claim " data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></p>
+
+    <h2>Evidence</h2>
+    <p class="claim " data-claim="tbc-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">A missed-call text-back service. Live, launched 19 October 2026.</span></p>
+    <p class="claim " data-claim="tbc-price" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The public site lists £5.99 a month plus VAT after a 7-day free trial, with 50 texts a month included.</span></p>
+    <p class="claim " data-claim="tbc-no-volume" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No count of customers, calls or texts sent is published on this site.</span></p>
+    <p class="claim " data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No public source repository for TextBackCaller is linked here.</span></p>
+    <p class="source">Price and product description: <a href="https://textbackcaller.co.uk" rel="noopener">textbackcaller.co.uk</a>, read 15 November 2026. The launch date and the guard list are claims on this site.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      <ul class="ledger" data-count="16"><li class="ledger__row" data-claim="tbc-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A missed-call text-back service. Live, launched 19 October 2026.</span></li><li class="ledger__row" data-claim="tbc-stack" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.</span></li><li class="ledger__row" data-claim="tbc-number" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Customers keep their existing business number.</span></li><li class="ledger__row" data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></li><li class="ledger__row" data-claim="tbc-audience" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>For UK small businesses.</span></li><li class="ledger__row" data-claim="tbc-auto" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.</span></li><li class="ledger__row" data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></li><li class="ledger__row" data-claim="tbc-lang" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.</span></li><li class="ledger__row" data-claim="tbc-tools" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Each service is called through its API: Twilio for voice and SMS, Stripe for checkout and billing, Resend for email, D1 for storage.</span></li><li class="ledger__row" data-claim="tbc-ai-assisted" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.</span></li><li class="ledger__row" data-claim="tbc-price" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The public site lists £5.99 a month plus VAT after a 7-day free trial, with 50 texts a month included.</span></li><li class="ledger__row" data-claim="tbc-no-volume" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No count of customers, calls or texts sent is published on this site.</span></li><li class="ledger__row" data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No public source repository for TextBackCaller is linked here.</span></li><li class="ledger__row" data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></li><li class="ledger__row" data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></li><li class="ledger__row" data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></li></ul>
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+</body>
+</html>

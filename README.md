@@ -2,22 +2,24 @@
 
 Source for the personal portfolio site of Isaac Adekunle (https://isaacadekunle.com).
 
-It is a single static page: a dark-to-dawn scroll story that walks through the ISOLATE, TRACE and RELEASE method and then lists products, a case study and contact links. Each claim on the page carries a tag (Shipped, Specified, Assumption, Limit, Human gate) and the tags are listed in a legend in the footer.
+The home page is a dark-to-dawn scroll story that walks through the ISOLATE, TRACE and RELEASE method and then lists products, a case study and contact links. Further pages, still static, add the work write-ups, a simulated TextBackCaller demo, an engineering log and a resume. Each claim carries a tag (Shipped, Specified, Assumption, Limit, Human gate) and the tags are listed in a legend in the footer.
 
 ## Layout
 
 ```
-site/                what is served: index.html, robots.txt, css/, js/, fonts/, img/, video/, audio/
-src/index.src.html   page template (claims are inserted by the build)
-src/claims.json      claim text and tag for each claim on the page
-tools/build.mjs      src/ -> site/index.html (Node, no dependencies)
+site/                what is served: index.html, resume/, work/, demo/, log/, robots.txt, css/, js/, fonts/, img/, video/, audio/
+src/index.src.html   home page template (claims are inserted by the build)
+src/pages/           inner page templates
+src/partials/        shared fragments (work section, simulated pipeline)
+src/claims.json      claim text and tag for each claim
+tools/build.mjs      src/ -> site/ (Node, no dependencies)
 NOTICE               third-party components and their licences
 ```
 
 ## Build and preview
 
 ```
-node tools/build.mjs          # regenerates site/index.html
+node tools/build.mjs          # regenerates site/index.html and the inner pages
 cd site && python3 -m http.server 8765
 ```
 

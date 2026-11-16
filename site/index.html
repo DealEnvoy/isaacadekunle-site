@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Isaac Adekunle | AI Product Builder &amp; Forward Deployed Engineer</title>
-<meta name="description" content="Find where the work gets stuck, build AI-native products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.">
+<title>Isaac Adekunle | AI Engineer, Product Builder &amp; Forward Deployed Engineer</title>
+<meta name="description" content="AI Engineer, Product Builder and Forward Deployed Engineer. Builder of TextBackCaller, a live UK product, and agent systems with a human in the loop. Agent CRS, airworthiness-mcp and PitchReach are written up with their sources.">
 <link rel="canonical" href="https://isaacadekunle.com/">
 <meta name="theme-color" content="#0e0c0a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
@@ -13,6 +13,7 @@
 <link rel="preload" href="fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/pages.css">
 <script>
 /* Runs before first paint: motion preference, and the hero layout (?hero=a|b|c for previewing; default a). */
 (function () {
@@ -32,10 +33,16 @@
 
 <header class="site-header" role="banner">
   <a class="wordmark" href="#top" aria-label="Isaac Adekunle, back to top">Isaac Adekunle</a>
+  <nav class="quick" aria-label="Work and resume">
+    <a href="#work">Work</a>
+    <a href="/resume">Resume</a>
+  </nav>
   <nav class="acts" aria-label="Sections">
     <a href="#isolate"><span class="acts__n">01</span> Isolate</a>
     <a href="#trace"><span class="acts__n">02</span> Trace</a>
     <a href="#release"><span class="acts__n">03</span> Release</a>
+    <a href="#work">Work</a>
+    <a href="/resume">Resume</a>
     <a href="#contact"><span class="acts__n">04</span> Contact</a>
   </nav>
 </header>
@@ -57,10 +64,11 @@
   <div class="hero__inner">
     <div class="hero__copy">
       <div class="hero__head">
-        <p class="kicker">AI Product Builder &amp; Forward Deployed Engineer</p>
-        <h1 id="hero-title" class="hero__title"><em>Find where the work gets stuck,</em> build <span class="nw">AI-native</span> products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.</h1>
+        <p class="kicker">Agent systems, with a human in the loop</p>
+        <h1 id="hero-title" class="hero__title">AI Engineer, Product Builder &amp; Forward Deployed Engineer</h1>
       </div>
       <div class="hero__foot">
+        <p class="hero__statement"><em>Find where the work gets stuck,</em> build <span class="nw">AI-native</span> products and workflows that fix it, and deploy them inside organisations with approvals and guardrails built in.</p>
         <p class="hero__sub">Have a process to automate, or an AI system that needs proper governance and observability? Glad to talk.</p>
         <p class="hero__cta"><a class="btn btn--primary" href="#contact" data-tour-play>Start a conversation</a> <a class="btn btn--tour" href="#isolate" data-tour-play><span class="tour-ico" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12" focusable="false"><path d="M6.5 4.2v11.6L16 10z"/></svg></span>Play tour</a></p>
       </div>
@@ -204,7 +212,7 @@
     </article>
     <article class="step step--method" data-step="5" data-method="1">
       <div class="panel panel--method">
-        <p>Development is agentic. Work runs through APIs, integrations, MCP servers and RAG for source-based tasks. Agentic workflows cover research, data processing, drafting and checks; some have browser and computer access, each with a defined role, coordinated by an orchestrating step. Comparing results, correcting errors and asking for evidence before accepting a claim.</p>
+        <p>Development is agentic, built with APIs, MCP servers and RAG. Specialist agents handle research, data, drafting and checks. One orchestrator coordinates them, comparing results and correcting errors. Every claim is evidenced before it's accepted.</p>
       </div>
     </article>
     <article class="step step--method" data-step="5" data-method="2">
@@ -214,7 +222,7 @@
     </article>
     <article class="step step--method" data-step="5" data-method="3">
       <div class="panel panel--method">
-        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models, not outside services. Logging and observability record what ran, what changed and what was approved, so a live product can be fixed in place. The same loop ships PitchReach, TextBackCaller, AMLtracker, the Global Investor Guide and the Drew &amp; Crew.</p>
+        <p>Governance is data handling, approvals and guardrails. Sensitive material stays on local or self-hosted models, not outside services. Logging and observability record what ran, what changed and what was approved, so a live product can be fixed in place.</p>
       </div>
     </article>
     <div class="steps__tail" aria-hidden="true"></div>
@@ -261,6 +269,207 @@
 </section>
 
 <div class="dawn">
+
+<section class="band" id="work" aria-labelledby="h-work">
+  <div class="wrap">
+    <p class="kicker">Flagship live product</p>
+    <h2 id="h-work" class="band__title">TextBackCaller</h2>
+    <p class="band__lede">TextBackCaller leads because it is live and a hiring manager can open it. airworthiness-mcp is a pre-registered study, not a working product, so it does not lead.</p>
+    <p class="claim " data-claim="tbc-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">A missed-call text-back service. Live, launched 19 October 2026.</span></p>
+    <p class="work__links">
+      <a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Open the live product</a>
+      <a class="btn" href="#pipeline">Try the simulated pipeline</a>
+      <a class="btn" href="/work/textbackcaller">Read the case study</a>
+    </p>
+
+    <h3 class="case__h" id="pipeline">A pipeline you can click</h3>
+    <p>Five branches a missed call or a failed setup can take. The trace is a simulation of the guards already written on this site.</p>
+    <div class="pipe" data-pipeline>
+  <p class="pipe__banner">Simulated demo. This page does not place a call or send a text, and it is not connected to the live TextBackCaller service.</p>
+  <p class="pipe__note">Choose a case. The steps follow guards already stated on this site. 07700 900123 is a made-up illustration number, the same kind the TextBackCaller site uses.</p>
+  <div class="pipe__choices" role="group" aria-label="Choose a simulated case">
+    <button type="button" data-case="uk" aria-pressed="false">UK mobile</button>
+    <button type="button" data-case="repeat" aria-pressed="false">Same caller again</button>
+    <button type="button" data-case="abroad" aria-pressed="false">Not a UK mobile</button>
+    <button type="button" data-case="owner" aria-pressed="false">Owner's own call</button>
+    <button type="button" data-case="setup" aria-pressed="false">Setup failed</button>
+  </div>
+  <div class="pipe__cases">
+    <article class="pipe__case" id="pipe-uk" data-case-panel="uk">
+      <h3 class="pipe__title">Missed call from a UK mobile</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A signed webhook would arrive. The call is rejected as busy at once.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">The number is a UK mobile, it is not the owner's number, and there has been no text to this caller in the last 24 hours.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">One text is allowed.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is the tool that would send it. This page does not call Twilio.</span><span class="pipe__tool">Twilio SMS, simulated</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">One text would go to the caller, from the business's own number.</span><span class="pipe__tool">Not sent</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: one text would be sent. This page did not send it.</p>
+    </article>
+    <article class="pipe__case" id="pipe-repeat" data-case-panel="repeat">
+      <h3 class="pipe__title">The same caller again, within 24 hours</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">Another missed call from 07700 900123, inside 24 hours of the first.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">One text per caller per 24 hours has already been used.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No second text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the duplicate guard stops the send. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-abroad" data-case-panel="abroad">
+      <h3 class="pipe__title">The caller is not a UK mobile</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A missed call arrives from a number that is not a UK mobile.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">UK mobile numbers only.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the UK-mobile guard stops the send. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-owner" data-case-panel="owner">
+      <h3 class="pipe__title">The owner's own number</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A missed call arrives from the owner's own number.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">The owner's own calls are skipped.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the owner's own call is skipped. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-setup" data-case-panel="setup">
+      <h3 class="pipe__title">Setup failed after payment</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Signup</span><span class="pipe__detail">The customer has paid. A signed payment webhook would start provisioning.</span><span class="pipe__tool">Stripe, Worker</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Buying the number, or sending the setup text or setup email, fails.</span><span class="pipe__tool">Twilio or Resend, simulated failure</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">The published account stops at an alert to the owner. It does not describe an automatic retry.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Result</span><span class="pipe__detail">The owner is alerted, and a person decides what happens next.</span><span class="pipe__tool">Human gate</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> Outcome: the owner is alerted. This page did not send an alert or a text.</p>
+    </article>
+  </div>
+  <p class="pipe__note">Opt-outs and usage caps are also release controls on the service. They are not separate buttons in this simulation.</p>
+</div>
+
+
+    <h3 class="case__h" id="h-csi">Challenge, solution, impact</h3>
+    <p class="band__lede">Four systems, in the same shape: the problem, what was built or specified, one sourced result where one exists, the stack, a way to look, and what I owned.</p>
+    <div class="csi-grid">
+      <article class="csi" id="card-textbackcaller">
+        <header class="card__head"><h3>TextBackCaller</h3><span class="chip chip--live">Live</span></header>
+        <h4>Challenge</h4>
+        <p>A UK small business misses a call while the owner is with a customer. The caller is left with a number and little else, and may ring the next business. The business keeps the number it already uses.</p>
+        <h4>Solution</h4>
+        <p>A missed call reaches a signed webhook, the call is rejected as busy, the guards run, and one text goes out from the business's own number. Signup, payment, number provisioning and the setup messages run without a manual step, until something fails.</p>
+        <p class="claim " data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></p>
+        <p class="claim " data-claim="tbc-auto" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.</span></p>
+        <h4>Impact</h4>
+        <p class="claim " data-claim="tbc-price" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The public site lists £5.99 a month plus VAT after a 7-day free trial, with 50 texts a month included.</span></p>
+        <p class="claim " data-claim="tbc-no-volume" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No count of customers, calls or texts sent is published on this site.</span></p>
+        <h4>Stack</h4>
+        <p class="claim " data-claim="tbc-stack" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.</span></p>
+        <p class="claim " data-claim="tbc-lang" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.</span></p>
+        <h4>What I owned</h4>
+        <p class="claim " data-claim="tbc-ai-assisted" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.</span></p>
+        <p class="claim " data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></p>
+        <p class="csi__links">
+          <a href="https://textbackcaller.co.uk" rel="noopener">Live product</a>
+          <a href="#pipeline">Simulated demo</a>
+          <a href="/work/textbackcaller">Case study</a>
+        </p>
+        <p class="claim " data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No public source repository for TextBackCaller is linked here.</span></p>
+      </article>
+
+      <article class="csi" id="card-airworthiness">
+        <header class="card__head"><h3>airworthiness-mcp</h3><span class="chip chip--plan">Pre-registered study</span></header>
+        <p>This is a pre-registered study, not a working product. Nothing has been built or run. There is no live demo, no video, and no trial result.</p>
+        <h4>Challenge</h4>
+        <p>A person preparing a release decision can miss an open defect, a life limit, an overdue task, an airworthiness directive, or a page that is not in the pack. The repository frames the tool as a reading aid, not as the decision.</p>
+        <h4>Solution</h4>
+        <p class="claim " data-claim="aw-purpose" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Specified as a read-only checker of synthetic aircraft maintenance records. It is not specified to certify, release or determine airworthiness. A named human would decide.</span></p>
+        <p class="claim " data-claim="aw-rules" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">The design says a rules engine decides every finding. An optional local language model may only read free text, cannot remove or downgrade a rule finding, and is off by default.</span></p>
+        <p>The planned default is a local command line program, with an MCP server for a client on the same machine. The records in the plan are synthetic.</p>
+        <h4>Impact</h4>
+        <p class="claim " data-claim="aw-status" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">This is a pre-registered study. The repository says Stage 0 has not started. Nothing has been built or run. There is no live demo, no video, and no trial result.</span></p>
+        <p class="claim " data-claim="aw-prereg" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Pass and fail criteria for 70 tests, T01 to T70, are written down and fingerprinted with SHA-256 before Stage 0. They have not been run.</span></p>
+        <p>There is no pass rate. The 16 of 16 detection line belongs to crs-ai-agents, not to this study.</p>
+        <h4>Stack</h4>
+        <p>Specified as Python, a deterministic rules engine, and an optional local IBM Granite model that stays off until an operator switches it on. The default mode is specified with no network and no API key.</p>
+        <h4>What I owned</h4>
+        <p>The repository says I designed the method: separate architect, implementer and reviewer roles, reviewers never the builder, and deterministic checks before I accept a result. AI models are named as the build and review tools. There is no software release yet.</p>
+        <p>The same README states more than 15 years in aircraft maintenance. That is the method behind the design. This site does not claim a Part-66 licence or a certifying role.</p>
+        <p class="csi__links">
+          <a href="https://github.com/DealEnvoy/airworthiness-mcp" rel="noopener">Repository</a>
+          <a href="/work/airworthiness-mcp">Case notes</a>
+          <a href="/log#airworthiness-tests">How the tests are set</a>
+        </p>
+        <p class="source">No live demo. Nothing has been built to try.</p>
+      </article>
+
+      <article class="csi" id="card-pitchreach">
+        <header class="card__head"><h3>PitchReach</h3><span class="chip chip--beta">Beta</span></header>
+        <h4>Challenge</h4>
+        <p>Parents, guardians and coaches need a way to look at football opportunities in England. A thin sample can look complete, and a missing venue can be misread as no opportunity.</p>
+        <h4>Solution</h4>
+        <p class="claim " data-claim="pr-live-search" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The public site offers an England postcode search with checked journeys of up to 60 minutes by car, and bus estimates alongside. No account is needed to search. Checked 15 November 2026.</span></p>
+        <p class="claim " data-claim="pr-inputs" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Uses age, postcode, transport mode and travel time to assess proximity and practical access.</span></p>
+        <p class="claim " data-claim="pr-national-scores" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">National scores and heatmaps are specified for PitchReach. They are not on the public site yet.</span></p>
+        <h4>Impact</h4>
+        <p class="claim " data-claim="pr-checkpoint" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">At the 7 October 2026 audit checkpoint recorded in the public case study: 95 candidate academy records, 35 verified category classifications, 7 general venue points meeting the category-and-venue filter, and 72 Node tests passed. The case study says these are not continuously updated production metrics, and that 35 classifications do not mean 35 fully verified academy records.</span></p>
+        <p class="claim " data-claim="pr-zero" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The public site says missing evidence never becomes a zero accessibility score. The case study records an earlier screen that showed 0/100 for a small sample, and the correction that withholds that broader score.</span></p>
+        <p class="claim " data-claim="pr-adoption" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No established customer adoption is claimed.</span></p>
+        <h4>Stack</h4>
+        <p class="claim " data-claim="pr-stack-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">At the 7 October 2026 checkpoint the case study records the runtime stack as React, TypeScript, MapLibre, Vinext, a Cloudflare Worker and D1. Python, FastAPI and PostGIS are described there as separate exploration, not the live research backend.</span></p>
+        <p class="claim " data-claim="pr-arch" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Architecture designed around Next.js, TypeScript, MapLibre, Python, FastAPI, PostgreSQL, PostGIS, GeoPandas and routing services.</span></p>
+        <h4>What I owned</h4>
+        <p class="claim " data-claim="pr-owner" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">I originated the problem, defined the audience and comparison brief, chose the brand and domains, and directed AI-assisted specification, prototyping and review. The case study says implementation commits are recorded under Codex, and that the 7 October audit was assistant-executed under my instructions. No runtime language model is claimed in the product.</span></p>
+        <p class="csi__links">
+          <a href="https://pitchreach.co.uk" rel="noopener">Live beta</a>
+          <a href="https://github.com/DealEnvoy/PitchReach-Case-Study" rel="noopener">Case study repo</a>
+          <a href="/work/pitchreach">Case study</a>
+        </p>
+      </article>
+
+      <article class="csi" id="card-agent-crs">
+        <header class="card__head"><h3>Agent CRS</h3><span class="chip chip--testnet">Testnet</span></header>
+        <h4>Challenge</h4>
+        <p>An agent that can sign with a full access key can move every token on the account. Tests of the agent do not change that.</p>
+        <h4>Solution</h4>
+        <p class="claim " data-claim="crs-vault" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">A release check for agent spending on NEAR testnet. The vault holds the NEAR. The agent holds only a function call key that can ask for a spend. The contract pays only when the receiver is allowlisted and the amount fits the per transaction cap and the daily cap. Anything else waits for the owner, or is denied.</span></p>
+        <h4>Impact</h4>
+        <p class="claim " data-claim="crs-board" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">The board is not hosted. The repository starts it locally with npm run dev from the web directory. The public evidence is the NEAR testnet vault and a 68 second demo video in docs/demo.</span></p>
+        <p class="claim " data-claim="crs-tests" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The repository documents 26 contract tests and 4 parser tests. The recorded demo states that no model was called.</span></p>
+        <h4>Stack</h4>
+        <p>Rust and near-sdk for the contract. Node.js and near-api-js for the agent. The board is a local Next.js app, started with npm run dev from the web directory. It is not a hosted site. The repository says its scripts refuse any network id other than testnet.</p>
+        <h4>What I owned</h4>
+        <p class="claim " data-claim="crs-owner" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Built by Isaac Adekunle / Drew &amp; Crew with AI coding agents, for NEAR Hackathon 2026.</span></p>
+        <p>I directed the build. AI coding agents assisted the implementation. This is a separate project from <a href="https://github.com/DealEnvoy/approve-before-pay" rel="noopener">Approve before Pay</a>. The two do not share a repository, a contract, or a product.</p>
+        <p class="claim " data-claim="crs-limit" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">Testnet only. The repository says this is not custody advice and it does not hold mainnet funds. The name is an analogy for a human release check, not a certification, and it is not affiliated with any aviation authority.</span></p>
+        <h4>A different repository</h4>
+        <p>The detection figure below is not a result for this vault.</p>
+        <p class="claim " data-claim="crs-eval" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">This figure is from crs-ai-agents, CRS Pilot 0, an advisory evaluation. It is not a result for the Agent CRS vault, and it is not a result for airworthiness-mcp. Each of three models caught the seeded fault in 16 of 16 tries (8 faulty packs, run twice).</span></p>
+        <p class="claim " data-claim="crs-caveat" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">crs-ai-agents reports false alarms on the clean twins as a separate measure, not as part of the 16 of 16 detection line. The repository summarises those false alarms as 19% to 50%. Each reported 16 is eight faulty packs with two epochs, recorded on a first run and on a second run. With 16 trials the Wilson lower bound is 0.81, so the detection line means no misses were seen on those packs. The second run repaired some clean twins after the first results were seen. The pilot is small and self-registered. It is not a certification tool.</span></p>
+        <p class="csi__links">
+          <a href="https://github.com/DealEnvoy/agent-crs" rel="noopener">Repository</a>
+          <a href="https://testnet.nearblocks.io/address/vault.acrs261111k7m2.testnet" rel="noopener">Vault on testnet</a>
+          <a href="https://github.com/DealEnvoy/agent-crs/blob/main/docs/demo/agent-crs-demo.webm" rel="noopener">68 second demo video</a>
+          <a href="https://github.com/DealEnvoy/crs-ai-agents" rel="noopener">CRS Pilot 0</a>
+          <a href="/work/agent-crs">Case study</a>
+        </p>
+      </article>
+    </div>
+
+    <h3 class="case__h">Two decisions</h3>
+    <p>A short engineering log. Each note names its source. No new figure is added there.</p>
+    <ul class="log-links">
+      <li><a href="/log#airworthiness-tests">How airworthiness-mcp is tested before any code</a></li>
+      <li><a href="/log#textbackcaller-guards">How TextBackCaller stops a send it should not make</a></li>
+    </ul>
+  </div>
+</section>
+
 
 <section class="band" aria-labelledby="h-offer">
   <div class="wrap">
@@ -352,7 +561,7 @@
       <p class="claim " data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></p>
       <p class="claim " data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></p>
     </div>
-    <p class="case__link"><a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Visit TextBackCaller</a></p>
+    <p class="case__link"><a class="btn btn--primary" href="https://textbackcaller.co.uk" rel="noopener">Visit TextBackCaller</a> <a class="btn" href="/work/textbackcaller">Case study</a> <a class="btn" href="/demo/textbackcaller">Simulated demo</a></p>
   </div>
 </section>
 
@@ -370,13 +579,15 @@
         <p class="claim " data-claim="pr-inputs" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Uses age, postcode, transport mode and travel time to assess proximity and practical access.</span></p>
         <p class="claim " data-claim="pr-arch" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Architecture designed around Next.js, TypeScript, MapLibre, Python, FastAPI, PostgreSQL, PostGIS, GeoPandas and routing services.</span></p>
         <p class="claim " data-claim="pr-safeguards" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Controlled beta access and safeguards against bulk extraction were defined.</span></p>
-        <p class="card__link"><a href="https://pitchreach.co.uk" rel="noopener">Open PitchReach</a></p>
+        <p class="claim " data-claim="pr-checkpoint" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">At the 7 October 2026 audit checkpoint recorded in the public case study: 95 candidate academy records, 35 verified category classifications, 7 general venue points meeting the category-and-venue filter, and 72 Node tests passed. The case study says these are not continuously updated production metrics, and that 35 classifications do not mean 35 fully verified academy records.</span></p>
+        <p class="card__link"><a href="https://pitchreach.co.uk" rel="noopener">Open PitchReach</a> · <a href="/work/pitchreach">Case study</a></p>
       </article>
       <article class="card">
         <header class="card__head"><h3>AMLtracker</h3><span class="chip chip--live">Live</span></header>
         <p class="claim " data-claim="aml-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">A free calendar of upcoming UK Part-66 exam sittings, for people studying for the aircraft maintenance licence. Dates come from the UK CAA and Part-147 centres, and no account is needed.</span></p>
         <p class="claim " data-claim="aml-sources" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Every date on the live calendar links to its source.</span></p>
-        <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a></p>
+        <p class="claim " data-claim="aml-snapshot" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">The public calendar, updated 9 November 2026, stated 180 sittings from public sources. The same page says the dates can change, and that entries marked check are guide dates or might be wrong.</span></p>
+        <p class="card__link"><a href="https://amltracker.pages.dev" rel="noopener">Open the calendar</a> · <a href="/work/amltracker">Case study</a></p>
       </article>
       <article class="card">
         <header class="card__head"><h3>Global Investor Guide</h3><span class="chip chip--exp">Expanding</span></header>
@@ -419,7 +630,9 @@
       <li><a href="mailto:me@isaacadekunle.com"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>me@isaacadekunle.com</span></a></li>
       <li><a href="https://www.linkedin.com/in/isaacadekunle/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16.5M8 7.6v.1M11.5 16.5v-6M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6v3.5"/></svg><span>Message on LinkedIn</span></a></li>
       <li><a href="https://x.com/TheDealEnvoy" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 4h4.2l10.8 16h-4.2z"/><path d="M19 4l-6.4 7.2M5 20l6.4-7.2"/></svg><span>@TheDealEnvoy</span></a></li>
+      <li><a href="https://github.com/DealEnvoy" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4 1.5-4-2.5-6-3M15 22v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.1-1.5 6.1-6.6a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12.1 12.1 0 0 0-6.2 0C6.4 1.6 5.3 1.9 5.3 1.9a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 3.8 8.9c0 5.1 3.1 6.3 6.1 6.6a3.4 3.4 0 0 0-.9 2.6V22"/></svg><span>GitHub account: DealEnvoy</span></a></li>
       <li><a href="https://drewandcrew.com" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>Drew &amp; Crew Limited</span></a></li>
+      <li><a href="/resume"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3.5h7l5 5V20.5H7z"/><path d="M14 3.5V9h5M9 13h6M9 16.5h6"/></svg><span>Resume</span></a></li>
     </ul>
   </div>
 </section>
@@ -440,13 +653,25 @@
     </div>
     <details class="ledger-wrap">
       <summary>Open the full claims ledger</summary>
-      <ul class="ledger" data-count="32"><li class="ledger__row" data-claim="tbc-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A missed-call text-back service. Live, launched 19 October 2026.</span></li><li class="ledger__row" data-claim="tbc-stack" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.</span></li><li class="ledger__row" data-claim="tbc-number" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Customers keep their existing business number.</span></li><li class="ledger__row" data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></li><li class="ledger__row" data-claim="tbc-audience" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>For UK small businesses.</span></li><li class="ledger__row" data-claim="pr-beta" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A football opportunity map of England for parents, guardians and coaches, in controlled beta.</span></li><li class="ledger__row" data-claim="pr-journey-open" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Journey planning by car and bus is open to everyone.</span></li><li class="ledger__row" data-claim="aml-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A free calendar of upcoming UK Part-66 exam sittings, for people studying for the aircraft maintenance licence. Dates come from the UK CAA and Part-147 centres, and no account is needed.</span></li><li class="ledger__row" data-claim="aml-sources" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Every date on the live calendar links to its source.</span></li><li class="ledger__row" data-claim="dc-site" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The Drew &amp; Crew Ltd company site, live, listing 9 ventures.</span></li><li class="ledger__row" data-claim="gig-published" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A published, evidence-led global investing guide, being expanded.</span></li><li class="ledger__row" data-claim="gig-ranking" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Includes a tax-residency ranking of 25 countries.</span></li><li class="ledger__row" data-claim="tbc-auto" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.</span></li><li class="ledger__row" data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></li><li class="ledger__row" data-claim="tbc-lang" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.</span></li><li class="ledger__row" data-claim="tbc-tools" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Each service is called through its API: Twilio for voice and SMS, Stripe for checkout and billing, Resend for email, D1 for storage.</span></li><li class="ledger__row" data-claim="tbc-ai-assisted" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.</span></li><li class="ledger__row" data-claim="pr-inputs" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Uses age, postcode, transport mode and travel time to assess proximity and practical access.</span></li><li class="ledger__row" data-claim="pr-arch" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Architecture designed around Next.js, TypeScript, MapLibre, Python, FastAPI, PostgreSQL, PostGIS, GeoPandas and routing services.</span></li><li class="ledger__row" data-claim="pr-safeguards" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Controlled beta access and safeguards against bulk extraction were defined.</span></li><li class="ledger__row" data-claim="pr-national-scores" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>National scores and heatmaps are specified for PitchReach. They are not on the public site yet.</span></li><li class="ledger__row" data-claim="obs-records" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Logging and observability record what ran, what changed and what was approved.</span></li><li class="ledger__row" data-claim="pr-adoption" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No established customer adoption is claimed.</span></li><li class="ledger__row" data-claim="aml-count" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No sittings count is shown.</span></li><li class="ledger__row" data-claim="gig-25-pending" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>5 of the 25 countries are pending sources.</span></li><li class="ledger__row" data-claim="gig-nfa" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>Not financial advice. Sources, assumptions and limitations are stated.</span></li><li class="ledger__row" data-claim="w1-concept-limit" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>A concept, not a deployed system.</span></li><li class="ledger__row" data-claim="rule-approval" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Nothing is published, sent or paid for without approval, and every claim must be backed by evidence.</span></li><li class="ledger__row" data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></li><li class="ledger__row" data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></li><li class="ledger__row" data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></li><li class="ledger__row" data-claim="dev-focus" data-tag="assumption"><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span><span>A focus tool that helps students actually put in the study hours they plan (concept).</span></li></ul>
+      <ul class="ledger" data-count="52"><li class="ledger__row" data-claim="tbc-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A missed-call text-back service. Live, launched 19 October 2026.</span></li><li class="ledger__row" data-claim="tbc-stack" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built on Cloudflare Workers, D1, Twilio Voice and SMS, Stripe Checkout and Billing, and Resend.</span></li><li class="ledger__row" data-claim="tbc-number" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Customers keep their existing business number.</span></li><li class="ledger__row" data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></li><li class="ledger__row" data-claim="tbc-audience" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>For UK small businesses.</span></li><li class="ledger__row" data-claim="pr-beta" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A football opportunity map of England for parents, guardians and coaches, in controlled beta.</span></li><li class="ledger__row" data-claim="pr-journey-open" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Journey planning by car and bus is open to everyone.</span></li><li class="ledger__row" data-claim="aml-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A free calendar of upcoming UK Part-66 exam sittings, for people studying for the aircraft maintenance licence. Dates come from the UK CAA and Part-147 centres, and no account is needed.</span></li><li class="ledger__row" data-claim="aml-sources" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Every date on the live calendar links to its source.</span></li><li class="ledger__row" data-claim="aml-snapshot" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The public calendar, updated 9 November 2026, stated 180 sittings from public sources. The same page says the dates can change, and that entries marked check are guide dates or might be wrong.</span></li><li class="ledger__row" data-claim="dc-site" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The Drew &amp; Crew Ltd company site, live, listing 9 ventures.</span></li><li class="ledger__row" data-claim="gig-published" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A published, evidence-led global investing guide, being expanded.</span></li><li class="ledger__row" data-claim="gig-ranking" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Includes a tax-residency ranking of 25 countries.</span></li><li class="ledger__row" data-claim="tbc-auto" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Signup, payment, number provisioning and setup messages run automatically, with no manual step between a paid signup and a working service.</span></li><li class="ledger__row" data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></li><li class="ledger__row" data-claim="tbc-lang" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Written in JavaScript on the Cloudflare Workers runtime, with SQL in D1 for data, and HTML, CSS and browser JavaScript for the pages.</span></li><li class="ledger__row" data-claim="tbc-tools" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Each service is called through its API: Twilio for voice and SMS, Stripe for checkout and billing, Resend for email, D1 for storage.</span></li><li class="ledger__row" data-claim="tbc-ai-assisted" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built as AI-assisted automation: AI workers implement each staged release and call tools through APIs and connectors. Reviewed the evidence and approved.</span></li><li class="ledger__row" data-claim="tbc-price" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The public site lists £5.99 a month plus VAT after a 7-day free trial, with 50 texts a month included.</span></li><li class="ledger__row" data-claim="crs-vault" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>A release check for agent spending on NEAR testnet. The vault holds the NEAR. The agent holds only a function call key that can ask for a spend. The contract pays only when the receiver is allowlisted and the amount fits the per transaction cap and the daily cap. Anything else waits for the owner, or is denied.</span></li><li class="ledger__row" data-claim="crs-eval" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>This figure is from crs-ai-agents, CRS Pilot 0, an advisory evaluation. It is not a result for the Agent CRS vault, and it is not a result for airworthiness-mcp. Each of three models caught the seeded fault in 16 of 16 tries (8 faulty packs, run twice).</span></li><li class="ledger__row" data-claim="crs-tests" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The repository documents 26 contract tests and 4 parser tests. The recorded demo states that no model was called.</span></li><li class="ledger__row" data-claim="crs-owner" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Built by Isaac Adekunle / Drew &amp; Crew with AI coding agents, for NEAR Hackathon 2026.</span></li><li class="ledger__row" data-claim="pr-checkpoint" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>At the 7 October 2026 audit checkpoint recorded in the public case study: 95 candidate academy records, 35 verified category classifications, 7 general venue points meeting the category-and-venue filter, and 72 Node tests passed. The case study says these are not continuously updated production metrics, and that 35 classifications do not mean 35 fully verified academy records.</span></li><li class="ledger__row" data-claim="pr-stack-live" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>At the 7 October 2026 checkpoint the case study records the runtime stack as React, TypeScript, MapLibre, Vinext, a Cloudflare Worker and D1. Python, FastAPI and PostGIS are described there as separate exploration, not the live research backend.</span></li><li class="ledger__row" data-claim="pr-live-search" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The public site offers an England postcode search with checked journeys of up to 60 minutes by car, and bus estimates alongside. No account is needed to search. Checked 15 November 2026.</span></li><li class="ledger__row" data-claim="pr-zero" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>The public site says missing evidence never becomes a zero accessibility score. The case study records an earlier screen that showed 0/100 for a small sample, and the correction that withholds that broader score.</span></li><li class="ledger__row" data-claim="pr-owner" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>I originated the problem, defined the audience and comparison brief, chose the brand and domains, and directed AI-assisted specification, prototyping and review. The case study says implementation commits are recorded under Codex, and that the 7 October audit was assistant-executed under my instructions. No runtime language model is claimed in the product.</span></li><li class="ledger__row" data-claim="pr-inputs" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Uses age, postcode, transport mode and travel time to assess proximity and practical access.</span></li><li class="ledger__row" data-claim="pr-arch" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Architecture designed around Next.js, TypeScript, MapLibre, Python, FastAPI, PostgreSQL, PostGIS, GeoPandas and routing services.</span></li><li class="ledger__row" data-claim="pr-safeguards" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Controlled beta access and safeguards against bulk extraction were defined.</span></li><li class="ledger__row" data-claim="pr-national-scores" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>National scores and heatmaps are specified for PitchReach. They are not on the public site yet.</span></li><li class="ledger__row" data-claim="obs-records" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Logging and observability record what ran, what changed and what was approved.</span></li><li class="ledger__row" data-claim="aw-purpose" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Specified as a read-only checker of synthetic aircraft maintenance records. It is not specified to certify, release or determine airworthiness. A named human would decide.</span></li><li class="ledger__row" data-claim="aw-rules" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>The design says a rules engine decides every finding. An optional local language model may only read free text, cannot remove or downgrade a rule finding, and is off by default.</span></li><li class="ledger__row" data-claim="aw-prereg" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Pass and fail criteria for 70 tests, T01 to T70, are written down and fingerprinted with SHA-256 before Stage 0. They have not been run.</span></li><li class="ledger__row" data-claim="pr-adoption" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No established customer adoption is claimed.</span></li><li class="ledger__row" data-claim="aml-count" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>This portfolio does not run a live sittings counter. Figures on the public calendar can change.</span></li><li class="ledger__row" data-claim="gig-25-pending" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>5 of the 25 countries are pending sources.</span></li><li class="ledger__row" data-claim="gig-nfa" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>Not financial advice. Sources, assumptions and limitations are stated.</span></li><li class="ledger__row" data-claim="w1-concept-limit" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>A concept, not a deployed system.</span></li><li class="ledger__row" data-claim="tbc-no-volume" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No count of customers, calls or texts sent is published on this site.</span></li><li class="ledger__row" data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No public source repository for TextBackCaller is linked here.</span></li><li class="ledger__row" data-claim="aw-status" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>This is a pre-registered study. The repository says Stage 0 has not started. Nothing has been built or run. There is no live demo, no video, and no trial result.</span></li><li class="ledger__row" data-claim="crs-caveat" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>crs-ai-agents reports false alarms on the clean twins as a separate measure, not as part of the 16 of 16 detection line. The repository summarises those false alarms as 19% to 50%. Each reported 16 is eight faulty packs with two epochs, recorded on a first run and on a second run. With 16 trials the Wilson lower bound is 0.81, so the detection line means no misses were seen on those packs. The second run repaired some clean twins after the first results were seen. The pilot is small and self-registered. It is not a certification tool.</span></li><li class="ledger__row" data-claim="crs-board" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>The board is not hosted. The repository starts it locally with npm run dev from the web directory. The public evidence is the NEAR testnet vault and a 68 second demo video in docs/demo.</span></li><li class="ledger__row" data-claim="crs-limit" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>Testnet only. The repository says this is not custody advice and it does not hold mainnet funds. The name is an analogy for a human release check, not a certification, and it is not affiliated with any aviation authority.</span></li><li class="ledger__row" data-claim="rule-approval" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Nothing is published, sent or paid for without approval, and every claim must be backed by evidence.</span></li><li class="ledger__row" data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></li><li class="ledger__row" data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></li><li class="ledger__row" data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></li><li class="ledger__row" data-claim="dev-focus" data-tag="assumption"><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span><span>A focus tool that helps students actually put in the study hours they plan (concept).</span></li></ul>
     </details>
+    <nav class="footer-nav" aria-label="Site">
+      <a href="#work">Work</a>
+      <a href="/work/textbackcaller">TextBackCaller</a>
+      <a href="/work/pitchreach">PitchReach</a>
+      <a href="/work/agent-crs">Agent CRS</a>
+      <a href="/work/amltracker">AMLtracker</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
     <p class="credit">Cockpit image: <a href="https://commons.wikimedia.org/wiki/User:Braniff747SP" rel="noopener">Braniff747SP</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, modified. Original: <a href="https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG" rel="noopener">&ldquo;Airbus A380 Qantas Cockpit&rdquo;</a> on Wikimedia Commons. The still image adaptation is shared under the same licence.<br>Hero video also includes screen imagery rendered from the FlyByWire A380X instrument code (GPLv3), <a href="https://github.com/flybywiresim/aircraft" rel="noopener">github.com/flybywiresim/aircraft</a>.</p>
     <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
   </div>
 </footer>
 
+<script src="js/demo-pipeline.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

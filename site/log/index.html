@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering log | Isaac Adekunle</title>
+<meta name="description" content="Two engineering decisions: how airworthiness-mcp is tested before any code, and how TextBackCaller stops a send it should not make.">
+<link rel="canonical" href="https://isaacadekunle.com/log">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Engineering log</p>
+    <h1>Two hard decisions</h1>
+    <p class="lead">Each note is tied to a public repository, or to the claims ledger on this site. No new figure is added here.</p>
+
+    <h2 id="airworthiness-tests">How airworthiness-mcp is tested before any code</h2>
+    <p>The public repository freezes the question before Stage 0. The pass and fail rules are written down first, then fingerprinted, and only then would any code be allowed to start. That order is the decision: a result cannot be tuned against a rule that was written after the run.</p>
+    <p class="claim " data-claim="aw-prereg" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">Pass and fail criteria for 70 tests, T01 to T70, are written down and fingerprinted with SHA-256 before Stage 0. They have not been run.</span></p>
+    <p class="claim " data-claim="aw-rules" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span class="claim__text">The design says a rules engine decides every finding. An optional local language model may only read free text, cannot remove or downgrade a rule finding, and is off by default.</span></p>
+    <p>The method note, dated 4 November 2026, splits the build into roles so that no single model both writes the work and judges it. Reviewers are never the builder. A reviewer score is advisory. The hard gates are specified to be run by code, and citations are specified to be checked by code. Isaac reviews and signs the merged fix list in that plan. After three review rounds without passing the gates, the plan says the work stops and he decides.</p>
+    <p class="claim " data-claim="aw-status" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">This is a pre-registered study. The repository says Stage 0 has not started. Nothing has been built or run. There is no live demo, no video, and no trial result.</span></p>
+    <p>The same method note compares candidate model line-ups against published figures. It calls that comparison a desk exercise, says the figures were not independently verified, and says nothing in the build or the trial has run. Those scores are not repeated on this page. They are not a trial result.</p>
+    <p class="source">Sources: <a href="https://github.com/DealEnvoy/airworthiness-mcp" rel="noopener">README</a>, <a href="https://github.com/DealEnvoy/airworthiness-mcp/blob/main/docs/methods.md" rel="noopener">docs/methods.md</a>, <a href="https://github.com/DealEnvoy/airworthiness-mcp/blob/main/docs/preregistration.md" rel="noopener">docs/preregistration.md</a>, <a href="https://github.com/DealEnvoy/airworthiness-mcp/blob/main/docs/trial-plan.md" rel="noopener">docs/trial-plan.md</a>.</p>
+
+    <h2 id="textbackcaller-guards">How TextBackCaller stops a send it should not make</h2>
+    <p>A missed call is not, by itself, a reason to send a text. The service is specified to refuse the send when a guard fails, and to stop for a person when setup itself fails.</p>
+    <p class="claim " data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span class="claim__text">No public source repository for TextBackCaller is linked here.</span></p>
+    <p class="claim " data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></p>
+    <p class="claim " data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></p>
+    <p class="claim " data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></p>
+    <p class="claim " data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></p>
+    <p class="claim " data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></p>
+    <p>Read together, the account is: signed webhooks, a duplicate check, an opt-out, a usage cap, and a test run before a release. A second text to the same caller inside 24 hours does not go. A number that is not a UK mobile does not get a text. The owner's own call is skipped. If provisioning fails, or a trial is refused, the owner is told and a person chooses the next step. A new feature stays off until a separate approved change turns it on, and a kill switch can turn it off again.</p>
+    <p>The <a href="/demo/textbackcaller">simulated pipeline</a> walks five of those branches. It does not call Twilio, Stripe or Resend.</p>
+    <p class="source">Source: the claims ledger on this site. The service code is not in a public repository, so these points stay marked as shipped or human-gate claims with self-reported evidence, except where a public page is linked from the ledger.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      <ul class="ledger" data-count="9"><li class="ledger__row" data-claim="tbc-controls" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>Release controls: signed webhooks, duplicate-send prevention, opt-outs, usage caps and automated tests.</span></li><li class="ledger__row" data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></li><li class="ledger__row" data-claim="aw-rules" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>The design says a rules engine decides every finding. An optional local language model may only read free text, cannot remove or downgrade a rule finding, and is off by default.</span></li><li class="ledger__row" data-claim="aw-prereg" data-tag="specified"><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span><span>Pass and fail criteria for 70 tests, T01 to T70, are written down and fingerprinted with SHA-256 before Stage 0. They have not been run.</span></li><li class="ledger__row" data-claim="tbc-no-repo" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>No public source repository for TextBackCaller is linked here.</span></li><li class="ledger__row" data-claim="aw-status" data-tag="limit"><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span><span>This is a pre-registered study. The repository says Stage 0 has not started. Nothing has been built or run. There is no live demo, no video, and no trial result.</span></li><li class="ledger__row" data-claim="tbc-gate-release" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>Every release needs approval. Builds are staged, tested, backed up and given a rollback point first.</span></li><li class="ledger__row" data-claim="tbc-gate-flags" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>New features ship switched off. They are switched on in a separate, approved change, and a kill switch turns each one off again.</span></li><li class="ledger__row" data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></li></ul>
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+</body>
+</html>

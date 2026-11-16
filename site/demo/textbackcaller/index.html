@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulated TextBackCaller pipeline | Isaac Adekunle</title>
+<meta name="description" content="A simulated TextBackCaller pipeline. No call is placed and no text is sent. Five cases show the guards already stated on this site.">
+<link rel="canonical" href="https://isaacadekunle.com/demo/textbackcaller">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<button class="motion-toggle" type="button" aria-pressed="false" aria-label="Pause animations" title="Pause animations" data-motion-toggle><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path class="mt-pause" d="M6 4.5v11M14 4.5v11"/><path class="mt-play" d="M6.5 4.5l9 5.5-9 5.5z"/></svg></button>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Simulated demo</p>
+    <div class="page-head"><h1>TextBackCaller pipeline</h1><span class="chip chip--plan">Not live</span></div>
+    <p class="lead">A hiring manager can click through a missed call. The live service is at textbackcaller.co.uk. This page is a model of the guards, not a connection to that service.</p>
+    <p class="claim " data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span class="claim__text">One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></p>
+    <p class="claim " data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span class="claim__text">When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></p>
+    <div class="pipe" data-pipeline>
+  <p class="pipe__banner">Simulated demo. This page does not place a call or send a text, and it is not connected to the live TextBackCaller service.</p>
+  <p class="pipe__note">Choose a case. The steps follow guards already stated on this site. 07700 900123 is a made-up illustration number, the same kind the TextBackCaller site uses.</p>
+  <div class="pipe__choices" role="group" aria-label="Choose a simulated case">
+    <button type="button" data-case="uk" aria-pressed="false">UK mobile</button>
+    <button type="button" data-case="repeat" aria-pressed="false">Same caller again</button>
+    <button type="button" data-case="abroad" aria-pressed="false">Not a UK mobile</button>
+    <button type="button" data-case="owner" aria-pressed="false">Owner's own call</button>
+    <button type="button" data-case="setup" aria-pressed="false">Setup failed</button>
+  </div>
+  <div class="pipe__cases">
+    <article class="pipe__case" id="pipe-uk" data-case-panel="uk">
+      <h3 class="pipe__title">Missed call from a UK mobile</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A signed webhook would arrive. The call is rejected as busy at once.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">The number is a UK mobile, it is not the owner's number, and there has been no text to this caller in the last 24 hours.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">One text is allowed.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is the tool that would send it. This page does not call Twilio.</span><span class="pipe__tool">Twilio SMS, simulated</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">One text would go to the caller, from the business's own number.</span><span class="pipe__tool">Not sent</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: one text would be sent. This page did not send it.</p>
+    </article>
+    <article class="pipe__case" id="pipe-repeat" data-case-panel="repeat">
+      <h3 class="pipe__title">The same caller again, within 24 hours</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">Another missed call from 07700 900123, inside 24 hours of the first.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">One text per caller per 24 hours has already been used.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No second text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the duplicate guard stops the send. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-abroad" data-case-panel="abroad">
+      <h3 class="pipe__title">The caller is not a UK mobile</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A missed call arrives from a number that is not a UK mobile.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">UK mobile numbers only.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the UK-mobile guard stops the send. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-owner" data-case-panel="owner">
+      <h3 class="pipe__title">The owner's own number</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Call in</span><span class="pipe__detail">A missed call arrives from the owner's own number.</span><span class="pipe__tool">Worker, Twilio voice</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Guards</span><span class="pipe__detail">The owner's own calls are skipped.</span><span class="pipe__tool">D1</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">No text.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Twilio SMS is not called.</span><span class="pipe__tool">No tool call</span></li>
+        <li data-step><span class="pipe__n">5</span><span class="pipe__name">Result</span><span class="pipe__detail">Nothing is sent.</span><span class="pipe__tool">Blocked</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite">Outcome: the owner's own call is skipped. Nothing left this page.</p>
+    </article>
+    <article class="pipe__case" id="pipe-setup" data-case-panel="setup">
+      <h3 class="pipe__title">Setup failed after payment</h3>
+      <ol class="pipe__steps">
+        <li data-step><span class="pipe__n">1</span><span class="pipe__name">Signup</span><span class="pipe__detail">The customer has paid. A signed payment webhook would start provisioning.</span><span class="pipe__tool">Stripe, Worker</span></li>
+        <li data-step><span class="pipe__n">2</span><span class="pipe__name">Tool call</span><span class="pipe__detail">Buying the number, or sending the setup text or setup email, fails.</span><span class="pipe__tool">Twilio or Resend, simulated failure</span></li>
+        <li data-step><span class="pipe__n">3</span><span class="pipe__name">Decision</span><span class="pipe__detail">The published account stops at an alert to the owner. It does not describe an automatic retry.</span><span class="pipe__tool">Worker</span></li>
+        <li data-step><span class="pipe__n">4</span><span class="pipe__name">Result</span><span class="pipe__detail">The owner is alerted, and a person decides what happens next.</span><span class="pipe__tool">Human gate</span></li>
+      </ol>
+      <p class="pipe__outcome" aria-live="polite"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> Outcome: the owner is alerted. This page did not send an alert or a text.</p>
+    </article>
+  </div>
+  <p class="pipe__note">Opt-outs and usage caps are also release controls on the service. They are not separate buttons in this simulation.</p>
+</div>
+
+    <p class="page-links">
+      <a href="https://textbackcaller.co.uk" rel="noopener">Live product</a>
+      <a href="/work/textbackcaller">Case study</a>
+      <a href="/log#textbackcaller-guards">The decision behind the guards</a>
+    </p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      <ul class="ledger" data-count="2"><li class="ledger__row" data-claim="tbc-guards" data-tag="shipped"><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span><span>One text per caller per 24 hours, UK mobile numbers only, and the owner's own calls are skipped.</span></li><li class="ledger__row" data-claim="tbc-gate-alerts" data-tag="human_gate"><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span><span>When automatic setup fails or a trial is refused, the owner is alerted so a person decides what happens next.</span></li></ul>
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+<script src="/js/demo-pipeline.js" defer></script>
+</body>
+</html>

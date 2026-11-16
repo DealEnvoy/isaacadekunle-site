@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>airworthiness-mcp case notes | Isaac Adekunle</title>
+<meta name="description" content="Case notes for airworthiness-mcp. A pre-registered design for a read-only checker of synthetic maintenance records. Stage 0 has not started. There are no results.">
+<link rel="canonical" href="https://isaacadekunle.com/work/airworthiness-mcp">
+<meta name="theme-color" content="#eee6d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230e0c0a%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%23ffe3b8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+<script>
+(function () {
+  var d = document.documentElement; d.classList.remove('no-js');
+  var s = null; try { s = localStorage.getItem('motion'); } catch (e) {}
+  var r = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  d.setAttribute('data-motion', s === 'off' ? 'off' : 'on');
+  if (r) d.setAttribute('data-gentle', '');
+})();
+</script>
+</head>
+<body class="dawn doc">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <a class="wordmark" href="/" aria-label="Isaac Adekunle, home">Isaac Adekunle</a>
+  <nav class="acts" aria-label="Pages">
+    <a href="/#work">Work</a>
+    <a href="/demo/textbackcaller">Demo</a>
+    <a href="/log">Log</a>
+    <a href="/resume">Resume</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <article class="wrap doc-block prose">
+    <p class="kicker">Case notes</p>
+    <div class="page-head"><h1>airworthiness-mcp</h1><span class="chip chip--plan">Pre-registered study</span></div>
+    <p class="notice">This is a pre-registered study, not a working product. Nothing has been built or run. There is no live demo, no video, and no trial result. It is not a certification. The 16 of 16 detection line belongs to crs-ai-agents, not to this study.</p>
+    {{claim:aw-status}}
+    <p class="page-links">
+      <a href="https://github.com/DealEnvoy/airworthiness-mcp" rel="noopener">Repository</a>
+      <a href="/log#airworthiness-tests">How the tests are set</a>
+      <a href="https://github.com/DealEnvoy/crs-ai-agents" rel="noopener">Earlier pilot it builds on</a>
+    </p>
+
+    <h2>Problem</h2>
+    <p>Before a person signs a release, the work pack has to support that signature. The planned tool reads one synthetic work package and lists what is open, overdue, missing or out of limits, with the source of every finding. It does not sign.</p>
+    {{claim:aw-purpose}}
+
+    <h2>What is specified</h2>
+    <p>Five checks: open defects and deferrals, part life limits, tasks coming due, airworthiness directive status, and whether the work package is complete. Missing data is flagged and not guessed. The report is specified never to say an aircraft is released, ready, serviceable or airworthy. There is no tool in the design that can sign, approve or release.</p>
+    {{claim:aw-rules}}
+    <p>The planned default is a command line program on the operator's own machine: rules only, no network, no API key, no model. An MCP server is specified for someone who already uses an MCP client on that same machine. An optional local IBM Granite model may read free text. Mistral is named as the second choice. That mode stays off until the operator switches it on. A further hosted-chat mode is described as an organisation's choice, not as something built.</p>
+    <p>Every aircraft, registration, part, defect and task in the plan is invented. The repository says the tool is not for real aircraft or real release decisions, and that it is not approved by any aviation authority.</p>
+
+    <h2>Stack</h2>
+    <p>Specified as Python, a deterministic rules engine, a hash-chained audit log, and an optional local model. Nothing in that stack has been run. The repository layout lists a data generator and 394 generated packages as part of the pre-registration materials. Those packages are test inputs for a trial that has not started. They are not a result.</p>
+
+    <h2>How it will be tested</h2>
+    {{claim:aw-prereg}}
+    <p>The method note says acceptance is a code gate, not a review score, and that a model cannot review code it or its own family wrote. The detail is in the <a href="/log#airworthiness-tests">engineering log</a>.</p>
+
+    <h2>What I owned</h2>
+    <p>The README says I am building it myself, using AI models as build and review tools under a method I designed, and the same README says nothing has been built or run. Every design decision, threshold and acceptance call is described as mine. The ownership on record is the method and the written plan, not a finished program.</p>
+    <p>The README states more than 15 years in aircraft maintenance. This site uses that as the method behind the design. It does not call me a licensed engineer, a Part-66 licence holder, or an aircraft mechanic. The tool's own required line, once a report exists, is specified as "AI assists, a certifying human decides." No such report exists yet. The three human reviewers named in the plan, including a B1 certifying engineer, are not appointed.</p>
+
+    <h2>Evidence</h2>
+    <p>There is no impact figure. A pass rate is not shown because a pass rate would be invented. The plan names 70 tests, and the repository layout lists 394 generated packages as inputs for a trial that has not started. Neither figure is a result.</p>
+    <p class="source">Source: <a href="https://github.com/DealEnvoy/airworthiness-mcp" rel="noopener">DealEnvoy/airworthiness-mcp</a>, including the README and <a href="https://github.com/DealEnvoy/airworthiness-mcp/blob/main/docs/methods.md" rel="noopener">docs/methods.md</a>, read 15 November 2026.</p>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <nav class="footer-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/demo/textbackcaller">Simulated demo</a>
+      <a href="/log">Engineering log</a>
+      <a href="/resume">Resume</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/DealEnvoy" rel="noopener">GitHub account</a>
+    </nav>
+    <div class="legend" aria-label="How claims on this page are marked">
+      <p class="legend__title">How claims on this page are marked</p>
+      <ul>
+        <li><span class="tag tag--shipped"><span class="tag__mark" aria-hidden="true"></span>Shipped</span> built and in use or published</li>
+        <li><span class="tag tag--specified"><span class="tag__mark" aria-hidden="true"></span>Specified</span> designed, not yet built</li>
+        <li><span class="tag tag--assumption"><span class="tag__mark" aria-hidden="true"></span>Assumption</span> relied on, not verified</li>
+        <li><span class="tag tag--limit"><span class="tag__mark" aria-hidden="true"></span>Limit</span> what is not claimed</li>
+        <li><span class="tag tag--gate"><span class="tag__mark" aria-hidden="true"></span>Human gate</span> a person decides</li>
+      </ul>
+    </div>
+    <details class="ledger-wrap">
+      <summary>Claims on this page</summary>
+      {{ledger}}
+    </details>
+    <p class="footer__line">Isaac Adekunle, United Kingdom. A Drew &amp; Crew Ltd project.</p>
+  </div>
+</footer>
+<script src="/js/pages.js" defer></script>
+</body>
+</html>
