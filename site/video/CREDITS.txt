@@ -4,7 +4,8 @@ Base photograph/plate: "Airbus A380 Qantas Cockpit" by Braniff747SP
 https://commons.wikimedia.org/wiki/File:Airbus_A380_Qantas_Cockpit.JPG
 Photograph licence: CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/
 Changes were made: relit, animated, graded, cropped/scaled, screens replaced with live-rendered
-instrument imagery, exterior lights re-projected, looped.
+instrument imagery, exterior lights re-projected, looped. The exterior light layer was retouched to remove a ghost
+of the glareshield, instrument panel and centre post that showed through the windscreen.
 
 Instrument imagery (PFD, ND, EWD): rendered from the open-source FlyByWire A380X instrument code
 (https://github.com/flybywiresim/aircraft, commit 66021c2), GPLv3, used only to produce 2D screen imagery in a
